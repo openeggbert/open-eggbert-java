@@ -52,6 +52,13 @@ dependencies {
   implementation "com.pixelgamelibrary:pixel:$pixelVersion:sources"
   api "com.pixelgamelibrary:pixel-backend-libgdx:$pixelVersion"
   implementation "com.pixelgamelibrary:pixel-backend-libgdx:$pixelVersion:sources"
+
+  implementation "com.openeggbert.jdotnet:jdotnet:$jdotnetVersion:sources"
+  api "com.openeggbert.jdotnet:jdotnet:$jdotnetVersion"
+
+  implementation "com.openeggbert.jxna:jxna:$jxnaVersion:sources"
+  api "com.openeggbert.jxna:jxna:$jxnaVersion"
+
   implementation("com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"){exclude group: "com.badlogicgames.gdx", module: "gdx-backend-gwt"}
   implementation("com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources") {exclude group: "com.google.gwt", module: "gwt-user"}
   implementation("com.github.crykn.guacamole:gdx-gwt:$guacamoleVersion:sources"){exclude group: "com.badlogicgames.gdx", module: "gdx-backend-gwt"}

@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
-    public class AccelerometerEventArgs : EventArgs
-    {
+import com.openeggbert.jdotnet.System.EventArgs;
 
-        public float X { get; }
-        public float Y { get; }
-        public float Z { get; }
+import lombok.Getter;
 
-        public AccelerometerEventArgs(float x, float y, float z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
+public class AccelerometerEventArgs extends EventArgs {
+
+    public float X() {return getX();}
+    public float Y() {return getY();}
+    public float Z() {return getZ();}
+    @Getter
+    private float X;
+    @Getter
+    private float Y;
+    @Getter
+    private float Z;
+
+    public AccelerometerEventArgs(float x, float y, float z) {
+        X = x;
+        Y = y;
+        Z = z;
     }
 }

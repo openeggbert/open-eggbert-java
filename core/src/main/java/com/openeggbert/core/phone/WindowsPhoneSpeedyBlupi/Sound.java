@@ -1,42 +1,39 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
-// WindowsPhoneSpeedyBlupi.Sound
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework.Audio;
-using WindowsPhoneSpeedyBlupi;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+// WindowsPhoneSpeedyBlupi.Sound
+import com.openeggbert.jdotnet.System.*;
+import com.openeggbert.jdotnet.System.Collections.Generic.*;
+import com.openeggbert.jdotnet.System.Linq.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Audio.*;
+import java.util.ArrayList;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.namespace;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.readonly;
+
+
+
+    @namespace(name = "WindowsPhoneSpeedyBlupi")
+
     public class Sound
     {
         private class Play
         {
-            private readonly SoundEffectInstance sei;
+            private final SoundEffectInstance sei;
 
-            private readonly int channel;
+            private final int channel;
+            
+            public int Channel() { return channel;}
 
-            public int Channel
+            public boolean IsFree()
             {
-                get
-                {
-                    return channel;
-                }
+                return sei.State == SoundState.Stopped;
             }
 
-            public bool IsFree
-            {
-                get
-                {
-                    return sei.State == SoundState.Stopped;
-                }
-            }
-
-            public Play(SoundEffect se, int channel, double volume, double balance, double? pitch, bool isLooped)
+            public Play(SoundEffect se, int channel, double volume, double balance, Double pitch, boolean isLooped)
             {
                 this.channel = channel;
                 int num = channel * 2;
-                if (num >= 0 && num < tableVolumePitch.Length)
+                if (num >= 0 && num < tableVolumePitch.length)
                 {
                     volume *= tableVolumePitch[num];
                     pitch = tableVolumePitch[num + 1];
@@ -44,7 +41,7 @@ namespace WindowsPhoneSpeedyBlupi
                 sei = se.CreateInstance();
                 sei.Volume = (float)volume;
                 sei.Pan = (float)balance;
-                sei.Pitch = (float)(pitch ?? 0.0);
+                sei.Pitch = (float)(pitch == null ? 0.0d : pitch);
                 sei.IsLooped = isLooped;
                 sei.Play();
             }
@@ -55,7 +52,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private static double[] tableVolumePitch = new double[200]
+        private static double[] tableVolumePitch = new double[]
         {
         1.0, 0.0, 0.5, 1.0, 0.5, 1.0, 1.0, 0.2, 1.0, 0.2,
         1.0, 0.1, 1.0, 0.3, 1.0, 0.2, 1.0, 0.3, 1.0, 0.5,
@@ -79,15 +76,15 @@ namespace WindowsPhoneSpeedyBlupi
         1.0, 0.2, 1.0, 0.2, 1.0, 0.2, 1.0, 0.2, 1.0, 0.2
         };
 
-        public static readonly int MAXVOLUME = 20;
+        public static final int MAXVOLUME = 20;
 
-        private readonly Game1 game1;
+        private final Game1 game1;
 
-        private readonly GameData gameData;
+        private final GameData gameData;
 
-        private readonly List<SoundEffect> soundEffects;
+        private @readonly final List_<SoundEffect> soundEffects;
 
-        private readonly List<Play> plays;
+        private final List_<Play> plays;
 
         private double volume;
 
@@ -95,39 +92,39 @@ namespace WindowsPhoneSpeedyBlupi
         {
             this.game1 = game1;
             this.gameData = gameData;
-            soundEffects = new List<SoundEffect>();
-            plays = new List<Play>();
+            soundEffects = new List_<>();
+            plays = new List_<>();
             volume = 1.0;
             SoundEffect.MasterVolume = 1f;
         }
 
         public void LoadContent()
         {
-            if (Def.HasSound)
+            if (Def.HasSound())
             {
                 for (int i = 0; i <= 92; i++)
                 {
-                    string assetName = string.Format("sounds/sound{0}", i.ToString("d3"));
-                    SoundEffect item = game1.Content.Load<SoundEffect>(assetName);
+                    String assetName = string.Format("sounds/sound{0}", int_.of(i).ToString("d3"));
+                    SoundEffect item = game1.Content.Load(assetName, SoundEffect.class);
                     soundEffects.Add(item);
                 }
             }
         }
 
-        public bool Create()
+        public boolean Create()
         {
             return true;
         }
 
-        public void SetState(bool bState)
+        public void SetState(boolean bState)
         {
         }
 
-        public void SetCDAudio(bool bAudio)
+        public void SetCDAudio(boolean bAudio)
         {
         }
 
-        public bool GetEnable()
+        public boolean GetEnable()
         {
             return true;
         }
@@ -150,39 +147,40 @@ namespace WindowsPhoneSpeedyBlupi
         {
             return 0;
         }
-
+        
         public void StopAll()
         {
             while (plays.Any())
             {
-                plays[0].Stop();
+                plays.ElementAt(0).Stop();
                 plays.RemoveAt(0);
             }
         }
 
-        public bool PlayImage(int channel, TinyPoint pos)
+        public boolean PlayImage(int channel, TinyPoint pos)
         {
             return PlayImage(channel, pos, -1, false);
         }
 
-        public bool PlayImage(int channel, TinyPoint pos, int rank, bool bLoop)
+        public boolean PlayImage(int channel, TinyPoint pos, int rank, boolean bLoop)
         {
-            if (!gameData.Sounds)
+            if (!gameData.Sounds())
             {
                 return true;
             }
-            if (channel >= 0 && channel < soundEffects.Count)
+            if (channel >= 0 && channel < soundEffects.Count())
             {
-                if (channel != 10 && plays.Where((Play x) => x.Channel == channel && !x.IsFree).Any())
-                {
+
+                if (channel != 10 && plays.stream()
+                        .anyMatch(x -> x.Channel() == channel && !x.IsFree())) {
                     return true;
                 }
-                if (plays.Count >= 10)
+                if (plays.Count() >= 10)
                 {
                     int num = 0;
-                    while (num < plays.Count)
+                    while (num < plays.Count())
                     {
-                        if (plays[num].IsFree)
+                        if (plays.ElementAt(num).IsFree())
                         {
                             plays.RemoveAt(num);
                         }
@@ -192,25 +190,25 @@ namespace WindowsPhoneSpeedyBlupi
                         }
                     }
                 }
-                Play item = new Play(soundEffects[channel], channel, (float)GetVolume(pos), (float)GetBalance(pos), null, bLoop);
+                Play item = new Play(soundEffects.ElementAt(channel), channel, (float)GetVolume(pos), (float)GetBalance(pos), null, bLoop);
                 plays.Add(item);
             }
             return true;
         }
 
-        public bool PosImage(int channel, TinyPoint pos)
+        public boolean PosImage(int channel, TinyPoint pos)
         {
             return true;
         }
 
-        public bool Stop(int channel)
+        public boolean Stop(int channel)
         {
             int num = 0;
-            while (num < plays.Count)
+            while (num < plays.Count())
             {
-                if (plays[num].Channel == channel)
+                if (plays.ElementAt(num).Channel() == channel)
                 {
-                    plays[num].Stop();
+                    plays.ElementAt(num).Stop();
                     plays.RemoveAt(num);
                 }
                 else
@@ -233,8 +231,8 @@ namespace WindowsPhoneSpeedyBlupi
                 pos.X -= 640;
                 val = 1.0 - (double)(pos.X / 640) * 2.0;
             }
-            val = Math.Max(val, 0.0);
-            val = Math.Min(val, 1.0);
+            val = Math_.Max(val, 0.0);
+            val = Math_.Min(val, 1.0);
             double val2 = 1.0;
             if (pos.Y < 0)
             {
@@ -245,16 +243,15 @@ namespace WindowsPhoneSpeedyBlupi
                 pos.Y -= 480;
                 val2 = 1.0 - (double)(pos.Y / 480) * 3.0;
             }
-            val2 = Math.Max(val2, 0.0);
-            val2 = Math.Min(val2, 1.0);
-            return Math.Min(val, val2) * volume;
+            val2 = Math_.Max(val2, 0.0);
+            val2 = Math_.Min(val2, 1.0);
+            return Math_.Min(val, val2) * volume;
         }
 
         private double GetBalance(TinyPoint pos)
         {
             double val = (double)pos.X * 2.0 / 640.0 - 1.0;
-            val = Math.Max(val, -1.0);
-            return Math.Min(val, 1.0);
+            val = Math_.Max(val, -1.0);
+            return Math_.Min(val, 1.0);
         }
     }
-}

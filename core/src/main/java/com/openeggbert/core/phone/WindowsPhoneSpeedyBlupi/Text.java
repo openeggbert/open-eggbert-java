@@ -1,12 +1,23 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
-// WindowsPhoneSpeedyBlupi.Text
-using WindowsPhoneSpeedyBlupi;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
-    public static class Text
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+
+import static com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.default_.default_;
+import com.openeggbert.jdotnet.System.string;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.ref;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.namespace;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.static_;
+
+// WindowsPhoneSpeedyBlupi.Text
+
+    @namespace(name = "WindowsPhoneSpeedyBlupi")
+    @static_
+    public class Text
     {
-        private static short[] table_char = new short[1536]
+        private Text() {
+            //Not meant to be instantiated;
+        }
+        private static short[] table_char = new short[]
         {
         0, 0, 0, -1, 0, 0, 1, 0, 0, -1,
         0, 0, 2, 0, 0, -1, 0, 0, 3, 0,
@@ -164,13 +175,13 @@ namespace WindowsPhoneSpeedyBlupi
         1, 0, 0, -1, 0, 0
         };
 
-        private static short[] table_accents = new short[15]
+        private static short[] table_accents = new short[]
         {
         252, 224, 226, 233, 232, 235, 234, 239, 238, 244,
         249, 251, 228, 246, 231
         };
 
-        private static short[] table_width = new short[128]
+        private static short[] table_width = new short[]
         {
         32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
         32, 32, 32, 32, 14, 13, 15, 15, 15, 15,
@@ -187,7 +198,7 @@ namespace WindowsPhoneSpeedyBlupi
         16, 15, 14, 10, 5, 11, 16, 0
         };
 
-        public static void DrawTextLeft(Pixmap pixmap, TinyPoint pos, string text, double size)
+        public static void DrawTextLeft(Pixmap pixmap, TinyPoint pos, String text, double size)
         {
             if (!string.IsNullOrEmpty(text))
             {
@@ -195,52 +206,52 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        public static void DrawText(Pixmap pixmap, TinyPoint pos, string text, double size)
+        public static void DrawText(Pixmap pixmap, TinyPoint pos, String text, double size)
         {
             if (!string.IsNullOrEmpty(text))
             {
-                foreach (char car in text)
+                for (char car : text.toCharArray())
                 {
-                    DrawChar(pixmap, ref pos, car, size);
+                    DrawChar(pixmap, pos, car, size);
                 }
             }
         }
 
-        public static void DrawTextPente(Pixmap pixmap, TinyPoint pos, string text, int pente, double size)
+        public static void DrawTextPente(Pixmap pixmap, TinyPoint pos, String text, int pente, double size)
         {
             if (!string.IsNullOrEmpty(text))
             {
                 int y = pos.Y;
                 int num = 0;
-                foreach (char c in text)
+                for (char c : text.toCharArray())
                 {
                     int charWidth = GetCharWidth(c, size);
-                    DrawChar(pixmap, ref pos, c, size);
+                    DrawChar(pixmap, pos, c, size);
                     num += charWidth;
                     pos.Y = y + num / pente;
                 }
             }
         }
 
-        public static void DrawTextCenter(Pixmap pixmap, TinyPoint pos, string text, double size)
+        public static void DrawTextCenter(Pixmap pixmap, TinyPoint pos, String text, double size)
         {
             if (!string.IsNullOrEmpty(text))
             {
-                TinyPoint pos2 = default(TinyPoint);
+                 TinyPoint pos2 = default_(new TinyPoint());
                 pos2.X = pos.X - GetTextWidth(text, size) / 2;
                 pos2.Y = pos.Y;
                 DrawText(pixmap, pos2, text, size);
             }
         }
 
-        public static int GetTextWidth(string text, double size)
+        public static int GetTextWidth(String text, double size)
         {
             if (string.IsNullOrEmpty(text))
             {
                 return 0;
             }
             int num = 0;
-            foreach (char c in text)
+            for (char c : text.toCharArray())
             {
                 num += GetCharWidth(c, size);
             }
@@ -263,9 +274,9 @@ namespace WindowsPhoneSpeedyBlupi
             return c;
         }
 
-        private static void DrawChar(Pixmap pixmap, ref TinyPoint pos, char car, double size)
+        private static void DrawChar(Pixmap pixmap, @ref TinyPoint pos, char car, double size)
         {
-            TinyPoint pos2 = default(TinyPoint);
+             TinyPoint pos2 = default_(new TinyPoint());
             int num = (short)car * 6;
             int rank = table_char[num];
             pos2.X = pos.X + table_char[num + 1];
@@ -292,4 +303,3 @@ namespace WindowsPhoneSpeedyBlupi
         }
     }
 
-}

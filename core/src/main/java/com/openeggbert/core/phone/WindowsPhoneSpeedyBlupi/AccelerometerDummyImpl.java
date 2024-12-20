@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
-    public class AccelerometerDummyImpl : Accelerometer
+import com.openeggbert.jdotnet.System.Event;
+import com.openeggbert.jdotnet.System.EventHandler;
+import com.openeggbert.jdotnet.System.EventHandlerImpl;
+
+
+
+    public class AccelerometerDummyImpl implements Accelerometer
     {
-        public event EventHandler<AccelerometerEventArgs> CurrentValueChanged;
+        private final EventHandler<AccelerometerEventArgs> CurrentValueChangedInternal = new EventHandlerImpl<AccelerometerEventArgs>();
+        public @Event EventHandler<AccelerometerEventArgs> CurrentValueChanged() {return CurrentValueChangedInternal;}
 
         public void Start()
         {
@@ -20,4 +21,3 @@ namespace WindowsPhoneSpeedyBlupi
             //throw new AccelerometerFailedException();
         }
     }
-}

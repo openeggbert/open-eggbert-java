@@ -1,18 +1,26 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
-// WindowsPhoneSpeedyBlupi.Pixmap
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using WindowsPhoneSpeedyBlupi;
-using static System.Net.Mime.MediaTypeNames;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+// WindowsPhoneSpeedyBlupi.Pixmap
+import static com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.default_.default_;
+import com.openeggbert.jdotnet.System.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Color;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.GraphicsDeviceManager;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Graphics.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Rectangle;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Vector2;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.namespace;
+//import static com.openeggbert.jdotnet.System.Net.Mime.MediaTypeNames.*;
+
+
+
+    @namespace(name = "WindowsPhoneSpeedyBlupi")
+
     public class Pixmap
     {
-        private readonly Game1 game1;
+        private final Game1 game1;
 
-        private readonly GraphicsDeviceManager graphics;
+        private final GraphicsDeviceManager graphics;
 
         private double zoom;
 
@@ -58,13 +66,14 @@ namespace WindowsPhoneSpeedyBlupi
 
         private SpriteEffects effect;
 
-        public TinyRect DrawBounds
+        public TinyRect DrawBounds() {return getDrawBounds();}
+        public TinyRect getDrawBounds()
         {
-            get
+            
             {
-                TinyRect result = default(TinyRect);
-                double num = graphics.GraphicsDevice.Viewport.Width;
-                double num2 = graphics.GraphicsDevice.Viewport.Height;
+                TinyRect result = default_(new TinyRect());
+                double num = graphics.GraphicsDevice().Viewport().Width();
+                double num2 = graphics.GraphicsDevice().Viewport().Height();
                 if (num != 0.0 && num2 != 0.0)
                 {
                     double num3;
@@ -88,11 +97,11 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        public TinyPoint Origin
+        public TinyPoint Origin()
         {
-            get
+            
             {
-                TinyPoint result = default(TinyPoint);
+                TinyPoint result = default_(new TinyPoint());
                 result.X = (int)originX;
                 result.Y = (int)originY;
                 return result;
@@ -109,7 +118,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         public TinyPoint HotSpotToHud(TinyPoint pos)
         {
-            TinyPoint result = default(TinyPoint);
+            TinyPoint result = default_(new TinyPoint());
             result.X = (int)((double)(pos.X - (int)hotSpotX) / hotSpotZoom) + (int)hotSpotX - (int)originX;
             result.Y = (int)((double)(pos.Y - (int)hotSpotY) / hotSpotZoom) + (int)hotSpotY - (int)originY;
             return result;
@@ -122,166 +131,166 @@ namespace WindowsPhoneSpeedyBlupi
             hotSpotY = y;
         }
 
-        public void DrawInputButton(TinyRect rect, Def.ButtonGlygh glyph, bool pressed, bool selected)
+        public void DrawInputButton(TinyRect rect, Def.ButtonGlygh glyph, boolean pressed, boolean selected)
         {
             switch (glyph)
             {
-                case Def.ButtonGlygh.InitGamerA:
+                case InitGamerA:
                     DrawIcon(14, selected ? 16 : 4, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.InitGamerB:
+                case InitGamerB:
                     DrawIcon(14, selected ? 17 : 5, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.InitGamerC:
+                case InitGamerC:
                     DrawIcon(14, selected ? 18 : 6, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.InitSetup:
-                case Def.ButtonGlygh.PauseSetup:
+                case InitSetup:
+                case PauseSetup:
                     DrawIcon(14, 19, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.InitPlay:
+                case InitPlay:
                     DrawIcon(14, 7, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PauseMenu:
-                case Def.ButtonGlygh.ResumeMenu:
+                case PauseMenu:
+                case ResumeMenu:
                     DrawIcon(14, 11, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PauseBack:
+                case PauseBack:
                     DrawIcon(14, 8, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PauseRestart:
+                case PauseRestart:
                     DrawIcon(14, 9, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PauseContinue:
-                case Def.ButtonGlygh.ResumeContinue:
+                case PauseContinue:
+                case ResumeContinue:
                     DrawIcon(14, 10, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.WinLostReturn:
+                case WinLostReturn:
                     DrawIcon(14, 3, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.InitBuy:
-                case Def.ButtonGlygh.TrialBuy:
+                case InitBuy:
+                case TrialBuy:
                     DrawIcon(14, 22, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.InitRanking:
+                case InitRanking:
                     DrawIcon(14, 12, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.TrialCancel:
-                case Def.ButtonGlygh.RankingContinue:
+                case TrialCancel:
+                case RankingContinue:
                     DrawIcon(14, 8, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.SetupSounds:
-                case Def.ButtonGlygh.SetupJump:
-                case Def.ButtonGlygh.SetupZoom:
-                case Def.ButtonGlygh.SetupAccel:
+                case SetupSounds:
+                case SetupJump:
+                case SetupZoom:
+                case SetupAccel:
                     DrawIcon(14, selected ? 13 : 21, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.SetupReset:
+                case SetupReset:
                     DrawIcon(14, 20, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.SetupReturn:
+                case SetupReturn:
                     DrawIcon(14, 8, rect, pressed ? 0.8 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PlayJump:
+                case PlayJump:
                     DrawIcon(14, 2, rect, pressed ? 0.6 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PlayAction:
+                case PlayAction:
                     DrawIcon(14, 12, rect, pressed ? 0.6 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PlayDown:
+                case PlayDown:
                     DrawIcon(14, 23, rect, pressed ? 0.6 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.PlayPause:
+                case PlayPause:
                     DrawIcon(14, 3, rect, pressed ? 0.6 : 1.0, false);
                     break;
-                case Def.ButtonGlygh.Cheat1:
-                case Def.ButtonGlygh.Cheat2:
-                case Def.ButtonGlygh.Cheat3:
-                case Def.ButtonGlygh.Cheat4:
-                case Def.ButtonGlygh.Cheat5:
-                case Def.ButtonGlygh.Cheat6:
-                case Def.ButtonGlygh.Cheat7:
-                case Def.ButtonGlygh.Cheat8:
-                case Def.ButtonGlygh.Cheat9:
+                case Cheat1:
+                case Cheat2:
+                case Cheat3:
+                case Cheat4:
+                case Cheat5:
+                case Cheat6:
+                case Cheat7:
+                case Cheat8:
+                case Cheat9:
                     {
                         DrawIcon(14, 0, rect, pressed ? 0.6 : 1.0, false);
-                        TinyPoint tinyPoint = default(TinyPoint);
-                        tinyPoint.X = rect.Left + rect.Width / 2 - (int)originX;
+                        TinyPoint tinyPoint = default_(new TinyPoint());
+                        tinyPoint.X = rect.Left + rect.Width() / 2 - (int)originX;
                         tinyPoint.Y = rect.Top + 28;
                         TinyPoint pos = tinyPoint;
                         Text.DrawTextCenter(this, pos, Decor.GetCheatTinyText(glyph), 1.0);
                         break;
                     }
-                case Def.ButtonGlygh.Cheat11:
-                case Def.ButtonGlygh.Cheat12:
-                case Def.ButtonGlygh.Cheat21:
-                case Def.ButtonGlygh.Cheat22:
-                case Def.ButtonGlygh.Cheat31:
-                case Def.ButtonGlygh.Cheat32:
+                case Cheat11:
+                case Cheat12:
+                case Cheat21:
+                case Cheat22:
+                case Cheat31:
+                case Cheat32:
                     break;
             }
         }
 
         public void LoadContent()
         {
-            spriteBatch = new SpriteBatch(game1.GraphicsDevice);
-            bitmapText = game1.Content.Load<Texture2D>("icons/text");
-            bitmapButton = game1.Content.Load<Texture2D>("icons/button");
-            bitmapJauge = game1.Content.Load<Texture2D>("icons/jauge");
-            bitmapBlupi = game1.Content.Load<Texture2D>("icons/blupi");
-            bitmapBlupi1 = game1.Content.Load<Texture2D>("icons/blupi1");
-            bitmapObject = game1.Content.Load<Texture2D>("icons/object-m");
-            bitmapElement = game1.Content.Load<Texture2D>("icons/element");
-            bitmapExplo = game1.Content.Load<Texture2D>("icons/explo");
-            bitmapPad = game1.Content.Load<Texture2D>("icons/pad");
-            bitmapSpeedyBlupi = game1.Content.Load<Texture2D>("backgrounds/speedyblupi");
-            bitmapBlupiYoupie = game1.Content.Load<Texture2D>("backgrounds/blupiyoupie");
-            bitmapGear = game1.Content.Load<Texture2D>("backgrounds/gear");
+            spriteBatch = new SpriteBatch(game1.GraphicsDevice());
+            bitmapText = game1.Content.Load("icons/text", Texture2D.class);
+            bitmapButton = game1.Content.Load("icons/button", Texture2D.class);
+            bitmapJauge = game1.Content.Load("icons/jauge", Texture2D.class);
+            bitmapBlupi = game1.Content.Load("icons/blupi", Texture2D.class);
+            bitmapBlupi1 = game1.Content.Load("icons/blupi1", Texture2D.class);
+            bitmapObject = game1.Content.Load("icons/object-m", Texture2D.class);
+            bitmapElement = game1.Content.Load("icons/element", Texture2D.class);
+            bitmapExplo = game1.Content.Load("icons/explo", Texture2D.class);
+            bitmapPad = game1.Content.Load("icons/pad", Texture2D.class);
+            bitmapSpeedyBlupi = game1.Content.Load("backgrounds/speedyblupi", Texture2D.class);
+            bitmapBlupiYoupie = game1.Content.Load("backgrounds/blupiyoupie", Texture2D.class);
+            bitmapGear = game1.Content.Load("backgrounds/gear", Texture2D.class);
             UpdateGeometry();
         }
 
         private void UpdateGeometry()
         {
-            double num = graphics.GraphicsDevice.Viewport.Width;
-            double num2 = graphics.GraphicsDevice.Viewport.Height;
+            double num = graphics.GraphicsDevice().Viewport().Width();
+            double num2 = graphics.GraphicsDevice().Viewport().Height();
             double val = num / 640.0;
             double val2 = num2 / 480.0;
-            zoom = Math.Min(val, val2);
+            zoom = Math_.Min(val, val2);
             originX = (num - 640.0 * zoom) / 2.0;
             originY = (num2 - 480.0 * zoom) / 2.0;
         }
 
-        public void BackgroundCache(string name)
+        public void BackgroundCache(String name)
         {
-            bitmapBackground = game1.Content.Load<Texture2D>("backgrounds/" + name);
+            bitmapBackground = game1.Content.Load("backgrounds/" + name, Texture2D.class);
         }
 
-        public bool Start()
+        public boolean Start()
         {
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice().Clear(Color.CornflowerBlue);
             return true;
         }
 
-        public bool Finish()
+        public boolean Finish()
         {
             return true;
         }
 
         public void DrawBackground()
         {
-            double num = graphics.GraphicsDevice.Viewport.Width;
-            double num2 = graphics.GraphicsDevice.Viewport.Height;
+            double num = graphics.GraphicsDevice().Viewport().Width();
+            double num2 = graphics.GraphicsDevice().Viewport().Height();
             Texture2D bitmap = GetBitmap(3);
             Rectangle srcRectangle = GetSrcRectangle(bitmap, 10, 10, 10, 10, 0, 0);
             Rectangle destinationRectangle = new Rectangle(0, 0, (int)num, (int)num2);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Draw(bitmap, destinationRectangle, srcRectangle, Color.White);
             spriteBatch.End();
-            TinyPoint tinyPoint = default(TinyPoint);
+            TinyPoint tinyPoint = default_(new TinyPoint());
             tinyPoint.X = (int)originX;
             tinyPoint.Y = (int)originY;
             TinyPoint dest = tinyPoint;
-            TinyRect tinyRect = default(TinyRect);
+            TinyRect tinyRect = default_(new TinyRect());
             tinyRect.Left = 0;
             tinyRect.Top = 0;
             tinyRect.Right = 640;
@@ -294,7 +303,7 @@ namespace WindowsPhoneSpeedyBlupi
         {
             pos.X = (int)((double)pos.X + originX);
             pos.Y = (int)((double)pos.Y + originY);
-            TinyRect tinyRect = default(TinyRect);
+            TinyRect tinyRect = default_(new TinyRect());
             tinyRect.Left = pos.X;
             tinyRect.Top = pos.Y;
             tinyRect.Right = pos.X + (int)(32.0 * size);
@@ -307,7 +316,7 @@ namespace WindowsPhoneSpeedyBlupi
         {
             pos.X = (int)((double)pos.X + originX);
             pos.Y = (int)((double)pos.Y + originY);
-            TinyRect tinyRect = default(TinyRect);
+            TinyRect tinyRect = default_(new TinyRect());
             tinyRect.Left = pos.X;
             tinyRect.Top = pos.Y;
             tinyRect.Right = pos.X;
@@ -318,7 +327,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         public void QuickIcon(int channel, int rank, TinyPoint pos)
         {
-            TinyRect tinyRect = default(TinyRect);
+            TinyRect tinyRect = default_(new TinyRect());
             tinyRect.Left = pos.X;
             tinyRect.Top = pos.Y;
             tinyRect.Right = pos.X;
@@ -329,7 +338,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         public void QuickIcon(int channel, int rank, TinyPoint pos, double opacity, double rotation)
         {
-            TinyRect tinyRect = default(TinyRect);
+            TinyRect tinyRect = default_(new TinyRect());
             tinyRect.Left = pos.X;
             tinyRect.Top = pos.Y;
             tinyRect.Right = pos.X;
@@ -338,12 +347,12 @@ namespace WindowsPhoneSpeedyBlupi
             DrawIcon(channel, rank, rect, opacity, rotation, true);
         }
 
-        public bool DrawPart(int channel, TinyPoint dest, TinyRect rect)
+        public boolean DrawPart(int channel, TinyPoint dest, TinyRect rect)
         {
             return DrawPart(channel, dest, rect, 1.0);
         }
 
-        public bool DrawPart(int channel, TinyPoint dest, TinyRect rect, double zoom)
+        public boolean DrawPart(int channel, TinyPoint dest, TinyRect rect, double zoom)
         {
             Texture2D bitmap = GetBitmap(channel);
             if (bitmap == null)
@@ -355,20 +364,20 @@ namespace WindowsPhoneSpeedyBlupi
                 dest.X = (int)((double)dest.X + originX);
                 dest.Y = (int)((double)dest.Y + originY);
             }
-            Rectangle value = new Rectangle(rect.Left, rect.Top, rect.Width, rect.Height);
-            Rectangle destinationRectangle = new Rectangle(dest.X, dest.Y, (int)((double)rect.Width * zoom), (int)((double)rect.Height * zoom));
+            Rectangle value = new Rectangle(rect.Left, rect.Top, rect.Width(), rect.Height());
+            Rectangle destinationRectangle = new Rectangle(dest.X, dest.Y, (int)((double)rect.Width() * zoom), (int)((double)rect.Height() * zoom));
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             spriteBatch.Draw(bitmap, destinationRectangle, value, Color.White);
             spriteBatch.End();
             return true;
         }
 
-        public void DrawIcon(int channel, int icon, TinyRect rect, double opacity, bool useHotSpot)
+        public void DrawIcon(int channel, int icon, TinyRect rect, double opacity, boolean useHotSpot)
         {
             DrawIcon(channel, icon, rect, opacity, 0.0, useHotSpot);
         }
 
-        public void DrawIcon(int channel, int icon, TinyRect rect, double opacity, double rotation, bool useHotSpot)
+        public void DrawIcon(int channel, int icon, TinyRect rect, double opacity, double rotation, boolean useHotSpot)
         {
             if (icon == -1)
             {
@@ -414,7 +423,7 @@ namespace WindowsPhoneSpeedyBlupi
                     num = 144;
                     bitmapGridY = 144;
                     num2 = Tables.table_explo_size[icon];
-                    iconWidth = Math.Max(num2, 128);
+                    iconWidth = Math_.Max(num2, 128);
                     gap = 0;
                     break;
                 case 6:
@@ -485,8 +494,8 @@ namespace WindowsPhoneSpeedyBlupi
 
         private Rectangle GetSrcRectangle(Texture2D bitmap, int bitmapGridX, int bitmapGridY, int iconWidth, int iconHeight, int gap, int icon)
         {
-            int width = bitmap.Bounds.Width;
-            int height = bitmap.Bounds.Height;
+            int width = bitmap.Bounds().Width;
+            int height = bitmap.Bounds().Height;
             int num = icon % (width / bitmapGridX);
             int num2 = icon / (width / bitmapGridX);
             bitmapGridX += gap;
@@ -494,10 +503,10 @@ namespace WindowsPhoneSpeedyBlupi
             return new Rectangle(gap + num * bitmapGridX, gap + num2 * bitmapGridY, iconWidth, iconHeight);
         }
 
-        private Rectangle GetDstRectangle(TinyRect rect, int iconWidth, int iconHeight, bool useHotSpot)
+        private Rectangle GetDstRectangle(TinyRect rect, int iconWidth, int iconHeight, boolean useHotSpot)
         {
-            int num = ((rect.Width == 0) ? iconWidth : rect.Width);
-            int num2 = ((rect.Height == 0) ? iconHeight : rect.Height);
+            int num = ((rect.Width() == 0) ? iconWidth : rect.Width());
+            int num2 = ((rect.Height() == 0) ? iconHeight : rect.Height());
             int num3 = (int)((double)rect.Left * zoom);
             int num4 = (int)((double)rect.Top * zoom);
             int num5 = (int)((double)num3 + (double)num * zoom);
@@ -558,4 +567,3 @@ namespace WindowsPhoneSpeedyBlupi
         }
     }
 
-}

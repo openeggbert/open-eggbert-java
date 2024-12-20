@@ -1,17 +1,22 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
-// WindowsPhoneSpeedyBlupi.Jauge
-using Microsoft.Xna.Framework.Media;
-using WindowsPhoneSpeedyBlupi;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+// WindowsPhoneSpeedyBlupi.Jauge
+import static com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.default_.default_;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Media.*;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.namespace;
+
+
+
+    @namespace(name = "WindowsPhoneSpeedyBlupi")
+
     public class Jauge
     {
         private Pixmap m_pixmap;
 
         private Sound m_sound;
 
-        private bool m_bHide;
+        private boolean m_bHide;
 
         private TinyPoint m_pos;
 
@@ -21,23 +26,20 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int m_level;
 
-        private bool m_bMinimizeRedraw;
+        private boolean m_bMinimizeRedraw;
 
-        private bool m_bRedraw;
+        private boolean m_bRedraw;
 
         private double m_zoom;
 
-        public double Zoom
-        {
-            get
-            {
-                return m_zoom;
-            }
-            set
-            {
-                m_zoom = value;
-            }
+        public double getZoom() {
+            return m_zoom;
         }
+
+        public void setZoom(double value) {
+            m_zoom = value;
+        }
+
 
         public Jauge()
         {
@@ -48,7 +50,7 @@ namespace WindowsPhoneSpeedyBlupi
             m_zoom = 1.0;
         }
 
-        public bool Create(Pixmap pixmap, Sound sound, TinyPoint pos, int mode, bool bMinimizeRedraw)
+        public boolean Create(Pixmap pixmap, Sound sound, TinyPoint pos, int mode, boolean bMinimizeRedraw)
         {
             m_pixmap = pixmap;
             m_sound = sound;
@@ -65,7 +67,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         public void Draw()
         {
-            TinyRect rect = default(TinyRect);
+             TinyRect rect = default_(new TinyRect());
             if (m_bMinimizeRedraw && !m_bRedraw)
             {
                 return;
@@ -131,12 +133,12 @@ namespace WindowsPhoneSpeedyBlupi
             m_mode = mode;
         }
 
-        public bool GetHide()
+        public boolean GetHide()
         {
             return m_bHide;
         }
 
-        public void SetHide(bool bHide)
+        public void SetHide(boolean bHide)
         {
             if (m_bHide != bHide)
             {
@@ -156,4 +158,3 @@ namespace WindowsPhoneSpeedyBlupi
         }
     }
 
-}

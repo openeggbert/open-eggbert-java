@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
-    public interface Accelerometer
-    {
-        void Start();
-        void Stop();
-        event EventHandler<AccelerometerEventArgs> CurrentValueChanged;
-    }
+import com.openeggbert.jdotnet.System.*;
+
+public interface Accelerometer {
+
+    void Start();
+
+    void Stop();
+
+    @Event
+    EventHandler<AccelerometerEventArgs> CurrentValueChanged();
 }

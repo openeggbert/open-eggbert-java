@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
-    public class AccelerometerFactory
-    {
-        public static Accelerometer Create() { return new AccelerometerDummyImpl(); }
+public class AccelerometerFactory {
+
+    public static Accelerometer Create() {
+        return new AccelerometerDummyImpl();
     }
 }

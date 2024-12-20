@@ -25,6 +25,8 @@
   <inherits name="com.openeggbert.core.main.OpenEggbertApplication" />
   <inherits name="com.pixelgamelibrary.pixelapi" />
   <inherits name="com.pixelgamelibrary.backend.pixelbackendlibgdx" />
+  <inherits name="com.openeggbert.jdotnet" />
+  <inherits name="com.openeggbert.jxna" />
   <inherits name="formic" />
   <inherits name="guacamole_gdx_gwt" />
   <inherits name="libgdx-utils" />

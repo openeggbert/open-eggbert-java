@@ -1,63 +1,66 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
+
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
 // WindowsPhoneSpeedyBlupi.Resource
-using System.CodeDom.Compiler;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Resources;
-using System.Runtime.CompilerServices;
-using WindowsPhoneSpeedyBlupi;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.internal;
+//import com.openeggbert.jdotnet.System.CodeDom.Compiler.*;
+//import com.openeggbert.jdotnet.System.ComponentModel.*;
+import com.openeggbert.jdotnet.System.Diagnostics.*;
+import com.openeggbert.jdotnet.System.Globalization.*;
+import com.openeggbert.jdotnet.System.Resources.*;
+//import com.openeggbert.jdotnet.System.Runtime.CompilerServices.*;
+import static com.openeggbert.jdotnet.System.Type.typeof;
+import com.openeggbert.jdotnet.System.object;
 
 //[DebuggerNonUserCode]
 //[GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
 //[CompilerGenerated]
 
-namespace WindowsPhoneSpeedyBlupi
-{
-    internal class Resource
+
+
+    @internal class Resource
     {
         private static ResourceManager resourceMan;
 
         private static CultureInfo resourceCulture;
 
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static ResourceManager ResourceManager
+        //[EditorBrowsable(EditorBrowsableState.Advanced)]
+        @internal static ResourceManager ResourceManager()
         {
-            get
+            
             {
                 if (object.ReferenceEquals(resourceMan, null))
                 {
-                    ResourceManager resourceManager = new ResourceManager("WindowsPhoneSpeedyBlupi.Resource", typeof(Resource).Assembly);
+                    ResourceManager resourceManager = new ResourceManager("WindowsPhoneSpeedyBlupi.Resource", typeof(Resource.class).Assembly());
                     resourceMan = resourceManager;
                 }
                 return resourceMan;
             }
         }
 
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static CultureInfo Culture
+        //[EditorBrowsable(EditorBrowsableState.Advanced)]
+        @internal static CultureInfo Culture()
         {
-            get
+            
             {
                 return resourceCulture;
             }
-            set
-            {
-                resourceCulture = value;
-            }
+        }
+        @internal
+        static void setCultureInfo(CultureInfo value) {
+            resourceCulture = value;
         }
 
-        internal static string Title
+        @internal static String Title()
         {
-            get
+            
             {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
 
-        internal Resource()
+        @internal private Resource()
         {
         }
     }
 
-}

@@ -1,26 +1,35 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
-// WindowsPhoneSpeedyBlupi.Game1
-using System;
-using Microsoft.Xna.Framework;
-//using Microsoft.Xna.Framework.GamerServices;//todo remove me
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework.Media;
-using WindowsPhoneSpeedyBlupi;
-using static System.Net.Mime.MediaTypeNames;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
-    public class Game1 : Game
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+// WindowsPhoneSpeedyBlupi.Game1
+import com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi.GameData.GamerInfo;
+import static com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.default_.default_;
+import com.openeggbert.jdotnet.System.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Content.ContentManager;
+//import com.openeggbert.jxna.Microsoft.Xna.Framework.GamerServices;//todo remove me
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Touch.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Media.*;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Game;
+//import static com.openeggbert.jdotnet.System.Net.Mime.MediaTypeNames.*;
+import lombok.Getter;
+import lombok.Setter;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.readonly;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.namespace;
+
+@namespace(name = "WindowsPhoneSpeedyBlupi")
+
+    public class Game1 extends Game
     {
-        private static readonly double[] waitTable = new double[24]
+        private static @readonly final double[] waitTable = new double[]
         {
         0.1, 7.0, 0.2, 20.0, 0.25, 22.0, 0.45, 50.0, 0.6, 53.0,
         0.65, 58.0, 0.68, 60.0, 0.8, 70.0, 0.84, 75.0, 0.9, 84.0,
         0.94, 91.0, 1.0, 100.0
         };
 
-        private static readonly Def.ButtonGlygh[] cheatGeste = new Def.ButtonGlygh[10]
+        private static @readonly final Def.ButtonGlygh[] cheatGeste = new Def.ButtonGlygh[]
         {
         Def.ButtonGlygh.Cheat12,
         Def.ButtonGlygh.Cheat22,
@@ -34,17 +43,17 @@ namespace WindowsPhoneSpeedyBlupi
         Def.ButtonGlygh.Cheat32
         };
 
-        private readonly GraphicsDeviceManager graphics;
+        private @readonly final GraphicsDeviceManager graphics;
 
-        private readonly Pixmap pixmap;
+        private @readonly final Pixmap pixmap;
 
-        private readonly Sound sound;
+        private @readonly final Sound sound;
 
-        private readonly Decor decor;
+        private @readonly final Decor decor;
 
-        private readonly InputPad inputPad;
+        private @readonly final InputPad inputPad;
 
-        private readonly GameData gameData;
+        private @readonly final GameData gameData;
 
         private Def.Phase phase;
 
@@ -64,51 +73,45 @@ namespace WindowsPhoneSpeedyBlupi
 
         private double waitProgress;
 
-        private bool isTrialMode;
+        private boolean isTrialMode;
 
-        private bool simulateTrialMode;
+        private boolean simulateTrialMode;
 
-        private bool playSetup;
+        private boolean playSetup;
 
         private int phaseTime;
 
         private Def.Phase fadeOutPhase;
 
         private int fadeOutMission;
+                        
+        public boolean IsRankingMode() {return false;}
 
-        public bool IsRankingMode
+        public boolean IsTrialMode()
         {
-            get
-            {
-                return false;
-            }
-        }
-
-        public bool IsTrialMode
-        {
-            get
-            {
+            
                 if (!simulateTrialMode)
                 {
                     return isTrialMode;
                 }
                 return true;
-            }
+            
         }
 
         public Game1()
         {
-            Exiting += OnExiting;
-            if(!TouchPanel.GetCapabilities().IsConnected)
+            
+            Exiting().addEventListener((e)-> this.OnExiting(this, new ExitingEventArgs()));
+            if(!TouchPanel.GetCapabilities().IsConnected())
             {
-                this.IsMouseVisible = true;
+                this.setMouseVisible(true);
                 Mouse.SetCursor(MouseCursor.Arrow);
             }
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = false;
-            base.Content.RootDirectory = "Content";
-            base.TargetElapsedTime = TimeSpan.FromTicks(500000L);
-            base.InactiveSleepTime = TimeSpan.FromSeconds(1.0);
+            graphics.setFullScreen(false);
+            super.getContent().setRootDirectory("Content");
+            super.setTargetElapsedTime(TimeSpan.FromTicks(500000L));
+            super.setInactiveSleepTime(TimeSpan.FromSeconds(1.0d));
             missionToStart1 = -1;
             missionToStart2 = -1;
             gameData = new GameData();
@@ -116,36 +119,33 @@ namespace WindowsPhoneSpeedyBlupi
             sound = new Sound(this, gameData);
             decor = new Decor();
             decor.Create(sound, pixmap, gameData);
-            TinyPoint pos = new TinyPoint
-            {
-                X = 196,
-                Y = 426
-            };
+            TinyPoint pos = new TinyPoint(196,426);
             waitJauge = new Jauge();
             waitJauge.Create(pixmap, sound, pos, 3, false);
             waitJauge.SetHide(false);
-            waitJauge.Zoom = 2.0;
+            waitJauge.setZoom(2.0);
             phase = Def.Phase.None;
             fadeOutPhase = Def.Phase.None;
             inputPad = new InputPad(this, decor, pixmap, sound, gameData);
             SetPhase(Def.Phase.First);
         }
 
-        protected override void Initialize()
-        {
-            base.Initialize();
+        @Override
+        protected void Initialize() {
+            super.Initialize();
         }
 
-        protected override void LoadContent()
-        {
+        @Override
+        protected void LoadContent() {
             pixmap.BackgroundCache("wait");
         }
 
-        protected override void UnloadContent()
-        {
+        @Override
+        protected void UnloadContent() {
         }
 
-        protected override void OnDeactivated(object sender, EventArgs args)
+        @Override
+        protected void OnDeactivated(Object sender, EventArgs args)
         {
             if (phase == Def.Phase.Play)
             {
@@ -155,21 +155,23 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 decor.CurrentDelete();
             }
-            base.OnDeactivated(sender, args);
+            super.OnDeactivated(sender, args);
         }
 
-        protected override void OnActivated(object sender, EventArgs args)
+        @Override
+        protected void OnActivated(Object sender, EventArgs args)
         {
             continueMission = 1;
-            base.OnActivated(sender, args);
+            super.OnActivated(sender, args);
         }
 
-        protected void OnExiting(object sender, EventArgs args)
+        protected void OnExiting(Object sender, EventArgs args)
         {
             decor.CurrentDelete();
         }
 
-        protected override void Update(GameTime gameTime)
+        @Override
+        protected void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
@@ -192,7 +194,7 @@ namespace WindowsPhoneSpeedyBlupi
                 return;
             }
             phaseTime++;
-            if (fadeOutPhase != 0)
+            if (fadeOutPhase != Def.Phase.None)
             {
                 if (phaseTime >= 20)
                 {
@@ -211,7 +213,7 @@ namespace WindowsPhoneSpeedyBlupi
                 pixmap.LoadContent();
                 sound.LoadContent();
                 gameData.Read();
-                inputPad.PixmapOrigin = pixmap.Origin;
+                inputPad.PixmapOrigin = pixmap.Origin();
                 SetPhase(Def.Phase.Wait);
                 return;
             }
@@ -226,7 +228,7 @@ namespace WindowsPhoneSpeedyBlupi
                         return;
                     }
                 }
-                long num = gameTime.TotalGameTime.Ticks - startTime.Ticks;
+                long num = gameTime.TotalGameTime.Ticks() - startTime.Ticks();
                 waitProgress = (double)num / 50000000.0;
                 if (waitProgress > 1.0)
                 {
@@ -235,41 +237,41 @@ namespace WindowsPhoneSpeedyBlupi
                 return;
             }
             inputPad.Update();
-            Def.ButtonGlygh buttonPressed = inputPad.ButtonPressed;
-            if (buttonPressed >= Def.ButtonGlygh.InitGamerA && buttonPressed <= Def.ButtonGlygh.InitGamerC)
+            Def.ButtonGlygh buttonPressed = inputPad.ButtonPressed();
+            if (buttonPressed.ordinal()>= Def.ButtonGlygh.InitGamerA.ordinal() && buttonPressed.ordinal() <= Def.ButtonGlygh.InitGamerC.ordinal())
             {
-                SetGamer((int)(buttonPressed - 1));
+                SetGamer((int)(buttonPressed.ordinal() - 1));
                 return;
             }
             switch (buttonPressed)
             {
-                case Def.ButtonGlygh.InitSetup:
+                case InitSetup:
                     SetPhase(Def.Phase.MainSetup);
                     return;
-                case Def.ButtonGlygh.PauseSetup:
+                case PauseSetup:
                     SetPhase(Def.Phase.PlaySetup);
                     return;
-                case Def.ButtonGlygh.SetupSounds:
-                    gameData.Sounds = !gameData.Sounds;
+                case SetupSounds:
+                    gameData.setSounds(!gameData.Sounds());
                     gameData.Write();
                     return;
-                case Def.ButtonGlygh.SetupJump:
-                    gameData.JumpRight = !gameData.JumpRight;
+                case SetupJump:
+                    gameData.setJumpRight(!gameData.JumpRight());
                     gameData.Write();
                     return;
-                case Def.ButtonGlygh.SetupZoom:
-                    gameData.AutoZoom = !gameData.AutoZoom;
+                case SetupZoom:
+                    gameData.setAutoZoom(!gameData.AutoZoom());
                     gameData.Write();
                     return;
-                case Def.ButtonGlygh.SetupAccel:
-                    gameData.AccelActive = !gameData.AccelActive;
+                case SetupAccel:
+                    gameData.setAccelActive(!gameData.AccelActive());
                     gameData.Write();
                     return;
-                case Def.ButtonGlygh.SetupReset:
+                case SetupReset:
                     gameData.Reset();
                     gameData.Write();
                     return;
-                case Def.ButtonGlygh.SetupReturn:
+                case SetupReturn:
                     if (playSetup)
                     {
                         SetPhase(Def.Phase.Play, -1);
@@ -279,57 +281,57 @@ namespace WindowsPhoneSpeedyBlupi
                         SetPhase(Def.Phase.Init);
                     }
                     return;
-                case Def.ButtonGlygh.InitPlay:
+                case InitPlay:
                     SetPhase(Def.Phase.Play, 1);
                     return;
-                case Def.ButtonGlygh.PlayPause:
+                case PlayPause:
                     SetPhase(Def.Phase.Pause);
                     return;
-                case Def.ButtonGlygh.WinLostReturn:
-                case Def.ButtonGlygh.PauseMenu:
-                case Def.ButtonGlygh.ResumeMenu:
+                case WinLostReturn:
+                case PauseMenu:
+                case ResumeMenu:
                     SetPhase(Def.Phase.Init);
                     break;
             }
             switch (buttonPressed)
             {
-                case Def.ButtonGlygh.ResumeContinue:
+                case ResumeContinue:
                     ContinueMission();
                     return;
-                case Def.ButtonGlygh.InitBuy:
-                case Def.ButtonGlygh.TrialBuy:
+                case InitBuy:
+                case TrialBuy:
                     MarketPlace.Show(PlayerIndex.One);
                     SetPhase(Def.Phase.Init);
                     return;
-                case Def.ButtonGlygh.InitRanking:
+                case InitRanking:
                     SetPhase(Def.Phase.Ranking);
                     return;
-                case Def.ButtonGlygh.TrialCancel:
-                case Def.ButtonGlygh.RankingContinue:
+                case TrialCancel:
+                case RankingContinue:
                     SetPhase(Def.Phase.Init);
                     return;
-                case Def.ButtonGlygh.PauseBack:
+                case PauseBack:
                     MissionBack();
                     return;
-                case Def.ButtonGlygh.PauseRestart:
+                case PauseRestart:
                     SetPhase(Def.Phase.Play, mission);
                     return;
-                case Def.ButtonGlygh.PauseContinue:
+                case PauseContinue:
                     SetPhase(Def.Phase.Play, -1);
                     return;
-                case Def.ButtonGlygh.Cheat11:
-                case Def.ButtonGlygh.Cheat12:
-                case Def.ButtonGlygh.Cheat21:
-                case Def.ButtonGlygh.Cheat22:
-                case Def.ButtonGlygh.Cheat31:
-                case Def.ButtonGlygh.Cheat32:
+                case Cheat11:
+                case Cheat12:
+                case Cheat21:
+                case Cheat22:
+                case Cheat31:
+                case Cheat32:
                     if (buttonPressed == cheatGeste[cheatGesteIndex])
                     {
                         cheatGesteIndex++;
-                        if (cheatGesteIndex == cheatGeste.Length)
+                        if (cheatGesteIndex == cheatGeste.length)
                         {
                             cheatGesteIndex = 0;
-                            inputPad.ShowCheatMenu = true;
+                            inputPad.setShowCheatMenu(true);
                         }
                     }
                     else
@@ -338,13 +340,13 @@ namespace WindowsPhoneSpeedyBlupi
                     }
                     break;
                 default:
-                    if (buttonPressed != 0)
+                    if (buttonPressed.ordinal() != 0)
                     {
                         cheatGesteIndex = 0;
                     }
                     break;
             }
-            if (buttonPressed >= Def.ButtonGlygh.Cheat1 && buttonPressed <= Def.ButtonGlygh.Cheat9)
+            if (buttonPressed.ordinal() >= Def.ButtonGlygh.Cheat1.ordinal() && buttonPressed.ordinal() <= Def.ButtonGlygh.Cheat9.ordinal())
             {
                 CheatAction(buttonPressed);
             }
@@ -369,7 +371,7 @@ namespace WindowsPhoneSpeedyBlupi
                     StartMission(num2);
                 }
             }
-            base.Update(gameTime);
+            super.Update(gameTime);
         }
 
         private void MissionBack()
@@ -386,7 +388,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void StartMission(int mission)
         {
-            if (mission > 20 && mission % 10 > 1 && IsTrialMode)
+            if (mission > 20 && mission % 10 > 1 && IsTrialMode())
             {
                 SetPhase(Def.Phase.Trial);
                 return;
@@ -394,15 +396,15 @@ namespace WindowsPhoneSpeedyBlupi
             this.mission = mission;
             if (this.mission != 1)
             {
-                gameData.LastWorld = this.mission / 10;
+                gameData.setLastWorld(this.mission / 10);
             }
             decor.Read(0, this.mission, false);
             decor.LoadImages();
             decor.SetMission(this.mission);
-            decor.SetNbVies(gameData.NbVies);
+            decor.SetNbVies(gameData.NbVies());
             decor.InitializeDoors(gameData);
             decor.AdaptDoors(false);
-            decor.MainSwitchInitialize(gameData.LastWorld);
+            decor.MainSwitchInitialize(gameData.LastWorld());
             decor.PlayPrepare(false);
             decor.StartSound();
             inputPad.StartMission(this.mission);
@@ -414,7 +416,7 @@ namespace WindowsPhoneSpeedyBlupi
             mission = decor.GetMission();
             if (mission != 1)
             {
-                gameData.LastWorld = mission / 10;
+                gameData.setLastWorld(mission / 10);
             }
             decor.LoadImages();
             decor.StartSound();
@@ -425,37 +427,38 @@ namespace WindowsPhoneSpeedyBlupi
         {
             switch (glyph)
             {
-                case Def.ButtonGlygh.Cheat1:
+                case Cheat1:
                     decor.CheatAction(Tables.CheatCodes.OpenDoors);
                     break;
-                case Def.ButtonGlygh.Cheat2:
+                case Cheat2:
                     decor.CheatAction(Tables.CheatCodes.SuperBlupi);
                     break;
-                case Def.ButtonGlygh.Cheat3:
+                case Cheat3:
                     decor.CheatAction(Tables.CheatCodes.ShowSecret);
                     break;
-                case Def.ButtonGlygh.Cheat4:
+                case Cheat4:
                     decor.CheatAction(Tables.CheatCodes.LayEgg);
                     break;
-                case Def.ButtonGlygh.Cheat5:
+                case Cheat5:
                     gameData.Reset();
                     break;
-                case Def.ButtonGlygh.Cheat6:
+                case Cheat6:
                     simulateTrialMode = !simulateTrialMode;
                     break;
-                case Def.ButtonGlygh.Cheat7:
+                case Cheat7:
                     decor.CheatAction(Tables.CheatCodes.CleanAll);
                     break;
-                case Def.ButtonGlygh.Cheat8:
+                case Cheat8:
                     decor.CheatAction(Tables.CheatCodes.AllTreasure);
                     break;
-                case Def.ButtonGlygh.Cheat9:
+                case Cheat9:
                     decor.CheatAction(Tables.CheatCodes.EndGoal);
                     break;
             }
         }
 
-        protected override void Draw(GameTime gameTime)
+        @Override
+        protected void Draw(GameTime gameTime)
         {
             if (continueMission == 1)
             {
@@ -489,20 +492,20 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 DrawWaitProgress();
             }
-            base.Draw(gameTime);
+            super.Draw(gameTime);
         }
 
         private void DrawBackgroundFade()
         {
             if (phase == Def.Phase.Init)
             {
-                double num = Math.Min((double)phaseTime / 20.0, 1.0);
+                double num = Math_.Min((double)phaseTime / 20.0, 1.0);
                 TinyRect rect;
                 double opacity;
                 if (fadeOutPhase == Def.Phase.MainSetup)
                 {
                     num = (1.0 - num) * (1.0 - num);
-                    TinyRect tinyRect = default(TinyRect);
+                     TinyRect tinyRect = default_(new TinyRect());
                     tinyRect.Left = (int)(720.0 - 640.0 * num);
                     tinyRect.Right = (int)(1360.0 - 640.0 * num);
                     tinyRect.Top = 0;
@@ -512,8 +515,8 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 else
                 {
-                    num = ((fadeOutPhase != 0) ? (1.0 - num * 2.0) : (1.0 - (1.0 - num) * (1.0 - num)));
-                    TinyRect tinyRect2 = default(TinyRect);
+                    num = ((fadeOutPhase.ordinal() != 0) ? (1.0 - num * 2.0) : (1.0 - (1.0 - num) * (1.0 - num)));
+                     TinyRect tinyRect2 = default_(new TinyRect());
                     tinyRect2.Left = 80;
                     tinyRect2.Right = 720;
                     tinyRect2.Top = (int)(-160.0 + num * 160.0);
@@ -525,7 +528,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (phase == Def.Phase.Init)
             {
-                double num = Math.Min((double)phaseTime / 20.0, 1.0);
+                double num = Math_.Min((double)phaseTime / 20.0, 1.0);
                 double opacity;
                 if (fadeOutPhase == Def.Phase.MainSetup)
                 {
@@ -534,15 +537,16 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 else if (fadeOutPhase == Def.Phase.None)
                 {
+
                     num = 0.5 + num / 2.0;
-                    opacity = Math.Min(num * num, 1.0);
+                    opacity = Math_.Min(num * num, 1.0);
                 }
                 else
                 {
                     opacity = 1.0 - num;
                     num = 1.0 + num * 10.0;
                 }
-                TinyRect tinyRect3 = default(TinyRect);
+                 TinyRect tinyRect3 = default_(new TinyRect());
                 tinyRect3.Left = (int)(468.0 - 205.0 * num);
                 tinyRect3.Right = (int)(468.0 + 205.0 * num);
                 tinyRect3.Top = (int)(280.0 - 190.0 * num);
@@ -554,10 +558,10 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (fadeOutPhase == Def.Phase.Play)
                 {
-                    double num = Math.Min((double)phaseTime / 20.0, 1.0);
+                    double num = Math_.Min((double)phaseTime / 20.0, 1.0);
                     double opacity = 1.0 - num;
                     num = 1.0 + num * 10.0;
-                    TinyRect tinyRect4 = default(TinyRect);
+                     TinyRect tinyRect4 = default_(new TinyRect());
                     tinyRect4.Left = (int)(418.0 - 205.0 * num);
                     tinyRect4.Right = (int)(418.0 + 205.0 * num);
                     tinyRect4.Top = (int)(190.0 - 190.0 * num);
@@ -567,9 +571,9 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 else if (fadeOutPhase == Def.Phase.PlaySetup)
                 {
-                    double num = Math.Min((double)phaseTime / 20.0, 1.0);
+                    double num = Math_.Min((double)phaseTime / 20.0, 1.0);
                     num *= num;
-                    TinyRect tinyRect5 = default(TinyRect);
+                     TinyRect tinyRect5 = default_(new TinyRect());
                     tinyRect5.Left = (int)(213.0 + 800.0 * num);
                     tinyRect5.Right = (int)(623.0 + 800.0 * num);
                     tinyRect5.Top = 0;
@@ -582,14 +586,14 @@ namespace WindowsPhoneSpeedyBlupi
                     double num;
                     if (fadeOutPhase == Def.Phase.None)
                     {
-                        num = Math.Min((double)phaseTime / 15.0, 1.0);
+                        num = Math_.Min((double)phaseTime / 15.0, 1.0);
                     }
                     else
                     {
-                        num = Math.Min((double)phaseTime / 15.0, 1.0);
+                        num = Math_.Min((double)phaseTime / 15.0, 1.0);
                         num = 1.0 - num;
                     }
-                    TinyRect tinyRect6 = default(TinyRect);
+                     TinyRect tinyRect6 = default_(new TinyRect());
                     tinyRect6.Left = (int)(418.0 - 205.0 * num);
                     tinyRect6.Right = (int)(418.0 + 205.0 * num);
                     tinyRect6.Top = (int)(190.0 - 190.0 * num);
@@ -600,7 +604,7 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         rotation = (1.0 - num) * (1.0 - num) * 360.0 * 1.0;
                     }
-                    if (rect.Width > 0 && rect.Height > 0)
+                    if (rect.Width() > 0 && rect.Height() > 0)
                     {
                         pixmap.DrawIcon(16, 0, rect, 1.0, rotation, false);
                     }
@@ -608,7 +612,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (phase == Def.Phase.MainSetup || phase == Def.Phase.PlaySetup)
             {
-                double num = Math.Min((double)phaseTime / 20.0, 1.0);
+                double num = Math_.Min((double)phaseTime / 20.0, 1.0);
                 num = 1.0 - (1.0 - num) * (1.0 - num);
                 double num2;
                 if (phaseTime < 20)
@@ -620,25 +624,25 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     num2 = 1.0 + ((double)phaseTime - 20.0) / 400.0;
                 }
-                if (fadeOutPhase != 0)
+                if (fadeOutPhase.ordinal() != 0)
                 {
                     num = 1.0 - num;
                     num2 = 1.0 - num2;
                 }
-                TinyRect tinyRect7 = default(TinyRect);
+                 TinyRect tinyRect7 = default_(new TinyRect());
                 tinyRect7.Left = (int)(720.0 - 640.0 * num);
                 tinyRect7.Right = (int)(1360.0 - 640.0 * num);
                 tinyRect7.Top = 0;
                 tinyRect7.Bottom = 160;
                 TinyRect rect = tinyRect7;
                 pixmap.DrawIcon(15, 0, rect, num * num, false);
-                TinyRect tinyRect8 = default(TinyRect);
+                 TinyRect tinyRect8 = default_(new TinyRect());
                 tinyRect8.Left = 487;
                 tinyRect8.Right = 713;
                 tinyRect8.Top = 148;
                 tinyRect8.Bottom = 374;
                 TinyRect rect2 = tinyRect8;
-                TinyRect tinyRect9 = default(TinyRect);
+                 TinyRect tinyRect9 = default_(new TinyRect());
                 tinyRect9.Left = 118;
                 tinyRect9.Right = 570;
                 tinyRect9.Top = 268;
@@ -651,8 +655,8 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (phase == Def.Phase.Lost)
             {
-                double num = Math.Min((double)phaseTime / 100.0, 1.0);
-                TinyRect tinyRect10 = default(TinyRect);
+                double num = Math_.Min((double)phaseTime / 100.0, 1.0);
+                 TinyRect tinyRect10 = default_(new TinyRect());
                 tinyRect10.Left = (int)(418.0 - 205.0 * num);
                 tinyRect10.Right = (int)(418.0 + 205.0 * num);
                 tinyRect10.Top = (int)(238.0 - 190.0 * num);
@@ -663,15 +667,15 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     rotation = (1.0 - num) * (1.0 - num) * 360.0 * 6.0;
                 }
-                if (rect.Width > 0 && rect.Height > 0)
+                if (rect.Width() > 0 && rect.Height() > 0)
                 {
                     pixmap.DrawIcon(16, 0, rect, 1.0, rotation, false);
                 }
             }
             if (phase == Def.Phase.Win)
             {
-                double num = Math.Sin((double)phaseTime / 3.0) / 2.0 + 1.0;
-                TinyRect tinyRect11 = default(TinyRect);
+                double num = Math_.Sin((double)phaseTime / 3.0) / 2.0 + 1.0;
+                 TinyRect tinyRect11 = default_(new TinyRect());
                 tinyRect11.Left = (int)(418.0 - 205.0 * num);
                 tinyRect11.Right = (int)(418.0 + 205.0 * num);
                 tinyRect11.Top = (int)(238.0 - 190.0 * num);
@@ -685,20 +689,20 @@ namespace WindowsPhoneSpeedyBlupi
         {
             if (phase == Def.Phase.Init)
             {
-                TinyRect drawBounds = pixmap.DrawBounds;
-                int width = drawBounds.Width;
-                int height = drawBounds.Height;
-                TinyRect tinyRect = default(TinyRect);
+                TinyRect drawBounds = pixmap.DrawBounds();
+                int width = drawBounds.Width();
+                int height = drawBounds.Height();
+                 TinyRect tinyRect = default_(new TinyRect());
                 tinyRect.Left = 10;
                 tinyRect.Right = 260;
                 tinyRect.Top = height - 325;
                 tinyRect.Bottom = height - 10;
                 TinyRect rect = tinyRect;
                 pixmap.DrawIcon(14, 15, rect, 0.3, false);
-                TinyRect tinyRect2 = default(TinyRect);
+                 TinyRect tinyRect2 = default_(new TinyRect());
                 tinyRect2.Left = width - 170;
                 tinyRect2.Right = width - 10;
-                tinyRect2.Top = height - ((IsTrialMode || IsRankingMode) ? 325 : 195);
+                tinyRect2.Top = height - ((IsTrialMode() || IsRankingMode()) ? 325 : 195);
                 tinyRect2.Bottom = height - 10;
                 rect = tinyRect2;
                 pixmap.DrawIcon(14, 15, rect, 0.3, false);
@@ -714,11 +718,11 @@ namespace WindowsPhoneSpeedyBlupi
                 DrawButtonGamerText(Def.ButtonGlygh.InitGamerC, 2);
                 DrawTextUnderButton(Def.ButtonGlygh.InitPlay, MyResource.TX_BUTTON_PLAY);
                 DrawTextRightButton(Def.ButtonGlygh.InitSetup, MyResource.TX_BUTTON_SETUP);
-                if (IsTrialMode)
+                if (IsTrialMode())
                 {
                     DrawTextUnderButton(Def.ButtonGlygh.InitBuy, MyResource.TX_BUTTON_BUY);
                 }
-                if (IsRankingMode)
+                if (IsRankingMode())
                 {
                     DrawTextUnderButton(Def.ButtonGlygh.InitRanking, MyResource.TX_BUTTON_RANKING);
                 }
@@ -750,13 +754,13 @@ namespace WindowsPhoneSpeedyBlupi
                 DrawTextRightButton(Def.ButtonGlygh.SetupAccel, MyResource.TX_BUTTON_SETUP_ACCEL);
                 if (phase == Def.Phase.MainSetup)
                 {
-                    string text = string.Format(MyResource.LoadString(MyResource.TX_BUTTON_SETUP_RESET), new string((char)(65 + gameData.SelectedGamer), 1));
+                    String text = string.Format(MyResource.LoadString(MyResource.TX_BUTTON_SETUP_RESET), new string((char)(65 + gameData.SelectedGamer()), 1));
                     DrawTextRightButton(Def.ButtonGlygh.SetupReset, text);
                 }
             }
             if (phase == Def.Phase.Trial)
             {
-                TinyPoint tinyPoint = default(TinyPoint);
+                 TinyPoint tinyPoint = default_(new TinyPoint());
                 tinyPoint.X = 360;
                 tinyPoint.Y = 50;
                 TinyPoint pos = tinyPoint;
@@ -783,31 +787,32 @@ namespace WindowsPhoneSpeedyBlupi
         private void DrawButtonGamerText(Def.ButtonGlygh glyph, int gamer)
         {
             TinyRect buttonRect = inputPad.GetButtonRect(glyph);
-            int nbVies;
-            int mainDoors;
-            int secondaryDoors;
-            gameData.GetGamerInfo(gamer, out nbVies, out mainDoors, out secondaryDoors);
-            TinyPoint tinyPoint = default(TinyPoint);
-            tinyPoint.X = buttonRect.Right + 5 - pixmap.Origin.X;
-            tinyPoint.Y = buttonRect.Top + 3 - pixmap.Origin.Y;
+            
+            GamerInfo gamerInfo = gameData.GetGamerInfo(gamer);
+            int nbVies = gamerInfo.nbVies;
+            int mainDoors = gamerInfo.mainDoors;
+            int secondaryDoors = gamerInfo.secondaryDoors;
+             TinyPoint tinyPoint = default_(new TinyPoint());
+            tinyPoint.X = buttonRect.Right + 5 - pixmap.Origin().X;
+            tinyPoint.Y = buttonRect.Top + 3 - pixmap.Origin().Y;
             TinyPoint pos = tinyPoint;
-            string text = string.Format(MyResource.LoadString(MyResource.TX_GAMER_TITLE), new string((char)(65 + gamer), 1));
+            String text = string.Format(MyResource.LoadString(MyResource.TX_GAMER_TITLE), new string((char)(65 + gamer), 1));
             Text.DrawText(pixmap, pos, text, 0.7);
-            TinyPoint tinyPoint2 = default(TinyPoint);
-            tinyPoint2.X = buttonRect.Right + 5 - pixmap.Origin.X;
-            tinyPoint2.Y = buttonRect.Top + 25 - pixmap.Origin.Y;
+             TinyPoint tinyPoint2 = default_(new TinyPoint());
+            tinyPoint2.X = buttonRect.Right + 5 - pixmap.Origin().X;
+            tinyPoint2.Y = buttonRect.Top + 25 - pixmap.Origin().Y;
             pos = tinyPoint2;
             text = string.Format(MyResource.LoadString(MyResource.TX_GAMER_MDOORS), mainDoors);
             Text.DrawText(pixmap, pos, text, 0.45);
-            TinyPoint tinyPoint3 = default(TinyPoint);
-            tinyPoint3.X = buttonRect.Right + 5 - pixmap.Origin.X;
-            tinyPoint3.Y = buttonRect.Top + 39 - pixmap.Origin.Y;
+             TinyPoint tinyPoint3 = default_(new TinyPoint());
+            tinyPoint3.X = buttonRect.Right + 5 - pixmap.Origin().X;
+            tinyPoint3.Y = buttonRect.Top + 39 - pixmap.Origin().Y;
             pos = tinyPoint3;
             text = string.Format(MyResource.LoadString(MyResource.TX_GAMER_SDOORS), secondaryDoors);
             Text.DrawText(pixmap, pos, text, 0.45);
-            TinyPoint tinyPoint4 = default(TinyPoint);
-            tinyPoint4.X = buttonRect.Right + 5 - pixmap.Origin.X;
-            tinyPoint4.Y = buttonRect.Top + 53 - pixmap.Origin.Y;
+             TinyPoint tinyPoint4 = default_(new TinyPoint());
+            tinyPoint4.X = buttonRect.Right + 5 - pixmap.Origin().X;
+            tinyPoint4.Y = buttonRect.Top + 53 - pixmap.Origin().Y;
             pos = tinyPoint4;
             text = string.Format(MyResource.LoadString(MyResource.TX_GAMER_LIFES), nbVies);
             Text.DrawText(pixmap, pos, text, 0.45);
@@ -818,15 +823,15 @@ namespace WindowsPhoneSpeedyBlupi
             DrawTextRightButton(glyph, MyResource.LoadString(res));
         }
 
-        private void DrawTextRightButton(Def.ButtonGlygh glyph, string text)
+        private void DrawTextRightButton(Def.ButtonGlygh glyph, String text)
         {
             TinyRect buttonRect = inputPad.GetButtonRect(glyph);
-            string[] array = text.Split('\n');
-            if (array.Length == 2)
+            String[] array = text.split("\n");
+            if (array.length == 2)
             {
-                TinyPoint tinyPoint = default(TinyPoint);
-                tinyPoint.X = buttonRect.Right + 10 - pixmap.Origin.X;
-                tinyPoint.Y = (buttonRect.Top + buttonRect.Bottom) / 2 - 20 - pixmap.Origin.Y;
+                 TinyPoint tinyPoint = default_(new TinyPoint());
+                tinyPoint.X = buttonRect.Right + 10 - pixmap.Origin().X;
+                tinyPoint.Y = (buttonRect.Top + buttonRect.Bottom) / 2 - 20 - pixmap.Origin().Y;
                 TinyPoint pos = tinyPoint;
                 Text.DrawText(pixmap, pos, array[0], 0.7);
                 pos.Y += 24;
@@ -834,9 +839,9 @@ namespace WindowsPhoneSpeedyBlupi
             }
             else
             {
-                TinyPoint tinyPoint2 = default(TinyPoint);
-                tinyPoint2.X = buttonRect.Right + 10 - pixmap.Origin.X;
-                tinyPoint2.Y = (buttonRect.Top + buttonRect.Bottom) / 2 - 8 - pixmap.Origin.Y;
+                 TinyPoint tinyPoint2 = default_(new TinyPoint());
+                tinyPoint2.X = buttonRect.Right + 10 - pixmap.Origin().X;
+                tinyPoint2.Y = (buttonRect.Top + buttonRect.Bottom) / 2 - 8 - pixmap.Origin().Y;
                 TinyPoint pos2 = tinyPoint2;
                 Text.DrawText(pixmap, pos2, text, 0.7);
             }
@@ -845,11 +850,11 @@ namespace WindowsPhoneSpeedyBlupi
         private void DrawTextUnderButton(Def.ButtonGlygh glyph, int res)
         {
             TinyRect buttonRect = inputPad.GetButtonRect(glyph);
-            TinyPoint tinyPoint = default(TinyPoint);
-            tinyPoint.X = (buttonRect.Left + buttonRect.Right) / 2 - pixmap.Origin.X;
-            tinyPoint.Y = buttonRect.Bottom + 2 - pixmap.Origin.Y;
+             TinyPoint tinyPoint = default_(new TinyPoint());
+            tinyPoint.X = (buttonRect.Left + buttonRect.Right) / 2 - pixmap.Origin().X;
+            tinyPoint.Y = buttonRect.Bottom + 2 - pixmap.Origin().Y;
             TinyPoint pos = tinyPoint;
-            string text = MyResource.LoadString(res);
+            String text = MyResource.LoadString(res);
             Text.DrawTextCenter(pixmap, pos, text, 0.7);
         }
 
@@ -859,7 +864,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return;
             }
-            for (int i = 0; i < waitTable.Length; i++)
+            for (int i = 0; i < waitTable.length; i++)
             {
                 if (waitProgress <= waitTable[i * 2])
                 {
@@ -872,16 +877,16 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void DrawDebug()
         {
-            TinyPoint tinyPoint = default(TinyPoint);
+             TinyPoint tinyPoint = default_(new TinyPoint());
             tinyPoint.X = 10;
             tinyPoint.Y = 20;
             TinyPoint pos = tinyPoint;
-            Text.DrawText(pixmap, pos, inputPad.TotalTouch.ToString(), 1.0);
+            Text.DrawText(pixmap, pos, Integer.valueOf(inputPad.TotalTouch()).toString(), 1.0);
         }
 
         private void SetGamer(int gamer)
         {
-            gameData.SelectedGamer = gamer;
+            gameData.setSelectedGamer(gamer);
             gameData.Write();
         }
 
@@ -930,31 +935,31 @@ namespace WindowsPhoneSpeedyBlupi
             decor.StopSound();
             switch (this.phase)
             {
-                case Def.Phase.Init:
+                case Init:
                     pixmap.BackgroundCache("init");
                     break;
-                case Def.Phase.Pause:
-                case Def.Phase.Resume:
+                case Pause:
+                case Resume:
                     pixmap.BackgroundCache("pause");
                     break;
-                case Def.Phase.Lost:
+                case Lost:
                     pixmap.BackgroundCache("lost");
                     break;
-                case Def.Phase.Win:
+                case Win:
                     pixmap.BackgroundCache("win");
                     break;
-                case Def.Phase.MainSetup:
-                case Def.Phase.PlaySetup:
+                case MainSetup:
+                case PlaySetup:
                     pixmap.BackgroundCache("setup");
                     break;
-                case Def.Phase.Trial:
+                case Trial:
                     pixmap.BackgroundCache("trial");
                     break;
-                case Def.Phase.Ranking:
+                case Ranking:
                     pixmap.BackgroundCache("pause");
                     break;
-                case Def.Phase.Play:
-                    decor.DrawBounds = pixmap.DrawBounds;
+                case Play:
+                    decor.setDrawBounds(pixmap.DrawBounds());
                     break;
             }
             if (this.phase == Def.Phase.Play && mission > 0)
@@ -965,7 +970,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void MemorizeGamerProgress()
         {
-            gameData.NbVies = decor.GetNbVies();
+            gameData.setNbVies(decor.GetNbVies());
             decor.MemorizeDoors(gameData);
             gameData.Write();
         }
@@ -978,6 +983,5 @@ namespace WindowsPhoneSpeedyBlupi
         {
             this.graphics.ToggleFullScreen();
         }
-        public bool IsFullScreen() { return this.graphics.IsFullScreen; }
+        public boolean IsFullScreen() { return this.graphics.IsFullScreen(); }
     }
-}

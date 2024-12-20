@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
+import com.openeggbert.jdotnet.System.Diagnostics.Debug;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.PlayerIndex;
+
     public class MarketPlace
     {
         public static void Show(PlayerIndex playerIndex)
@@ -16,4 +11,3 @@ namespace WindowsPhoneSpeedyBlupi
             Debug.Write("The Market Place should be shown.");
         }
     }
-}

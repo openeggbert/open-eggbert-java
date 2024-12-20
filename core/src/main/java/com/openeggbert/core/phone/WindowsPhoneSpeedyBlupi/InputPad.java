@@ -1,39 +1,55 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
-// WindowsPhoneSpeedyBlupi.InputPad
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
-using WindowsPhoneSpeedyBlupi;
-using static WindowsPhoneSpeedyBlupi.Def;
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
 
-namespace WindowsPhoneSpeedyBlupi
-{
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+// WindowsPhoneSpeedyBlupi.InputPad
+import com.openeggbert.jdotnet.System.UnauthorizedAccessException;
+import com.openeggbert.jdotnet.System.*;
+import com.openeggbert.jdotnet.System.Collections.Generic.*;
+import com.openeggbert.jdotnet.System.Diagnostics.*;
+import com.openeggbert.jdotnet.System.Linq.*;
+import static com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi.Def.*;
+import static com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.default_.default_;
+import com.openeggbert.jdotnet.JDotNet.Microsoft.Devices.Sensors.AccelerometerFailedException;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.ButtonState;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Keyboard;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.KeyboardState;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Keys;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Mouse;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.MouseState;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Touch.TouchCollection;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Touch.TouchLocation;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Touch.TouchLocationState;
+import com.openeggbert.jxna.Microsoft.Xna.Framework.Input.Touch.TouchPanel;
+import lombok.Getter;
+import lombok.Setter;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.readonly;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.namespace;
+
+    @namespace(name = "WindowsPhoneSpeedyBlupi")
+
     public class InputPad
     {
-        private static readonly int padSize = 140;
+        private static @readonly final int padSize = 140;
 
-        private readonly Game1 game1;
+        private @readonly final Game1 game1;
 
-        private readonly Decor decor;
+        private @readonly final Decor decor;
 
-        private readonly Pixmap pixmap;
+        private @readonly final Pixmap pixmap;
 
-        private readonly Sound sound;
+        private @readonly final Sound sound;
 
-        private readonly GameData gameData;
+        private @readonly final GameData gameData;
 
-        private readonly List<Def.ButtonGlygh> pressedGlyphs;
+        private @readonly final List_<Def.ButtonGlygh> pressedGlyphs;
 
-        private readonly Accelerometer accelSensor;
+        private @readonly final Accelerometer accelSensor;
 
-        private readonly Slider accelSlider;
+        private @readonly final Slider accelSlider;
 
-        private bool padPressed;
+        private boolean padPressed;
 
-        private bool showCheatMenu;
+        private boolean showCheatMenu;
 
         private TinyPoint padTouchPos;
 
@@ -43,166 +59,163 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int touchCount;
 
-        private bool accelStarted;
+        private boolean accelStarted;
 
-        private bool accelActive;
+        private boolean accelActive;
 
         private double accelSpeedX;
 
-        private bool accelLastState;
+        private boolean accelLastState;
 
-        private bool accelWaitZero;
+        private boolean accelWaitZero;
 
         private int mission;
 
-        public Def.Phase Phase { get; set; }
+        @Getter @Setter
+        public Def.Phase Phase;
+        
+        @Getter @Setter
+        public int SelectedGamer;
 
-        public int SelectedGamer { get; set; }
+        @Getter @Setter
+        public TinyPoint PixmapOrigin;
 
-        public TinyPoint PixmapOrigin { get; set; }
-
-        public int TotalTouch
-        {
-            get
-            {
-                return touchCount;
-            }
+        public int TotalTouch() {
+            return getTotalTouch();
         }
 
-        public Def.ButtonGlygh ButtonPressed
-        {
-            get
-            {
-                Def.ButtonGlygh result = buttonPressed;
-                buttonPressed = Def.ButtonGlygh.None;
-                return result;
-            }
+        public int getTotalTouch() {
+            return touchCount;
         }
 
-        public bool ShowCheatMenu
-        {
-            get
-            {
-                return showCheatMenu;
-            }
-            set
-            {
-                showCheatMenu = value;
-            }
+        public Def.ButtonGlygh ButtonPressed() {
+            Def.ButtonGlygh result = buttonPressed;
+            buttonPressed = Def.ButtonGlygh.None;
+            return result;
+        }
+  
+        public boolean ShowCheatMenu() {
+            return isShowCheatMenu();
         }
 
-        private IEnumerable<Def.ButtonGlygh> ButtonGlyphs
-        {
-            get
-            {
+        public boolean isShowCheatMenu() {
+            return showCheatMenu;
+        }
+
+        public void setShowCheatMenu(boolean showCheatMenu) {
+            this.showCheatMenu = showCheatMenu;
+        }
+
+        public List_<Def.ButtonGlygh> ButtonGlyphs() {
+                List_<Def.ButtonGlygh> buttonGlyphs = new List_<>();
+            
                 switch (Phase)
                 {
-                    case Def.Phase.Init:
-                        yield return Def.ButtonGlygh.InitGamerA;
-                        yield return Def.ButtonGlygh.InitGamerB;
-                        yield return Def.ButtonGlygh.InitGamerC;
-                        yield return Def.ButtonGlygh.InitSetup;
-                        yield return Def.ButtonGlygh.InitPlay;
-                        if (game1.IsTrialMode)
+                    case Init:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.InitGamerA);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.InitGamerB);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.InitGamerC);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.InitSetup);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.InitPlay);
+                        if (game1.IsTrialMode())
                         {
-                            yield return Def.ButtonGlygh.InitBuy;
+                            buttonGlyphs.YieldReturn(Def.ButtonGlygh.InitBuy);
                         }
-                        if (game1.IsRankingMode)
+                        if (game1.IsRankingMode())
                         {
-                            yield return Def.ButtonGlygh.InitRanking;
+                            buttonGlyphs.YieldReturn(Def.ButtonGlygh.InitRanking);
                         }
                         break;
-                    case Def.Phase.Play:
-                        yield return Def.ButtonGlygh.PlayPause;
-                        yield return Def.ButtonGlygh.PlayAction;
-                        yield return Def.ButtonGlygh.PlayJump;
+                    case Play:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.PlayPause);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.PlayAction);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.PlayJump);
                         if (accelStarted)
                         {
-                            yield return Def.ButtonGlygh.PlayDown;
+                            buttonGlyphs.YieldReturn(Def.ButtonGlygh.PlayDown);
                         }
-                        yield return Def.ButtonGlygh.Cheat11;
-                        yield return Def.ButtonGlygh.Cheat12;
-                        yield return Def.ButtonGlygh.Cheat21;
-                        yield return Def.ButtonGlygh.Cheat22;
-                        yield return Def.ButtonGlygh.Cheat31;
-                        yield return Def.ButtonGlygh.Cheat32;
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat11);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat12);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat21);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat22);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat31);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat32);
                         break;
-                    case Def.Phase.Pause:
-                        yield return Def.ButtonGlygh.PauseMenu;
+                    case Pause:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.PauseMenu);
                         if (mission != 1)
                         {
-                            yield return Def.ButtonGlygh.PauseBack;
+                            buttonGlyphs.YieldReturn(Def.ButtonGlygh.PauseBack);
                         }
-                        yield return Def.ButtonGlygh.PauseSetup;
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.PauseSetup);
                         if (mission != 1 && mission % 10 != 0)
                         {
-                            yield return Def.ButtonGlygh.PauseRestart;
+                            buttonGlyphs.YieldReturn(Def.ButtonGlygh.PauseRestart);
                         }
-                        yield return Def.ButtonGlygh.PauseContinue;
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.PauseContinue);
                         break;
-                    case Def.Phase.Resume:
-                        yield return Def.ButtonGlygh.ResumeMenu;
-                        yield return Def.ButtonGlygh.ResumeContinue;
+                    case Resume:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.ResumeMenu);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.ResumeContinue);
                         break;
-                    case Def.Phase.Lost:
-                    case Def.Phase.Win:
-                        yield return Def.ButtonGlygh.WinLostReturn;
+                    case Lost:
+                    case Win:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.WinLostReturn);
                         break;
-                    case Def.Phase.Trial:
-                        yield return Def.ButtonGlygh.TrialBuy;
-                        yield return Def.ButtonGlygh.TrialCancel;
+                    case Trial:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.TrialBuy);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.TrialCancel);
                         break;
-                    case Def.Phase.MainSetup:
-                        yield return Def.ButtonGlygh.SetupSounds;
-                        yield return Def.ButtonGlygh.SetupJump;
-                        yield return Def.ButtonGlygh.SetupZoom;
-                        yield return Def.ButtonGlygh.SetupAccel;
-                        yield return Def.ButtonGlygh.SetupReset;
-                        yield return Def.ButtonGlygh.SetupReturn;
+                    case MainSetup:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupSounds);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupJump);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupZoom);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupAccel);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupReset);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupReturn);
                         break;
-                    case Def.Phase.PlaySetup:
-                        yield return Def.ButtonGlygh.SetupSounds;
-                        yield return Def.ButtonGlygh.SetupJump;
-                        yield return Def.ButtonGlygh.SetupZoom;
-                        yield return Def.ButtonGlygh.SetupAccel;
-                        yield return Def.ButtonGlygh.SetupReturn;
+                    case PlaySetup:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupSounds);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupJump);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupZoom);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupAccel);
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.SetupReturn);
                         break;
-                    case Def.Phase.Ranking:
-                        yield return Def.ButtonGlygh.RankingContinue;
+                    case Ranking:
+                        buttonGlyphs.YieldReturn(Def.ButtonGlygh.RankingContinue);
                         break;
                 }
                 if (showCheatMenu)
                 {
-                    yield return Def.ButtonGlygh.Cheat1;
-                    yield return Def.ButtonGlygh.Cheat2;
-                    yield return Def.ButtonGlygh.Cheat3;
-                    yield return Def.ButtonGlygh.Cheat4;
-                    yield return Def.ButtonGlygh.Cheat5;
-                    yield return Def.ButtonGlygh.Cheat6;
-                    yield return Def.ButtonGlygh.Cheat7;
-                    yield return Def.ButtonGlygh.Cheat8;
-                    yield return Def.ButtonGlygh.Cheat9;
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat1);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat2);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat3);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat4);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat5);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat6);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat7);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat8);
+                    buttonGlyphs.YieldReturn(Def.ButtonGlygh.Cheat9);
                 }
-            }
+                return buttonGlyphs;
+            
         }
 
-        private TinyPoint PadCenter
+        private TinyPoint PadCenter()
         {
-            get
-            {
-                TinyRect drawBounds = pixmap.DrawBounds;
-                if (gameData.JumpRight)
+                TinyRect drawBounds = pixmap.DrawBounds();
+                if (gameData.isJumpRight())
                 {
-                    TinyPoint result = default(TinyPoint);
+                     TinyPoint result = default_(new TinyPoint());
                     result.X = 100;
-                    result.Y = drawBounds.Height - 100;
+                    result.Y = drawBounds.Height() - 100;
                     return result;
                 }
-                TinyPoint result2 = default(TinyPoint);
-                result2.X = drawBounds.Width - 100;
-                result2.Y = drawBounds.Height - 100;
+                 TinyPoint result2 = default_(new TinyPoint());
+                result2.X = drawBounds.Width() - 100;
+                result2.Y = drawBounds.Height() - 100;
                 return result2;
-            }
+            
         }
 
         public InputPad(Game1 game1, Decor decor, Pixmap pixmap, Sound sound, GameData gameData)
@@ -214,18 +227,13 @@ namespace WindowsPhoneSpeedyBlupi
             this.pixmap = pixmap;
             this.sound = sound;
             this.gameData = gameData;
-            pressedGlyphs = new List<Def.ButtonGlygh>();
+            pressedGlyphs = new List_<>();
             accelSensor = AccelerometerFactory.Create();
-            accelSensor.CurrentValueChanged += HandleAccelSensorCurrentValueChanged;
-            accelSlider = new Slider
-            {
-                TopLeftCorner = new TinyPoint
-                {
-                    X = 320,
-                    Y = 400
-                },
-                Value = this.gameData.AccelSensitivity
-            };
+            accelSensor.CurrentValueChanged().addEventListener((e) -> HandleAccelSensorCurrentValueChanged(null, e));
+            accelSlider = new Slider(
+                new TinyPoint(320,400),
+                this.gameData.AccelSensitivity()
+            );
             lastButtonDown = Def.ButtonGlygh.None;
             buttonPressed = Def.ButtonGlygh.None;
         }
@@ -246,9 +254,9 @@ namespace WindowsPhoneSpeedyBlupi
         public void Update()
         {
             pressedGlyphs.Clear();
-            if (accelActive != gameData.AccelActive)
+            if (accelActive != gameData.AccelActive())
             {
-                accelActive = gameData.AccelActive;
+                accelActive = gameData.AccelActive();
                 if (accelActive)
                 {
                     StartAccel();
@@ -265,12 +273,12 @@ namespace WindowsPhoneSpeedyBlupi
             Def.ButtonGlygh buttonGlygh = Def.ButtonGlygh.None;
             TouchCollection touches = TouchPanel.GetState();
             touchCount = touches.Count;
-            List<TinyPoint> touchesOrClicks = new List<TinyPoint>();
-            foreach (TouchLocation item in touches)
+            List_<TinyPoint> touchesOrClicks = new List_<>();
+            for (TouchLocation item : touches)
             {
                 if (item.State == TouchLocationState.Pressed || item.State == TouchLocationState.Moved)
                 {
-                    TinyPoint tinyPoint = default(TinyPoint);
+                     TinyPoint tinyPoint = default_(new TinyPoint());
                     tinyPoint.X = (int)item.Position.X;
                     tinyPoint.Y = (int)item.Position.Y;
                     touchesOrClicks.Add(tinyPoint);
@@ -278,12 +286,12 @@ namespace WindowsPhoneSpeedyBlupi
             }
 
             MouseState mouseState = Mouse.GetState();
-            if (mouseState.LeftButton == ButtonState.Pressed)
+            if (mouseState.LeftButton() == ButtonState.Pressed)
             {
                 touchCount++;
                 TinyPoint click = new TinyPoint();
-                click.X = mouseState.X;
-                click.Y = mouseState.Y;
+                click.X = mouseState.X();
+                click.Y = mouseState.Y();
                 touchesOrClicks.Add(click);
             }
 
@@ -306,7 +314,7 @@ namespace WindowsPhoneSpeedyBlupi
             Boolean keyPressedDown = false;
             Boolean keyPressedLeft = false;
             Boolean keyPressedRight = false;
-            foreach (TinyPoint touchOrClick in touchesOrClicks)
+            for (TinyPoint touchOrClick : touchesOrClicks)
             {
                 Boolean keyboardPressed = false;
                 if (touchOrClick.X == -1)
@@ -321,7 +329,7 @@ namespace WindowsPhoneSpeedyBlupi
 
                 {
                     TinyPoint tinyPoint2 = keyboardPressed ? createTinyPoint(1, 1) : touchOrClick;
-                    if (!accelStarted && Misc.IsInside(GetPadBounds(PadCenter, padSize), tinyPoint2))
+                    if (!accelStarted && Misc.IsInside(GetPadBounds(PadCenter(), padSize), tinyPoint2))
                     {
                         padPressed = true;
                         padTouchPos = tinyPoint2;
@@ -333,7 +341,7 @@ namespace WindowsPhoneSpeedyBlupi
                     Debug.WriteLine("padPressed=" + padPressed);
                     Def.ButtonGlygh buttonGlygh2 = ButtonDetect(tinyPoint2);
                     Debug.WriteLine("buttonGlyph2 =" + buttonGlygh2);
-                    if (buttonGlygh2 != 0)
+                    if (buttonGlygh2.ordinal() != 0)
                     {
                         pressedGlyphs.Add(buttonGlygh2);
                     }
@@ -341,67 +349,67 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         switch (keyboardPress)
                         {
-                            case KeyboardPress.LeftControl: buttonGlygh2 = Def.ButtonGlygh.PlayJump; pressedGlyphs.Add(buttonGlygh2); break;
-                            case KeyboardPress.Space: buttonGlygh2 = Def.ButtonGlygh.PlayAction; pressedGlyphs.Add(buttonGlygh2); break;
+                            case LeftControl: buttonGlygh2 = Def.ButtonGlygh.PlayJump; pressedGlyphs.Add(buttonGlygh2); break;
+                            case Space: buttonGlygh2 = Def.ButtonGlygh.PlayAction; pressedGlyphs.Add(buttonGlygh2); break;
                         }
                     }
 
                     if ((Phase == Def.Phase.MainSetup || Phase == Def.Phase.PlaySetup) && accelSlider.Move(tinyPoint2))
                     {
-                        gameData.AccelSensitivity = accelSlider.Value;
+                        gameData.setAccelSensitivity(accelSlider.Value);
                     }
                     switch (buttonGlygh2)
                     {
-                        case Def.ButtonGlygh.PlayJump:
+                        case PlayJump:
                             Debug.WriteLine("Jumping detected");
                             accelWaitZero = false;
                             num3 |= 1;
                             break;
-                        case Def.ButtonGlygh.PlayDown:
+                        case PlayDown:
                             accelWaitZero = false;
                             num3 |= 4;
                             break;
-                        case Def.ButtonGlygh.InitGamerA:
-                        case Def.ButtonGlygh.InitGamerB:
-                        case Def.ButtonGlygh.InitGamerC:
-                        case Def.ButtonGlygh.InitSetup:
-                        case Def.ButtonGlygh.InitPlay:
-                        case Def.ButtonGlygh.InitBuy:
-                        case Def.ButtonGlygh.InitRanking:
-                        case Def.ButtonGlygh.WinLostReturn:
-                        case Def.ButtonGlygh.TrialBuy:
-                        case Def.ButtonGlygh.TrialCancel:
-                        case Def.ButtonGlygh.SetupSounds:
-                        case Def.ButtonGlygh.SetupJump:
-                        case Def.ButtonGlygh.SetupZoom:
-                        case Def.ButtonGlygh.SetupAccel:
-                        case Def.ButtonGlygh.SetupReset:
-                        case Def.ButtonGlygh.SetupReturn:
-                        case Def.ButtonGlygh.PauseMenu:
-                        case Def.ButtonGlygh.PauseBack:
-                        case Def.ButtonGlygh.PauseSetup:
-                        case Def.ButtonGlygh.PauseRestart:
-                        case Def.ButtonGlygh.PauseContinue:
-                        case Def.ButtonGlygh.PlayPause:
-                        case Def.ButtonGlygh.PlayAction:
-                        case Def.ButtonGlygh.ResumeMenu:
-                        case Def.ButtonGlygh.ResumeContinue:
-                        case Def.ButtonGlygh.RankingContinue:
-                        case Def.ButtonGlygh.Cheat11:
-                        case Def.ButtonGlygh.Cheat12:
-                        case Def.ButtonGlygh.Cheat21:
-                        case Def.ButtonGlygh.Cheat22:
-                        case Def.ButtonGlygh.Cheat31:
-                        case Def.ButtonGlygh.Cheat32:
-                        case Def.ButtonGlygh.Cheat1:
-                        case Def.ButtonGlygh.Cheat2:
-                        case Def.ButtonGlygh.Cheat3:
-                        case Def.ButtonGlygh.Cheat4:
-                        case Def.ButtonGlygh.Cheat5:
-                        case Def.ButtonGlygh.Cheat6:
-                        case Def.ButtonGlygh.Cheat7:
-                        case Def.ButtonGlygh.Cheat8:
-                        case Def.ButtonGlygh.Cheat9:
+                        case InitGamerA:
+                        case InitGamerB:
+                        case InitGamerC:
+                        case InitSetup:
+                        case InitPlay:
+                        case InitBuy:
+                        case InitRanking:
+                        case WinLostReturn:
+                        case TrialBuy:
+                        case TrialCancel:
+                        case SetupSounds:
+                        case SetupJump:
+                        case SetupZoom:
+                        case SetupAccel:
+                        case SetupReset:
+                        case SetupReturn:
+                        case PauseMenu:
+                        case PauseBack:
+                        case PauseSetup:
+                        case PauseRestart:
+                        case PauseContinue:
+                        case PlayPause:
+                        case PlayAction:
+                        case ResumeMenu:
+                        case ResumeContinue:
+                        case RankingContinue:
+                        case Cheat11:
+                        case Cheat12:
+                        case Cheat21:
+                        case Cheat22:
+                        case Cheat31:
+                        case Cheat32:
+                        case Cheat1:
+                        case Cheat2:
+                        case Cheat3:
+                        case Cheat4:
+                        case Cheat5:
+                        case Cheat6:
+                        case Cheat7:
+                        case Cheat8:
+                        case Cheat9:
                             accelWaitZero = false;
                             buttonGlygh = buttonGlygh2;
                             showCheatMenu = false;
@@ -409,23 +417,23 @@ namespace WindowsPhoneSpeedyBlupi
                     }
                 }
             }
-            if (buttonGlygh != 0 && buttonGlygh != Def.ButtonGlygh.PlayAction && buttonGlygh != Def.ButtonGlygh.Cheat11 && buttonGlygh != Def.ButtonGlygh.Cheat12 && buttonGlygh != Def.ButtonGlygh.Cheat21 && buttonGlygh != Def.ButtonGlygh.Cheat22 && buttonGlygh != Def.ButtonGlygh.Cheat31 && buttonGlygh != Def.ButtonGlygh.Cheat32 && lastButtonDown == Def.ButtonGlygh.None)
+            if (buttonGlygh.ordinal() != 0 && buttonGlygh != Def.ButtonGlygh.PlayAction && buttonGlygh != Def.ButtonGlygh.Cheat11 && buttonGlygh != Def.ButtonGlygh.Cheat12 && buttonGlygh != Def.ButtonGlygh.Cheat21 && buttonGlygh != Def.ButtonGlygh.Cheat22 && buttonGlygh != Def.ButtonGlygh.Cheat31 && buttonGlygh != Def.ButtonGlygh.Cheat32 && lastButtonDown == Def.ButtonGlygh.None)
             {
-                TinyPoint tinyPoint3 = default(TinyPoint);
+                 TinyPoint tinyPoint3 = default_(new TinyPoint());
                 tinyPoint3.X = 320;
                 tinyPoint3.Y = 240;
                 TinyPoint pos = tinyPoint3;
                 sound.PlayImage(0, pos);
             }
-            if (buttonGlygh == Def.ButtonGlygh.None && lastButtonDown != 0)
+            if (buttonGlygh == Def.ButtonGlygh.None && lastButtonDown.ordinal() != 0)
             {
                 buttonPressed = lastButtonDown;
             }
             lastButtonDown = buttonGlygh;
             if (padPressed)
             {
-                Debug.WriteLine("PadCenter.X=" + PadCenter.X);
-                Debug.WriteLine("PadCenter.Y=" + PadCenter.Y);
+                Debug.WriteLine("PadCenter.X=" + PadCenter().X);
+                Debug.WriteLine("PadCenter.Y=" + PadCenter().Y);
                 Debug.WriteLine("padTouchPos.X=" + padTouchPos.X);
                 Debug.WriteLine("padTouchPos.Y=" + padTouchPos.Y);
                 Debug.WriteLine("keyPressedUp=" + keyPressedUp);
@@ -435,32 +443,32 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     if (keyPressedUp)
                     {
-                        padTouchPos.Y = PadCenter.Y - 30;
-                        padTouchPos.X = PadCenter.X;
-                        if (keyPressedLeft) padTouchPos.X = PadCenter.X - 30;
-                        if (keyPressedRight) padTouchPos.X = PadCenter.X + 30;
+                        padTouchPos.Y = PadCenter().Y - 30;
+                        padTouchPos.X = PadCenter().X;
+                        if (keyPressedLeft) padTouchPos.X = PadCenter().X - 30;
+                        if (keyPressedRight) padTouchPos.X = PadCenter().X + 30;
                     }
                     if (keyPressedDown) { 
-                        padTouchPos.Y = PadCenter.Y + 30;
-                        padTouchPos.X = PadCenter.X;
-                        if (keyPressedLeft) padTouchPos.X = PadCenter.X - 30;
-                        if (keyPressedRight) padTouchPos.X = PadCenter.X + 30;
+                        padTouchPos.Y = PadCenter().Y + 30;
+                        padTouchPos.X = PadCenter().X;
+                        if (keyPressedLeft) padTouchPos.X = PadCenter().X - 30;
+                        if (keyPressedRight) padTouchPos.X = PadCenter().X + 30;
                     }
                     if (keyPressedLeft) { 
-                        padTouchPos.X = PadCenter.X - 30;
-                        padTouchPos.Y = PadCenter.Y;
-                        if (keyPressedUp) padTouchPos.Y = PadCenter.Y - 30;
-                        if (keyPressedDown) padTouchPos.Y = PadCenter.Y + 30;
+                        padTouchPos.X = PadCenter().X - 30;
+                        padTouchPos.Y = PadCenter().Y;
+                        if (keyPressedUp) padTouchPos.Y = PadCenter().Y - 30;
+                        if (keyPressedDown) padTouchPos.Y = PadCenter().Y + 30;
                     }
                     if (keyPressedRight) { 
-                        padTouchPos.X = PadCenter.X + 30;
-                        padTouchPos.Y = PadCenter.Y;
-                        if (keyPressedUp) padTouchPos.Y = PadCenter.Y - 30;
-                        if (keyPressedDown) padTouchPos.Y = PadCenter.Y + 30;
+                        padTouchPos.X = PadCenter().X + 30;
+                        padTouchPos.Y = PadCenter().Y;
+                        if (keyPressedUp) padTouchPos.Y = PadCenter().Y - 30;
+                        if (keyPressedDown) padTouchPos.Y = PadCenter().Y + 30;
                     }
                 }
-                double horizontalPosition = padTouchPos.X - PadCenter.X;
-                double verticalPosition = padTouchPos.Y - PadCenter.Y;
+                double horizontalPosition = padTouchPos.X - PadCenter().X;
+                double verticalPosition = padTouchPos.Y - PadCenter().Y;
 
                 if (horizontalPosition > 20.0)
                 {
@@ -490,7 +498,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 horizontalChange = accelSpeedX;
                 verticalChange = 0.0;
-                if (((uint)num3 & 4u) != 0)
+                if ((num3 & 4) != 0)
                 {
                     verticalChange = 1.0;
                 }
@@ -502,7 +510,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private Def.ButtonGlygh ButtonDetect(TinyPoint pos)
         {
-            foreach (Def.ButtonGlygh item in ButtonGlyphs.Reverse())
+            for (Def.ButtonGlygh item : ButtonGlyphs().Reverse())
             {
                 int value = 0;
                 if (item == Def.ButtonGlygh.PlayJump || item == Def.ButtonGlygh.PlayAction || item == Def.ButtonGlygh.PlayDown || item == Def.ButtonGlygh.PlayPause)
@@ -522,38 +530,38 @@ namespace WindowsPhoneSpeedyBlupi
         {
             if (!accelStarted && Phase == Def.Phase.Play)
             {
-                pixmap.DrawIcon(14, 0, GetPadBounds(PadCenter, padSize / 2), 1.0, false);
-                TinyPoint center = (padPressed ? padTouchPos : PadCenter);
+                pixmap.DrawIcon(14, 0, GetPadBounds(PadCenter(), padSize / 2), 1.0, false);
+                TinyPoint center = (padPressed ? padTouchPos : PadCenter());
                 pixmap.DrawIcon(14, 1, GetPadBounds(center, padSize / 2), 1.0, false);
             }
-            foreach (Def.ButtonGlygh buttonGlyph in ButtonGlyphs)
+            for (Def.ButtonGlygh buttonGlyph : ButtonGlyphs())
             {
-                bool pressed = pressedGlyphs.Contains(buttonGlyph);
-                bool selected = false;
-                if (buttonGlyph >= Def.ButtonGlygh.InitGamerA && buttonGlyph <= Def.ButtonGlygh.InitGamerC)
+                boolean pressed = pressedGlyphs.Contains(buttonGlyph);
+                boolean selected = false;
+                if (buttonGlyph.ordinal() >= Def.ButtonGlygh.InitGamerA.ordinal() && buttonGlyph.ordinal() <= Def.ButtonGlygh.InitGamerC.ordinal())
                 {
-                    int num = (int)(buttonGlyph - 1);
-                    selected = num == gameData.SelectedGamer;
+                    int num = (int)(buttonGlyph.ordinal() - 1);
+                    selected = num == gameData.SelectedGamer();
                 }
                 if (buttonGlyph == Def.ButtonGlygh.SetupSounds)
                 {
-                    selected = gameData.Sounds;
+                    selected = gameData.Sounds();
                 }
                 if (buttonGlyph == Def.ButtonGlygh.SetupJump)
                 {
-                    selected = gameData.JumpRight;
+                    selected = gameData.JumpRight();
                 }
                 if (buttonGlyph == Def.ButtonGlygh.SetupZoom)
                 {
-                    selected = gameData.AutoZoom;
+                    selected = gameData.AutoZoom();
                 }
                 if (buttonGlyph == Def.ButtonGlygh.SetupAccel)
                 {
-                    selected = gameData.AccelActive;
+                    selected = gameData.AccelActive();
                 }
                 pixmap.DrawInputButton(GetButtonRect(buttonGlyph), buttonGlyph, pressed, selected);
             }
-            if ((Phase == Def.Phase.MainSetup || Phase == Def.Phase.PlaySetup) && gameData.AccelActive)
+            if ((Phase == Def.Phase.MainSetup || Phase == Def.Phase.PlaySetup) && gameData.AccelActive())
             {
                 accelSlider.Draw(pixmap);
             }
@@ -561,7 +569,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private TinyRect GetPadBounds(TinyPoint center, int radius)
         {
-            TinyRect result = default(TinyRect);
+             TinyRect result = default_(new TinyRect());
             result.Left = center.X - radius;
             result.Right = center.X + radius;
             result.Top = center.Y - radius;
@@ -571,16 +579,16 @@ namespace WindowsPhoneSpeedyBlupi
 
         public TinyRect GetButtonRect(Def.ButtonGlygh glyph)
         {
-            TinyRect drawBounds = pixmap.DrawBounds;
-            double num = drawBounds.Width;
-            double num2 = drawBounds.Height;
+            TinyRect drawBounds = pixmap.DrawBounds();
+            double num = drawBounds.Width();
+            double num2 = drawBounds.Height();
             double num3 = num2 / 5.0;
             double num4 = num2 * 140.0 / 480.0;
             double num5 = num2 / 3.5;
-            if (glyph >= Def.ButtonGlygh.Cheat1 && glyph <= Def.ButtonGlygh.Cheat9)
+            if (glyph.ordinal() >= Def.ButtonGlygh.Cheat1.ordinal()&& glyph.ordinal() <= Def.ButtonGlygh.Cheat9.ordinal())
             {
-                int num6 = (int)(glyph - 35);
-                TinyRect result = default(TinyRect);
+                int num6 = (int)(glyph.ordinal() - 35);
+                TinyRect result = default_(new TinyRect());
                 result.Left = 80 * num6;
                 result.Right = 80 * (num6 + 1);
                 result.Top = 0;
@@ -589,325 +597,325 @@ namespace WindowsPhoneSpeedyBlupi
             }
             switch (glyph)
             {
-                case Def.ButtonGlygh.InitGamerA:
+                case InitGamerA:
                     {
-                        TinyRect result19 = default(TinyRect);
+                         TinyRect result19 = default_(new TinyRect());
                         result19.Left = (int)(20.0 + num4 * 0.0);
                         result19.Right = (int)(20.0 + num4 * 0.5);
                         result19.Top = (int)(num2 - 20.0 - num4 * 2.1);
                         result19.Bottom = (int)(num2 - 20.0 - num4 * 1.6);
                         return result19;
                     }
-                case Def.ButtonGlygh.InitGamerB:
+                case InitGamerB:
                     {
-                        TinyRect result18 = default(TinyRect);
+                         TinyRect result18 = default_(new TinyRect());
                         result18.Left = (int)(20.0 + num4 * 0.0);
                         result18.Right = (int)(20.0 + num4 * 0.5);
                         result18.Top = (int)(num2 - 20.0 - num4 * 1.6);
                         result18.Bottom = (int)(num2 - 20.0 - num4 * 1.1);
                         return result18;
                     }
-                case Def.ButtonGlygh.InitGamerC:
+                case InitGamerC:
                     {
-                        TinyRect result15 = default(TinyRect);
+                         TinyRect result15 = default_(new TinyRect());
                         result15.Left = (int)(20.0 + num4 * 0.0);
                         result15.Right = (int)(20.0 + num4 * 0.5);
                         result15.Top = (int)(num2 - 20.0 - num4 * 1.1);
                         result15.Bottom = (int)(num2 - 20.0 - num4 * 0.6);
                         return result15;
                     }
-                case Def.ButtonGlygh.InitSetup:
+                case InitSetup:
                     {
-                        TinyRect result14 = default(TinyRect);
+                         TinyRect result14 = default_(new TinyRect());
                         result14.Left = (int)(20.0 + num4 * 0.0);
                         result14.Right = (int)(20.0 + num4 * 0.5);
                         result14.Top = (int)(num2 - 20.0 - num4 * 0.5);
                         result14.Bottom = (int)(num2 - 20.0 - num4 * 0.0);
                         return result14;
                     }
-                case Def.ButtonGlygh.InitPlay:
+                case InitPlay:
                     {
-                        TinyRect result11 = default(TinyRect);
+                         TinyRect result11 = default_(new TinyRect());
                         result11.Left = (int)(num - 20.0 - num4 * 1.0);
                         result11.Right = (int)(num - 20.0 - num4 * 0.0);
                         result11.Top = (int)(num2 - 40.0 - num4 * 1.0);
                         result11.Bottom = (int)(num2 - 40.0 - num4 * 0.0);
                         return result11;
                     }
-                case Def.ButtonGlygh.InitBuy:
-                case Def.ButtonGlygh.InitRanking:
+                case InitBuy:
+                case InitRanking:
                     {
-                        TinyRect result10 = default(TinyRect);
+                         TinyRect result10 = default_(new TinyRect());
                         result10.Left = (int)(num - 20.0 - num4 * 0.75);
                         result10.Right = (int)(num - 20.0 - num4 * 0.25);
                         result10.Top = (int)(num2 - 20.0 - num4 * 2.1);
                         result10.Bottom = (int)(num2 - 20.0 - num4 * 1.6);
                         return result10;
                     }
-                case Def.ButtonGlygh.PauseMenu:
+                case PauseMenu:
                     {
-                        TinyRect result37 = default(TinyRect);
+                         TinyRect result37 = default_(new TinyRect());
                         result37.Left = (int)((double)PixmapOrigin.X + num4 * -0.21);
                         result37.Right = (int)((double)PixmapOrigin.X + num4 * 0.79);
                         result37.Top = (int)((double)PixmapOrigin.Y + num4 * 2.2);
                         result37.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.2);
                         return result37;
                     }
-                case Def.ButtonGlygh.PauseBack:
+                case PauseBack:
                     {
-                        TinyRect result36 = default(TinyRect);
+                         TinyRect result36 = default_(new TinyRect());
                         result36.Left = (int)((double)PixmapOrigin.X + num4 * 0.79);
                         result36.Right = (int)((double)PixmapOrigin.X + num4 * 1.79);
                         result36.Top = (int)((double)PixmapOrigin.Y + num4 * 2.2);
                         result36.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.2);
                         return result36;
                     }
-                case Def.ButtonGlygh.PauseSetup:
+                case PauseSetup:
                     {
-                        TinyRect result35 = default(TinyRect);
+                         TinyRect result35 = default_(new TinyRect());
                         result35.Left = (int)((double)PixmapOrigin.X + num4 * 1.79);
                         result35.Right = (int)((double)PixmapOrigin.X + num4 * 2.79);
                         result35.Top = (int)((double)PixmapOrigin.Y + num4 * 2.2);
                         result35.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.2);
                         return result35;
                     }
-                case Def.ButtonGlygh.PauseRestart:
+                case PauseRestart:
                     {
-                        TinyRect result34 = default(TinyRect);
+                         TinyRect result34 = default_(new TinyRect());
                         result34.Left = (int)((double)PixmapOrigin.X + num4 * 2.79);
                         result34.Right = (int)((double)PixmapOrigin.X + num4 * 3.79);
                         result34.Top = (int)((double)PixmapOrigin.Y + num4 * 2.2);
                         result34.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.2);
                         return result34;
                     }
-                case Def.ButtonGlygh.PauseContinue:
+                case PauseContinue:
                     {
-                        TinyRect result33 = default(TinyRect);
+                         TinyRect result33 = default_(new TinyRect());
                         result33.Left = (int)((double)PixmapOrigin.X + num4 * 3.79);
                         result33.Right = (int)((double)PixmapOrigin.X + num4 * 4.79);
                         result33.Top = (int)((double)PixmapOrigin.Y + num4 * 2.2);
                         result33.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.2);
                         return result33;
                     }
-                case Def.ButtonGlygh.ResumeMenu:
+                case ResumeMenu:
                     {
-                        TinyRect result32 = default(TinyRect);
+                         TinyRect result32 = default_(new TinyRect());
                         result32.Left = (int)((double)PixmapOrigin.X + num4 * 1.29);
                         result32.Right = (int)((double)PixmapOrigin.X + num4 * 2.29);
                         result32.Top = (int)((double)PixmapOrigin.Y + num4 * 2.2);
                         result32.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.2);
                         return result32;
                     }
-                case Def.ButtonGlygh.ResumeContinue:
+                case ResumeContinue:
                     {
-                        TinyRect result31 = default(TinyRect);
+                         TinyRect result31 = default_(new TinyRect());
                         result31.Left = (int)((double)PixmapOrigin.X + num4 * 2.29);
                         result31.Right = (int)((double)PixmapOrigin.X + num4 * 3.29);
                         result31.Top = (int)((double)PixmapOrigin.Y + num4 * 2.2);
                         result31.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.2);
                         return result31;
                     }
-                case Def.ButtonGlygh.WinLostReturn:
+                case WinLostReturn:
                     {
-                        TinyRect result30 = default(TinyRect);
+                         TinyRect result30 = default_(new TinyRect());
                         result30.Left = (int)((double)PixmapOrigin.X + num - num3 * 2.2);
                         result30.Right = (int)((double)PixmapOrigin.X + num - num3 * 1.2);
                         result30.Top = (int)((double)PixmapOrigin.Y + num3 * 0.2);
                         result30.Bottom = (int)((double)PixmapOrigin.Y + num3 * 1.2);
                         return result30;
                     }
-                case Def.ButtonGlygh.TrialBuy:
+                case TrialBuy:
                     {
-                        TinyRect result29 = default(TinyRect);
+                         TinyRect result29 = default_(new TinyRect());
                         result29.Left = (int)((double)PixmapOrigin.X + num4 * 2.5);
                         result29.Right = (int)((double)PixmapOrigin.X + num4 * 3.5);
                         result29.Top = (int)((double)PixmapOrigin.Y + num4 * 2.1);
                         result29.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.1);
                         return result29;
                     }
-                case Def.ButtonGlygh.TrialCancel:
+                case TrialCancel:
                     {
-                        TinyRect result28 = default(TinyRect);
+                         TinyRect result28 = default_(new TinyRect());
                         result28.Left = (int)((double)PixmapOrigin.X + num4 * 3.5);
                         result28.Right = (int)((double)PixmapOrigin.X + num4 * 4.5);
                         result28.Top = (int)((double)PixmapOrigin.Y + num4 * 2.1);
                         result28.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.1);
                         return result28;
                     }
-                case Def.ButtonGlygh.RankingContinue:
+                case RankingContinue:
                     {
-                        TinyRect result27 = default(TinyRect);
+                         TinyRect result27 = default_(new TinyRect());
                         result27.Left = (int)((double)PixmapOrigin.X + num4 * 3.5);
                         result27.Right = (int)((double)PixmapOrigin.X + num4 * 4.5);
                         result27.Top = (int)((double)PixmapOrigin.Y + num4 * 2.1);
                         result27.Bottom = (int)((double)PixmapOrigin.Y + num4 * 3.1);
                         return result27;
                     }
-                case Def.ButtonGlygh.SetupSounds:
+                case SetupSounds:
                     {
-                        TinyRect result26 = default(TinyRect);
+                         TinyRect result26 = default_(new TinyRect());
                         result26.Left = (int)(20.0 + num4 * 0.0);
                         result26.Right = (int)(20.0 + num4 * 0.5);
                         result26.Top = (int)(num2 - 20.0 - num4 * 2.0);
                         result26.Bottom = (int)(num2 - 20.0 - num4 * 1.5);
                         return result26;
                     }
-                case Def.ButtonGlygh.SetupJump:
+                case SetupJump:
                     {
-                        TinyRect result25 = default(TinyRect);
+                         TinyRect result25 = default_(new TinyRect());
                         result25.Left = (int)(20.0 + num4 * 0.0);
                         result25.Right = (int)(20.0 + num4 * 0.5);
                         result25.Top = (int)(num2 - 20.0 - num4 * 1.5);
                         result25.Bottom = (int)(num2 - 20.0 - num4 * 1.0);
                         return result25;
                     }
-                case Def.ButtonGlygh.SetupZoom:
+                case SetupZoom:
                     {
-                        TinyRect result24 = default(TinyRect);
+                         TinyRect result24 = default_(new TinyRect());
                         result24.Left = (int)(20.0 + num4 * 0.0);
                         result24.Right = (int)(20.0 + num4 * 0.5);
                         result24.Top = (int)(num2 - 20.0 - num4 * 1.0);
                         result24.Bottom = (int)(num2 - 20.0 - num4 * 0.5);
                         return result24;
                     }
-                case Def.ButtonGlygh.SetupAccel:
+                case SetupAccel:
                     {
-                        TinyRect result23 = default(TinyRect);
+                         TinyRect result23 = default_(new TinyRect());
                         result23.Left = (int)(20.0 + num4 * 0.0);
                         result23.Right = (int)(20.0 + num4 * 0.5);
                         result23.Top = (int)(num2 - 20.0 - num4 * 0.5);
                         result23.Bottom = (int)(num2 - 20.0 - num4 * 0.0);
                         return result23;
                     }
-                case Def.ButtonGlygh.SetupReset:
+                case SetupReset:
                     {
-                        TinyRect result22 = default(TinyRect);
+                         TinyRect result22 = default_(new TinyRect());
                         result22.Left = (int)(450.0 + num4 * 0.0);
                         result22.Right = (int)(450.0 + num4 * 0.5);
                         result22.Top = (int)(num2 - 20.0 - num4 * 2.0);
                         result22.Bottom = (int)(num2 - 20.0 - num4 * 1.5);
                         return result22;
                     }
-                case Def.ButtonGlygh.SetupReturn:
+                case SetupReturn:
                     {
-                        TinyRect result21 = default(TinyRect);
+                         TinyRect result21 = default_(new TinyRect());
                         result21.Left = (int)(num - 20.0 - num4 * 0.8);
                         result21.Right = (int)(num - 20.0 - num4 * 0.0);
                         result21.Top = (int)(num2 - 20.0 - num4 * 0.8);
                         result21.Bottom = (int)(num2 - 20.0 - num4 * 0.0);
                         return result21;
                     }
-                case Def.ButtonGlygh.PlayPause:
+                case PlayPause:
                     {
-                        TinyRect result20 = default(TinyRect);
+                         TinyRect result20 = default_(new TinyRect());
                         result20.Left = (int)(num - num3 * 0.7);
                         result20.Right = (int)(num - num3 * 0.2);
                         result20.Top = (int)(num3 * 0.2);
                         result20.Bottom = (int)(num3 * 0.7);
                         return result20;
                     }
-                case Def.ButtonGlygh.PlayAction:
+                case PlayAction:
                     {
-                        if (gameData.JumpRight)
+                        if (gameData.JumpRight())
                         {
-                            TinyRect result16 = default(TinyRect);
-                            result16.Left = (int)((double)drawBounds.Width - num3 * 1.2);
-                            result16.Right = (int)((double)drawBounds.Width - num3 * 0.2);
+                             TinyRect result16 = default_(new TinyRect());
+                            result16.Left = (int)((double)drawBounds.Width() - num3 * 1.2);
+                            result16.Right = (int)((double)drawBounds.Width() - num3 * 0.2);
                             result16.Top = (int)(num2 - num3 * 2.6);
                             result16.Bottom = (int)(num2 - num3 * 1.6);
                             return result16;
                         }
-                        TinyRect result17 = default(TinyRect);
+                         TinyRect result17 = default_(new TinyRect());
                         result17.Left = (int)(num3 * 0.2);
                         result17.Right = (int)(num3 * 1.2);
                         result17.Top = (int)(num2 - num3 * 2.6);
                         result17.Bottom = (int)(num2 - num3 * 1.6);
                         return result17;
                     }
-                case Def.ButtonGlygh.PlayJump:
+                case PlayJump:
                     {
-                        if (gameData.JumpRight)
+                        if (gameData.JumpRight())
                         {
-                            TinyRect result12 = default(TinyRect);
-                            result12.Left = (int)((double)drawBounds.Width - num3 * 1.2);
-                            result12.Right = (int)((double)drawBounds.Width - num3 * 0.2);
+                             TinyRect result12 = default_(new TinyRect());
+                            result12.Left = (int)((double)drawBounds.Width() - num3 * 1.2);
+                            result12.Right = (int)((double)drawBounds.Width() - num3 * 0.2);
                             result12.Top = (int)(num2 - num3 * 1.2);
                             result12.Bottom = (int)(num2 - num3 * 0.2);
                             return result12;
                         }
-                        TinyRect result13 = default(TinyRect);
+                         TinyRect result13 = default_(new TinyRect());
                         result13.Left = (int)(num3 * 0.2);
                         result13.Right = (int)(num3 * 1.2);
                         result13.Top = (int)(num2 - num3 * 1.2);
                         result13.Bottom = (int)(num2 - num3 * 0.2);
                         return result13;
                     }
-                case Def.ButtonGlygh.PlayDown:
+                case PlayDown:
                     {
-                        if (gameData.JumpRight)
+                        if (gameData.JumpRight())
                         {
-                            TinyRect result8 = default(TinyRect);
+                             TinyRect result8 = default_(new TinyRect());
                             result8.Left = (int)(num3 * 0.2);
                             result8.Right = (int)(num3 * 1.2);
                             result8.Top = (int)(num2 - num3 * 1.2);
                             result8.Bottom = (int)(num2 - num3 * 0.2);
                             return result8;
                         }
-                        TinyRect result9 = default(TinyRect);
-                        result9.Left = (int)((double)drawBounds.Width - num3 * 1.2);
-                        result9.Right = (int)((double)drawBounds.Width - num3 * 0.2);
+                         TinyRect result9 = default_(new TinyRect());
+                        result9.Left = (int)((double)drawBounds.Width() - num3 * 1.2);
+                        result9.Right = (int)((double)drawBounds.Width() - num3 * 0.2);
                         result9.Top = (int)(num2 - num3 * 1.2);
                         result9.Bottom = (int)(num2 - num3 * 0.2);
                         return result9;
                     }
-                case Def.ButtonGlygh.Cheat11:
+                case Cheat11:
                     {
-                        TinyRect result7 = default(TinyRect);
+                         TinyRect result7 = default_(new TinyRect());
                         result7.Left = (int)(num5 * 0.0);
                         result7.Right = (int)(num5 * 1.0);
                         result7.Top = (int)(num5 * 0.0);
                         result7.Bottom = (int)(num5 * 1.0);
                         return result7;
                     }
-                case Def.ButtonGlygh.Cheat12:
+                case Cheat12:
                     {
-                        TinyRect result6 = default(TinyRect);
+                         TinyRect result6 = default_(new TinyRect());
                         result6.Left = (int)(num5 * 0.0);
                         result6.Right = (int)(num5 * 1.0);
                         result6.Top = (int)(num5 * 1.0);
                         result6.Bottom = (int)(num5 * 2.0);
                         return result6;
                     }
-                case Def.ButtonGlygh.Cheat21:
+                case Cheat21:
                     {
-                        TinyRect result5 = default(TinyRect);
+                         TinyRect result5 = default_(new TinyRect());
                         result5.Left = (int)(num5 * 1.0);
                         result5.Right = (int)(num5 * 2.0);
                         result5.Top = (int)(num5 * 0.0);
                         result5.Bottom = (int)(num5 * 1.0);
                         return result5;
                     }
-                case Def.ButtonGlygh.Cheat22:
+                case Cheat22:
                     {
-                        TinyRect result4 = default(TinyRect);
+                         TinyRect result4 = default_(new TinyRect());
                         result4.Left = (int)(num5 * 1.0);
                         result4.Right = (int)(num5 * 2.0);
                         result4.Top = (int)(num5 * 1.0);
                         result4.Bottom = (int)(num5 * 2.0);
                         return result4;
                     }
-                case Def.ButtonGlygh.Cheat31:
+                case Cheat31:
                     {
-                        TinyRect result3 = default(TinyRect);
+                         TinyRect result3 = default_(new TinyRect());
                         result3.Left = (int)(num5 * 2.0);
                         result3.Right = (int)(num5 * 3.0);
                         result3.Top = (int)(num5 * 0.0);
                         result3.Bottom = (int)(num5 * 1.0);
                         return result3;
                     }
-                case Def.ButtonGlygh.Cheat32:
+                case Cheat32:
                     {
-                        TinyRect result2 = default(TinyRect);
+                         TinyRect result2 = default_(new TinyRect());
                         result2.Left = (int)(num5 * 2.0);
                         result2.Right = (int)(num5 * 3.0);
                         result2.Top = (int)(num5 * 1.0);
@@ -915,7 +923,7 @@ namespace WindowsPhoneSpeedyBlupi
                         return result2;
                     }
                 default:
-                    return default(TinyRect);
+                    return default_(new TinyRect());
             }
         }
 
@@ -926,11 +934,11 @@ namespace WindowsPhoneSpeedyBlupi
                 accelSensor.Start();
                 accelStarted = true;
             }
-            catch (AccelerometerFailedException)
+            catch (AccelerometerFailedException e)
             {
                 accelStarted = false;
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException e)
             {
                 accelStarted = false;
             }
@@ -944,7 +952,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     accelSensor.Stop();
                 }
-                catch (AccelerometerFailedException)
+                catch (AccelerometerFailedException e)
                 {
                 }
                 accelStarted = false;
@@ -952,21 +960,21 @@ namespace WindowsPhoneSpeedyBlupi
         }
 
 
-        private void HandleAccelSensorCurrentValueChanged(object sender, AccelerometerEventArgs e)
+        private void HandleAccelSensorCurrentValueChanged(Object sender, AccelerometerEventArgs e)
         {
             //IL_0001: Unknown result type (might be due to invalid IL or missing references)
             //IL_0006: Unknown result type (might be due to invalid IL or missing references)
 
-            float y = e.Y;
-            float num = (1f - (float)gameData.AccelSensitivity) * 0.06f + 0.04f;
+            float y = e.Y();
+            float num = (1f - (float)gameData.AccelSensitivity()) * 0.06f + 0.04f;
             float num2 = (accelLastState ? (num * 0.6f) : num);
             if (y > num2)
             {
-                accelSpeedX = 0.0 - Math.Min((double)y * 0.25 / (double)num + 0.25, 1.0);
+                accelSpeedX = 0.0 - Math_.Min((double)y * 0.25 / (double)num + 0.25, 1.0);
             }
             else if (y < 0f - num2)
             {
-                accelSpeedX = Math.Min((double)(0f - y) * 0.25 / (double)num + 0.25, 1.0);
+                accelSpeedX = Math_.Min((double)(0f - y) * 0.25 / (double)num + 0.25, 1.0);
             }
             else
             {
@@ -987,4 +995,3 @@ namespace WindowsPhoneSpeedyBlupi
         }
     }
 
-}

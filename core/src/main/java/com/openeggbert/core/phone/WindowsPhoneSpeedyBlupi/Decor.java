@@ -1,22 +1,54 @@
-﻿// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
+package com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi;
+
+// WindowsPhoneSpeedyBlupi, Version=1.0.0.5, Culture=neutral, PublicKeyToken=6db12cd62dbec439
 // WindowsPhoneSpeedyBlupi.Decor
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Media;
-using WindowsPhoneSpeedyBlupi;
-using static System.Net.Mime.MediaTypeNames;
+import com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.*;
+import com.openeggbert.jdotnet.System.*;
+import com.openeggbert.jdotnet.System.Collections.Generic.*;
+import com.openeggbert.core.phone.WindowsPhoneSpeedyBlupi.*;
+import static com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.default_.default_;
+import com.openeggbert.jdotnet.JDotNet.Pair;
+import com.openeggbert.jdotnet.JDotNet.UnusedCode;
+//
+//static
+import com.openeggbert.jdotnet.System.Net.Mime.MediaTypeNames.*;
+import java.util.ArrayList;
+import java.util.List;
+//
+//
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+    @namespace(name = "WindowsPhoneSpeedyBlupi")
 
-namespace WindowsPhoneSpeedyBlupi
-{
     public class Decor
     {
-        private struct Cellule
-        {
+
+        @AllArgsConstructor
+        @NoArgsConstructor
+        private class Cellule extends com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.struct<Cellule> {
+
             public int icon;
+
+            @Override
+            public Cellule copy() {
+                return new Cellule(icon);
+            }
+
+            @Override
+            public Cellule reset() {
+                this.icon = 0;
+                return this;
+            }
         }
 
-        private struct MoveObject
+
+
+        @AllArgsConstructor
+        @NoArgsConstructor
+        private class MoveObject extends com.openeggbert.jdotnet.JDotNet.CSharpKeyWords.struct<MoveObject>
         {
             public int type;
 
@@ -43,6 +75,32 @@ namespace WindowsPhoneSpeedyBlupi
             public int channel;
 
             public int icon;
+
+        @Override
+        public MoveObject copy() {
+            return new MoveObject(type, stepAdvance, stepRecede, timeStopStart, timeStopEnd, posStart.copy(), posEnd.copy(), posCurrent.copy(), step, time, phase, channel, icon);
+        }
+
+        @Override
+        public MoveObject reset() {
+
+             type = 0;
+             stepAdvance = 0;
+             stepRecede = 0;
+             timeStopStart = 0;
+             timeStopEnd = 0;
+             posStart = default_(new TinyPoint());
+             posEnd = default_(new TinyPoint());
+             posCurrent = default_(new TinyPoint());
+             step = 0;
+             time = 0;
+             phase = 0;
+             channel = 0;
+             icon = 0;
+            return this;
+        }
+            
+
         }
 
         private class ByeByeObject
@@ -66,25 +124,25 @@ namespace WindowsPhoneSpeedyBlupi
             public double speedX;
         }
 
-        private static readonly int MAXMOVEOBJECT = 200;
+        private static @readonly final int MAXMOVEOBJECT = 200;
 
-        private static readonly int MAXQUART = 441;
+        private static @readonly final int MAXQUART = 441;
 
-        private static readonly int SCROLL_SPEED = 8;
+        private static @readonly final int SCROLL_SPEED = 8;
 
-        private static readonly int SCROLL_MARGX = 80;
+        private static @readonly final int SCROLL_MARGX = 80;
 
-        private static readonly int SCROLL_MARGY = 40;
+        private static @readonly final int SCROLL_MARGY = 40;
 
-        private static readonly int BLUPIFLOOR = 2;
+        private static @readonly final int BLUPIFLOOR = 2;
 
-        private static readonly int BLUPIOFFY = 4 + BLUPIFLOOR;
+        private static @readonly final int BLUPIOFFY = 4 + BLUPIFLOOR;
 
-        private static readonly int BLUPISURF = 12;
+        private static @readonly final int BLUPISURF = 12;
 
-        private static readonly int BLUPISUSPEND = 12;
+        private static @readonly final int BLUPISUSPEND = 12;
 
-        private static readonly int OVERHEIGHT = 80;
+        private static @readonly final int OVERHEIGHT = 80;
 
         private Sound m_sound;
 
@@ -92,9 +150,9 @@ namespace WindowsPhoneSpeedyBlupi
 
         private GameData m_gameData;
 
-        private Cellule[,] m_decor = new Cellule[100, 100];
+        private Cellule[][] m_decor = new Cellule[100][100];
 
-        private Cellule[,] m_bigDecor = new Cellule[100, 100];
+        private Cellule[][] m_bigDecor = new Cellule[100][100];
 
         private int[] m_balleTraj = new int[1300];
 
@@ -118,7 +176,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int m_time;
 
-        private bool m_bPause;
+        private boolean m_bPause;
 
         private TinyRect m_drawBounds;
 
@@ -156,45 +214,45 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int m_blupiTransport;
 
-        private bool m_blupiFocus;
+        private boolean m_blupiFocus;
 
-        private bool m_blupiAir;
+        private boolean m_blupiAir;
 
-        private bool m_blupiHelico;
+        private boolean m_blupiHelico;
 
-        private bool m_blupiOver;
+        private boolean m_blupiOver;
 
-        private bool m_blupiJeep;
+        private boolean m_blupiJeep;
 
-        private bool m_blupiTank;
+        private boolean m_blupiTank;
 
-        private bool m_blupiSkate;
+        private boolean m_blupiSkate;
 
-        private bool m_blupiNage;
+        private boolean m_blupiNage;
 
-        private bool m_blupiSurf;
+        private boolean m_blupiSurf;
 
-        private bool m_blupiVent;
+        private boolean m_blupiVent;
 
-        private bool m_blupiSuspend;
+        private boolean m_blupiSuspend;
 
-        private bool m_blupiJumpAie;
+        private boolean m_blupiJumpAie;
 
-        private bool m_blupiShield;
+        private boolean m_blupiShield;
 
-        private bool m_blupiPower;
+        private boolean m_blupiPower;
 
-        private bool m_blupiCloud;
+        private boolean m_blupiCloud;
 
-        private bool m_blupiHide;
+        private boolean m_blupiHide;
 
-        private bool m_blupiInvert;
+        private boolean m_blupiInvert;
 
-        private bool m_blupiBalloon;
+        private boolean m_blupiBalloon;
 
-        private bool m_blupiEcrase;
+        private boolean m_blupiEcrase;
 
-        private bool m_blupiMotorHigh;
+        private boolean m_blupiMotorHigh;
 
         private int m_blupiMotorSound;
 
@@ -202,9 +260,9 @@ namespace WindowsPhoneSpeedyBlupi
 
         private TinyPoint m_blupiPosMagic;
 
-        private bool m_blupiRestart;
+        private boolean m_blupiRestart;
 
-        private bool m_blupiFront;
+        private boolean m_blupiFront;
 
         private int m_blupiBullet;
 
@@ -248,17 +306,17 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int m_blupiLevel;
 
-        private bool m_bFoundCle;
+        private boolean m_bFoundCle;
 
-        private bool m_bPrivate;
+        private boolean m_bPrivate;
 
-        private bool m_bCheatDoors;
+        private boolean m_bCheatDoors;
 
-        private bool m_bSuperBlupi;
+        private boolean m_bSuperBlupi;
 
-        private bool m_bDrawSecret;
+        private boolean m_bDrawSecret;
 
-        private bool m_buildOfficialMissions;
+        private boolean m_buildOfficialMissions;
 
         private int m_mission;
 
@@ -326,34 +384,32 @@ namespace WindowsPhoneSpeedyBlupi
 
         private double m_hotSpotOutLag;
 
-        private Random m_random;
+        private com.openeggbert.jdotnet.System.Random_ m_random;
 
         private List<ByeByeObject> byeByeObjects;
 
-        public TinyRect DrawBounds
-        {
-            get
-            {
-                return m_drawBounds;
-            }
-            set
-            {
-                m_drawBounds = value;
-            }
+        public TinyRect getDrawBounds() {
+            return m_drawBounds;
         }
 
-        public Def.ButtonGlygh ButtonPressed { get; set; }
+        public void setDrawBounds(TinyRect value) {
+            m_drawBounds = value;
+        }
 
-        private static void MoveObjectCopy(ref MoveObject dst, MoveObject src)
+        @Getter
+        @Setter
+        public Def.ButtonGlygh ButtonPressed;
+
+        private static void MoveObjectCopy(MoveObject dst, MoveObject src)
         {
             dst.type = src.type;
             dst.stepAdvance = src.stepAdvance;
             dst.stepRecede = src.stepRecede;
             dst.timeStopStart = src.timeStopStart;
             dst.timeStopEnd = src.timeStopEnd;
-            dst.posStart = src.posStart;
-            dst.posEnd = src.posEnd;
-            dst.posCurrent = src.posCurrent;
+            dst.posStart = src.posStart.copy();
+            dst.posEnd = src.posEnd.copy();
+            dst.posCurrent = src.posCurrent.copy();
             dst.step = src.step;
             dst.time = src.time;
             dst.phase = src.phase;
@@ -382,8 +438,8 @@ namespace WindowsPhoneSpeedyBlupi
             m_hotSpotCurrentZoom = 1.0;
             m_hotSpotCurrentX = 320.0;
             m_hotSpotCurrentY = 240.0;
-            m_random = new Random();
-            byeByeObjects = new List<ByeByeObject>();
+            m_random = new com.openeggbert.jdotnet.System.Random_();
+            byeByeObjects = new ArrayList<ByeByeObject>();
         }
 
         public void Create(Sound sound, Pixmap pixmap, GameData gameData)
@@ -395,7 +451,7 @@ namespace WindowsPhoneSpeedyBlupi
             m_lastKeyPress = 0;
             m_blupiMotorSound = 0;
             InitDecor();
-            TinyPoint pos = default(TinyPoint);
+            TinyPoint pos = default_(new TinyPoint());
             pos.X = 90;
             pos.Y = 450;
             m_jauges[0] = new Jauge();
@@ -408,9 +464,9 @@ namespace WindowsPhoneSpeedyBlupi
             m_jauges[1].SetHide(true);
         }
 
-        public bool LoadImages()
+        public boolean LoadImages()
         {
-            string name = string.Format("decor{0}", m_region.ToString("d3"));
+            String name = string.Format("decor{0}", int_.of(m_region).ToString("d3"));
             m_pixmap.BackgroundCache(name);
             return true;
         }
@@ -428,17 +484,17 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    m_decor[i, j].icon = -1;
-                    m_bigDecor[i, j].icon = -1;
+                    m_decor[i][j].icon = -1;
+                    m_bigDecor[i][j].icon = -1;
                 }
             }
-            m_decor[1, 4].icon = 40;
-            m_decor[2, 4].icon = 38;
-            m_decor[3, 4].icon = 38;
-            m_decor[4, 4].icon = 38;
-            m_decor[5, 4].icon = 38;
-            m_decor[6, 4].icon = 38;
-            m_decor[7, 4].icon = 39;
+            m_decor[1][4].icon = 40;
+            m_decor[2][4].icon = 38;
+            m_decor[3][4].icon = 38;
+            m_decor[4][4].icon = 38;
+            m_decor[5][4].icon = 38;
+            m_decor[6][4].icon = 38;
+            m_decor[7][4].icon = 39;
             for (int k = 0; k < MAXMOVEOBJECT; k++)
             {
                 m_moveObject[k].type = 0;
@@ -518,10 +574,10 @@ namespace WindowsPhoneSpeedyBlupi
             m_scrollAdd.X = 0;
             m_scrollAdd.Y = 0;
             m_term = 0;
-            byeByeObjects.Clear();
+            byeByeObjects.clear();
         }
 
-        public void PlayPrepare(bool bTest)
+        public void PlayPrepare(boolean bTest)
         {
             if (bTest)
             {
@@ -642,20 +698,22 @@ namespace WindowsPhoneSpeedyBlupi
                 BlupiStep();
                 MoveHotSpot();
                 AdaptMotorVehicleSound();
+                //todo: remove me
+                if(1 == 0) throw new Exception_();
             }
-            catch
+            catch (Exception_ e)
             {
             }
         }
 
         private void ResetHotSpot()
         {
-            m_pixmap.SetHotSpot(1.0, DrawBounds.Width / 2, DrawBounds.Height / 2);
+            m_pixmap.SetHotSpot(1.0, m_drawBounds.Width() / 2, m_drawBounds.Height() / 2);
         }
 
         private void MoveHotSpot()
         {
-            bool flag = false;
+            boolean flag = false;
             if (m_blupiSpeedX != 0.0)
             {
                 flag = true;
@@ -668,7 +726,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 flag = false;
             }
-            if (!m_gameData.AutoZoom)
+            if (!m_gameData.isAutoZoom())
             {
                 flag = false;
             }
@@ -700,38 +758,38 @@ namespace WindowsPhoneSpeedyBlupi
             else
             {
                 m_hotSpotFinalZoom = 1.0;
-                m_hotSpotFinalX = DrawBounds.Width / 2;
-                m_hotSpotFinalY = DrawBounds.Height / 2;
+                m_hotSpotFinalX = getDrawBounds().Width() / 2;
+                m_hotSpotFinalY = getDrawBounds().Height() / 2;
             }
             m_hotSpotStepZoom = 1.0 / 30.0;
             m_hotSpotStepX = 10.0;
             m_hotSpotStepY = 10.0;
             if (m_hotSpotCurrentZoom < m_hotSpotFinalZoom)
             {
-                m_hotSpotCurrentZoom = Math.Min(m_hotSpotCurrentZoom + m_hotSpotStepZoom, m_hotSpotFinalZoom);
+                m_hotSpotCurrentZoom = Math_.Min(m_hotSpotCurrentZoom + m_hotSpotStepZoom, m_hotSpotFinalZoom);
             }
             if (m_hotSpotCurrentZoom > m_hotSpotFinalZoom)
             {
-                m_hotSpotCurrentZoom = Math.Max(m_hotSpotCurrentZoom - m_hotSpotStepZoom, m_hotSpotFinalZoom);
+                m_hotSpotCurrentZoom = Math_.Max(m_hotSpotCurrentZoom - m_hotSpotStepZoom, m_hotSpotFinalZoom);
             }
             if (m_hotSpotCurrentX < m_hotSpotFinalX)
             {
-                m_hotSpotCurrentX = Math.Min(m_hotSpotCurrentX + m_hotSpotStepX, m_hotSpotFinalX);
+                m_hotSpotCurrentX = Math_.Min(m_hotSpotCurrentX + m_hotSpotStepX, m_hotSpotFinalX);
             }
             if (m_hotSpotCurrentX > m_hotSpotFinalX)
             {
-                m_hotSpotCurrentX = Math.Max(m_hotSpotCurrentX - m_hotSpotStepX, m_hotSpotFinalX);
+                m_hotSpotCurrentX = Math_.Max(m_hotSpotCurrentX - m_hotSpotStepX, m_hotSpotFinalX);
             }
             m_pixmap.SetHotSpot(m_hotSpotCurrentZoom, m_hotSpotCurrentX, m_hotSpotCurrentY);
         }
 
-        private bool BlitzActif(int celx, int cely)
+        private boolean BlitzActif(int celx, int cely)
         {
-            TinyPoint pos = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
             pos.X = celx * 64;
             pos.Y = cely * 64;
             int num = m_time % 100;
-            if (m_decor[celx, cely - 1].icon == 304 && (num == 0 || num == 7 || num == 18 || num == 25 || num == 33 || num == 44) && cely > 0)
+            if (m_decor[celx][ cely - 1].icon == 304 && (num == 0 || num == 7 || num == 18 || num == 25 || num == 33 || num == 44) && cely > 0)
             {
                 PlaySound(69, pos);
             }
@@ -745,13 +803,13 @@ namespace WindowsPhoneSpeedyBlupi
         public void Build()
         {
             TinyPoint posDecor = DecorNextAction();
-            TinyPoint pos = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
             pos.X = posDecor.X * 2 / 3;
             pos.Y = posDecor.Y * 2 / 3;
             int num = 1;
-            TinyPoint tinyPoint = default(TinyPoint);
+             TinyPoint tinyPoint = default_(new TinyPoint());
             tinyPoint.X = m_drawBounds.Left;
-            TinyRect rect = default(TinyRect);
+             TinyRect rect = default_(new TinyRect());
             rect.Left = pos.X % 640;
             rect.Right = 640;
             for (int i = 0; i < 3; i++)
@@ -762,11 +820,11 @@ namespace WindowsPhoneSpeedyBlupi
                 for (int j = 0; j < 2; j++)
                 {
                     m_pixmap.DrawPart(3, tinyPoint, rect);
-                    tinyPoint.Y += rect.Height - num;
+                    tinyPoint.Y += rect.Height() - num;
                     rect.Top = 0;
                     rect.Bottom = 480;
                 }
-                tinyPoint.X += rect.Width - num;
+                tinyPoint.X += rect.Width() - num;
                 rect.Left = 0;
                 rect.Right = 640;
                 if (tinyPoint.X > m_drawBounds.Right)
@@ -775,14 +833,14 @@ namespace WindowsPhoneSpeedyBlupi
                 }
             }
             tinyPoint.X = m_drawBounds.Left - posDecor.X % 64 - 64;
-            for (int i = posDecor.X / 64 - 1; i < posDecor.X / 64 + m_drawBounds.Width / 64 + 3; i++)
+            for (int i = posDecor.X / 64 - 1; i < posDecor.X / 64 + m_drawBounds.Width() / 64 + 3; i++)
             {
                 tinyPoint.Y = m_drawBounds.Top - posDecor.Y % 64 + 2 - 64;
-                for (int j = posDecor.Y / 64 - 1; j < posDecor.Y / 64 + m_drawBounds.Height / 64 + 2; j++)
+                for (int j = posDecor.Y / 64 - 1; j < posDecor.Y / 64 + m_drawBounds.Height() / 64 + 2; j++)
                 {
                     if (i >= 0 && i < 100 && j >= 0 && j < 100)
                     {
-                        int num2 = m_bigDecor[i, j].icon;
+                        int num2 = m_bigDecor[i][j].icon;
                         int channel = 9;
                         if (num2 != -1)
                         {
@@ -809,14 +867,14 @@ namespace WindowsPhoneSpeedyBlupi
                 tinyPoint.X += 64;
             }
             tinyPoint.X = m_drawBounds.Left - posDecor.X % 64;
-            for (int i = posDecor.X / 64; i < posDecor.X / 64 + m_drawBounds.Width / 64 + 2; i++)
+            for (int i = posDecor.X / 64; i < posDecor.X / 64 + m_drawBounds.Width() / 64 + 2; i++)
             {
                 tinyPoint.Y = m_drawBounds.Top - posDecor.Y % 64;
-                for (int j = posDecor.Y / 64; j < posDecor.Y / 64 + m_drawBounds.Height / 64 + 2; j++)
+                for (int j = posDecor.Y / 64; j < posDecor.Y / 64 + m_drawBounds.Height() / 64 + 2; j++)
                 {
-                    if (i >= 0 && i < 100 && j >= 0 && j < 100 && m_decor[i, j].icon != -1)
+                    if (i >= 0 && i < 100 && j >= 0 && j < 100 && m_decor[i][j].icon != -1)
                     {
-                        int num2 = m_decor[i, j].icon;
+                        int num2 = m_decor[i][j].icon;
                         if (num2 == 384 || num2 == 385)
                         {
                             m_pixmap.QuickIcon(1, num2, tinyPoint);
@@ -898,7 +956,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             for (int num3 = MAXMOVEOBJECT - 1; num3 >= 0; num3--)
             {
-                if (m_moveObject[num3].type != 0 && m_moveObject[num3].posCurrent.X >= posDecor.X - 64 && m_moveObject[num3].posCurrent.Y >= posDecor.Y - 64 && m_moveObject[num3].posCurrent.X <= posDecor.X + m_drawBounds.Width && m_moveObject[num3].posCurrent.Y <= posDecor.Y + m_drawBounds.Height && (m_moveObject[num3].type < 8 || m_moveObject[num3].type > 11) && (m_moveObject[num3].type < 90 || m_moveObject[num3].type > 95) && (m_moveObject[num3].type < 98 || m_moveObject[num3].type > 100) && m_moveObject[num3].type != 53 && m_moveObject[num3].type != 1 && m_moveObject[num3].type != 47 && m_moveObject[num3].type != 48)
+                if (m_moveObject[num3].type != 0 && m_moveObject[num3].posCurrent.X >= posDecor.X - 64 && m_moveObject[num3].posCurrent.Y >= posDecor.Y - 64 && m_moveObject[num3].posCurrent.X <= posDecor.X + m_drawBounds.Width() && m_moveObject[num3].posCurrent.Y <= posDecor.Y + m_drawBounds.Height() && (m_moveObject[num3].type < 8 || m_moveObject[num3].type > 11) && (m_moveObject[num3].type < 90 || m_moveObject[num3].type > 95) && (m_moveObject[num3].type < 98 || m_moveObject[num3].type > 100) && m_moveObject[num3].type != 53 && m_moveObject[num3].type != 1 && m_moveObject[num3].type != 47 && m_moveObject[num3].type != 48)
                 {
                     tinyPoint.X = m_drawBounds.Left + m_moveObject[num3].posCurrent.X - posDecor.X;
                     tinyPoint.Y = m_drawBounds.Top + m_moveObject[num3].posCurrent.Y - posDecor.Y;
@@ -919,11 +977,11 @@ namespace WindowsPhoneSpeedyBlupi
                     m_pixmap.QuickIcon(m_moveObject[num3].channel, m_moveObject[num3].icon, tinyPoint, opacity, 0.0);
                     if (m_moveObject[num3].type == 30)
                     {
-                        for (int l = 0; l < Tables.table_drinkoffset.Length; l++)
+                        for (int l = 0; l < Tables.table_drinkoffset.length; l++)
                         {
                             int num4 = (m_time + Tables.table_drinkoffset[l]) % 50;
                             int rank = Tables.table_drinkeffect[num4 % 5];
-                            TinyPoint tinyPoint2 = default(TinyPoint);
+                             TinyPoint tinyPoint2 = default_(new TinyPoint());
                             tinyPoint2.X = tinyPoint.X + 2;
                             tinyPoint2.Y = tinyPoint.Y - num4 * 3;
                             TinyPoint pos2 = tinyPoint2;
@@ -938,14 +996,14 @@ namespace WindowsPhoneSpeedyBlupi
                 }
             }
             tinyPoint.X = m_drawBounds.Left - posDecor.X % 64;
-            for (int i = posDecor.X / 64; i < posDecor.X / 64 + m_drawBounds.Width / 64 + 2; i++)
+            for (int i = posDecor.X / 64; i < posDecor.X / 64 + m_drawBounds.Width() / 64 + 2; i++)
             {
                 tinyPoint.Y = m_drawBounds.Top - posDecor.Y % 64;
-                for (int j = posDecor.Y / 64; j < posDecor.Y / 64 + m_drawBounds.Height / 64 + 2; j++)
+                for (int j = posDecor.Y / 64; j < posDecor.Y / 64 + m_drawBounds.Height() / 64 + 2; j++)
                 {
-                    if (i >= 0 && i < 100 && j >= 0 && j < 100 && m_decor[i, j].icon != -1)
+                    if (i >= 0 && i < 100 && j >= 0 && j < 100 && m_decor[i][j].icon != -1)
                     {
-                        int num2 = m_decor[i, j].icon;
+                        int num2 = m_decor[i][j].icon;
                         pos.X = tinyPoint.X;
                         pos.Y = tinyPoint.Y;
                         if ((num2 >= 107 && num2 <= 109) || num2 == 157)
@@ -1018,7 +1076,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             for (int num3 = 0; num3 < MAXMOVEOBJECT; num3++)
             {
-                if ((m_moveObject[num3].type == 1 || m_moveObject[num3].type == 47 || m_moveObject[num3].type == 48) && m_moveObject[num3].posCurrent.X >= posDecor.X - 64 && m_moveObject[num3].posCurrent.Y >= posDecor.Y - 64 && m_moveObject[num3].posCurrent.X <= posDecor.X + m_drawBounds.Width && m_moveObject[num3].posCurrent.Y <= posDecor.Y + m_drawBounds.Height)
+                if ((m_moveObject[num3].type == 1 || m_moveObject[num3].type == 47 || m_moveObject[num3].type == 48) && m_moveObject[num3].posCurrent.X >= posDecor.X - 64 && m_moveObject[num3].posCurrent.Y >= posDecor.Y - 64 && m_moveObject[num3].posCurrent.X <= posDecor.X + m_drawBounds.Width() && m_moveObject[num3].posCurrent.Y <= posDecor.Y + m_drawBounds.Height())
                 {
                     tinyPoint.X = m_drawBounds.Left + m_moveObject[num3].posCurrent.X - posDecor.X;
                     tinyPoint.Y = m_drawBounds.Top + m_moveObject[num3].posCurrent.Y - posDecor.Y;
@@ -1026,14 +1084,14 @@ namespace WindowsPhoneSpeedyBlupi
                 }
             }
             tinyPoint.X = m_drawBounds.Left - posDecor.X % 64;
-            for (int i = posDecor.X / 64; i < posDecor.X / 64 + m_drawBounds.Width / 64 + 2; i++)
+            for (int i = posDecor.X / 64; i < posDecor.X / 64 + m_drawBounds.Width() / 64 + 2; i++)
             {
                 tinyPoint.Y = m_drawBounds.Top - posDecor.Y % 64;
-                for (int j = posDecor.Y / 64; j < posDecor.Y / 64 + m_drawBounds.Height / 64 + 2; j++)
+                for (int j = posDecor.Y / 64; j < posDecor.Y / 64 + m_drawBounds.Height() / 64 + 2; j++)
                 {
-                    if (i >= 0 && i < 100 && j >= 0 && j < 100 && m_decor[i, j].icon != -1)
+                    if (i >= 0 && i < 100 && j >= 0 && j < 100 && m_decor[i][j].icon != -1)
                     {
-                        int num2 = m_decor[i, j].icon;
+                        int num2 = m_decor[i][j].icon;
                         pos = tinyPoint;
                         if (num2 == 68)
                         {
@@ -1052,11 +1110,11 @@ namespace WindowsPhoneSpeedyBlupi
                             m_pixmap.QuickIcon(1, num2, pos);
                             if (num2 >= 404 && num2 <= 407)
                             {
-                                m_decor[i, j].icon = 404;
+                                m_decor[i][j].icon = 404;
                             }
                             else
                             {
-                                m_decor[i, j].icon = 410;
+                                m_decor[i][j].icon = 410;
                             }
                         }
                         if (num2 == 317)
@@ -1138,7 +1196,7 @@ namespace WindowsPhoneSpeedyBlupi
             ByeByeDraw(posDecor);
             for (int num3 = 0; num3 < MAXMOVEOBJECT; num3++)
             {
-                if (m_moveObject[num3].type != 0 && m_moveObject[num3].posCurrent.X >= posDecor.X - 64 && m_moveObject[num3].posCurrent.Y >= posDecor.Y - 64 && m_moveObject[num3].posCurrent.X <= posDecor.X + m_drawBounds.Width && m_moveObject[num3].posCurrent.Y <= posDecor.Y + m_drawBounds.Height && ((m_moveObject[num3].type >= 8 && m_moveObject[num3].type <= 11) || (m_moveObject[num3].type >= 90 && m_moveObject[num3].type <= 95) || (m_moveObject[num3].type >= 98 && m_moveObject[num3].type <= 100) || m_moveObject[num3].type == 53))
+                if (m_moveObject[num3].type != 0 && m_moveObject[num3].posCurrent.X >= posDecor.X - 64 && m_moveObject[num3].posCurrent.Y >= posDecor.Y - 64 && m_moveObject[num3].posCurrent.X <= posDecor.X + m_drawBounds.Width() && m_moveObject[num3].posCurrent.Y <= posDecor.Y + m_drawBounds.Height() && ((m_moveObject[num3].type >= 8 && m_moveObject[num3].type <= 11) || (m_moveObject[num3].type >= 90 && m_moveObject[num3].type <= 95) || (m_moveObject[num3].type >= 98 && m_moveObject[num3].type <= 100) || m_moveObject[num3].type == 53))
                 {
                     tinyPoint.X = m_drawBounds.Left + m_moveObject[num3].posCurrent.X - posDecor.X;
                     tinyPoint.Y = m_drawBounds.Top + m_moveObject[num3].posCurrent.Y - posDecor.Y;
@@ -1158,7 +1216,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void DrawInfo()
         {
-            TinyPoint pos = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
             pos.X = 210;
             pos.Y = 417;
             for (int i = 0; i < m_nbVies; i++)
@@ -1178,7 +1236,7 @@ namespace WindowsPhoneSpeedyBlupi
                 pos.X = 0;
                 pos.Y = 438;
                 m_pixmap.HudIcon(4, 108, pos);
-                string text = string.Format("= {0}", m_blupiPerso.ToString());
+                String text = string.Format("= {0}", int_.of(m_blupiPerso).ToString());
                 pos.X = 32;
                 pos.Y = 452;
                 Text.DrawText(m_pixmap, pos, text, 0.7);
@@ -1189,19 +1247,19 @@ namespace WindowsPhoneSpeedyBlupi
                 pos.Y = 414;
                 m_pixmap.HudIcon(10, 252, pos);
             }
-            if (((uint)m_blupiCle & (true ? 1u : 0u)) != 0)
+            if ((m_blupiCle & (true ? 1 : 0)) != 0)
             {
                 pos.X = 520;
                 pos.Y = 418;
                 m_pixmap.HudIcon(10, 215, pos);
             }
-            if (((uint)m_blupiCle & 2u) != 0)
+            if ((m_blupiCle & 2) != 0)
             {
                 pos.X = 530;
                 pos.Y = 418;
                 m_pixmap.HudIcon(10, 222, pos);
             }
-            if (((uint)m_blupiCle & 4u) != 0)
+            if ((m_blupiCle & 4) != 0)
             {
                 pos.X = 540;
                 pos.Y = 418;
@@ -1209,14 +1267,14 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if ((m_mission != 1 && m_mission % 10 != 0) || m_bPrivate)
             {
-                TinyRect tinyRect = default(TinyRect);
-                tinyRect.Left = 410 + m_pixmap.Origin.X;
-                tinyRect.Right = 510 + m_pixmap.Origin.X;
+                 TinyRect tinyRect = default_(new TinyRect());
+                tinyRect.Left = 410 + m_pixmap.Origin().X;
+                tinyRect.Right = 510 + m_pixmap.Origin().X;
                 tinyRect.Top = 445;
                 tinyRect.Bottom = 480;
                 TinyRect rect = tinyRect;
                 m_pixmap.DrawIcon(14, 15, rect, 0.6, false);
-                string text = string.Format("{0}/{1}", m_nbTresor.ToString(), m_totalTresor.ToString());
+                String text = string.Format("{0}/{1}", int_.of(m_nbTresor).ToString(), int_.of(m_totalTresor).ToString());
                 pos.X = 460;
                 pos.Y = 450;
                 Text.DrawTextCenter(m_pixmap, pos, text, 1.0);
@@ -1256,23 +1314,23 @@ namespace WindowsPhoneSpeedyBlupi
                 if (num >= array[i] && num <= array[i + 1] && num2 >= array[i + 2] && num2 <= array[i + 3] && IsDisplayInfo(array[i + 4]))
                 {
                     int num3 = 0;
-                    if (m_gameData.AccelActive)
+                    if (m_gameData.isAccelActive())
                     {
                         num3 = 10000;
                     }
-                    string text = MyResource.LoadString(array[i + 5] + num3);
-                    if (!string.IsNullOrEmpty(text))
+                    String text = MyResource.LoadString(array[i + 5] + num3);
+                    if (!(text == null || text.isEmpty()))
                     {
-                        TinyRect drawBounds = m_pixmap.DrawBounds;
-                        TinyRect tinyRect2 = default(TinyRect);
+                        TinyRect drawBounds = m_pixmap.DrawBounds();
+                         TinyRect tinyRect2 = default_(new TinyRect());
                         tinyRect2.Left = 0;
-                        tinyRect2.Right = drawBounds.Width;
+                        tinyRect2.Right = drawBounds.Width();
                         tinyRect2.Top = 0;
                         tinyRect2.Bottom = 40;
                         TinyRect rect2 = tinyRect2;
                         m_pixmap.DrawIcon(14, 15, rect2, 1.0, false);
                         double num4 = Text.GetTextWidth(text, 1.0);
-                        double num5 = Math.Min(640.0 / num4, 1.0);
+                        double num5 = Math_.Min(640.0 / num4, 1.0);
                         pos.X = 320;
                         pos.Y = 5 + (int)((1.0 - num5) * 35.0 * 0.6);
                         Text.DrawTextCenter(m_pixmap, pos, text, num5);
@@ -1282,7 +1340,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private bool IsDisplayInfo(int tableTresor)
+        private boolean IsDisplayInfo(int tableTresor)
         {
             if (tableTresor >= 0)
             {
@@ -1329,7 +1387,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     posDecor.X += 3 * Tables.table_decor_action[i + 2 + m_decorPhase * 2];
                     posDecor.Y += 3 * Tables.table_decor_action[i + 2 + m_decorPhase * 2 + 1];
-                    int num = ((m_dimDecor.X != 0) ? (6400 - m_drawBounds.Width) : 0);
+                    int num = ((m_dimDecor.X != 0) ? (6400 - m_drawBounds.Width()) : 0);
                     if (posDecor.X < 0)
                     {
                         posDecor.X = 0;
@@ -1338,7 +1396,7 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         posDecor.X = num;
                     }
-                    num = ((m_dimDecor.Y != 0) ? (6400 - m_drawBounds.Height) : 0);
+                    num = ((m_dimDecor.Y != 0) ? (6400 - m_drawBounds.Height()) : 0);
                     if (posDecor.Y < 0)
                     {
                         posDecor.Y = 0;
@@ -1377,13 +1435,31 @@ namespace WindowsPhoneSpeedyBlupi
             m_keyPress = keyPress;
         }
 
-        private void GetBlupiInfo(out bool bHelico, out bool bJeep, out bool bSkate, out bool bNage)
-        {
-            bHelico = m_blupiHelico;
-            bJeep = m_blupiJeep | m_blupiTank;
-            bSkate = m_blupiSkate;
-            bNage = m_blupiNage | m_blupiSurf;
+        class BlupiInfo {
+
+            public boolean bHelico;
+            public boolean bJeep;
+            public boolean bSkate;
+            public boolean bNage;
+
+            public BlupiInfo(boolean bHelico, boolean bJeep, boolean bSkate, boolean bNage) {
+                this.bHelico = bHelico;
+                this.bJeep = bJeep;
+                this.bSkate = bSkate;
+                this.bNage = bNage;
+            }
         }
+
+        @UnusedCode
+        private BlupiInfo getBlupiInfo(/*out bool bHelico, out bool bJeep, out bool bSkate, out bool bNage*/) {
+            boolean bHelico = m_blupiHelico;
+            boolean bJeep = m_blupiJeep || m_blupiTank;
+            boolean bSkate = m_blupiSkate;
+            boolean bNage = m_blupiNage || m_blupiSurf;
+
+            return new BlupiInfo(bHelico, bJeep, bSkate, bNage);
+        }
+
 
         private int SoundEnviron(int sound, int obstacle)
         {
@@ -1598,27 +1674,27 @@ namespace WindowsPhoneSpeedyBlupi
             gameData.SetDoors(m_doors);
         }
 
-        public static string GetCheatTinyText(Def.ButtonGlygh glyph)
+        public static String GetCheatTinyText(Def.ButtonGlygh glyph)
         {
             switch (glyph)
             {
-                case Def.ButtonGlygh.Cheat1:
+                case Cheat1:
                     return "D";
-                case Def.ButtonGlygh.Cheat2:
+                case Cheat2:
                     return "B";
-                case Def.ButtonGlygh.Cheat3:
+                case Cheat3:
                     return "S";
-                case Def.ButtonGlygh.Cheat4:
+                case Cheat4:
                     return "E";
-                case Def.ButtonGlygh.Cheat5:
+                case Cheat5:
                     return "R";
-                case Def.ButtonGlygh.Cheat6:
+                case Cheat6:
                     return "T";
-                case Def.ButtonGlygh.Cheat7:
+                case Cheat7:
                     return "C";
-                case Def.ButtonGlygh.Cheat8:
+                case Cheat8:
                     return "T";
-                case Def.ButtonGlygh.Cheat9:
+                case Cheat9:
                     return "G";
                 default:
                     return "";
@@ -1893,7 +1969,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private void SetBuildOfficialMissions(bool bMode)
+        private void SetBuildOfficialMissions(boolean bMode)
         {
             m_buildOfficialMissions = bMode;
         }
@@ -2029,7 +2105,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     num2 = 41;
                 }
-                if (num2 == 38 && m_blupiSpeedX == 0.0 && Math.Abs(m_blupiVitesseX) > 5.0)
+                if (num2 == 38 && m_blupiSpeedX == 0.0 && Math_.Abs(m_blupiVitesseX) > 5.0)
                 {
                     num2 = 85;
                 }
@@ -2081,7 +2157,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     m_blupiRealRotation = 90 - m_blupiLogicRotation;
                 }
-                m_blupiRealRotation += (int)(Math.Sin((double)m_time / 6.0) * 20.0);
+                m_blupiRealRotation += (int)(Math_.Sin((double)m_time / 6.0) * 20.0);
             }
             if (m_blupiSurf)
             {
@@ -2099,7 +2175,7 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 m_blupiLogicRotation = Misc.Approch(m_blupiLogicRotation, 0, 10);
                 m_blupiRealRotation = m_blupiLogicRotation;
-                m_blupiRealRotation += (int)(Math.Sin((double)m_time / 10.0) * 10.0);
+                m_blupiRealRotation += (int)(Math_.Sin((double)m_time / 10.0) * 10.0);
             }
             if (m_blupiSuspend)
             {
@@ -2215,7 +2291,7 @@ namespace WindowsPhoneSpeedyBlupi
             m_blupiPhase++;
         }
 
-        private bool BlupiIsGround()
+        private boolean BlupiIsGround()
         {
             if (m_blupiTransport == -1)
             {
@@ -2229,7 +2305,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private TinyRect BlupiRect(TinyPoint pos)
         {
-            TinyRect result = default(TinyRect);
+             TinyRect result = default_(new TinyRect());
             if (m_blupiNage || m_blupiSurf)
             {
                 result.Left = pos.X + 12;
@@ -2365,7 +2441,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private bool BlupiBloque(TinyPoint pos, int dir)
+        private boolean BlupiBloque(TinyPoint pos, int dir)
         {
             TinyRect rect = BlupiRect(pos);
             rect.Top = rect.Bottom - 20;
@@ -2383,15 +2459,15 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void BlupiStep()
         {
-            TinyPoint celSwitch = default(TinyPoint);
-            TinyPoint celBridge = default(TinyPoint);
+             TinyPoint celSwitch = default_(new TinyPoint());
+             TinyPoint celBridge = default_(new TinyPoint());
             BlupiAdjust();
             m_blupiLastPos = m_blupiPos;
             TinyPoint end = m_blupiPos;
-            bool flag = m_blupiAir;
+            boolean flag = m_blupiAir;
             int blupiAction = m_blupiAction;
-            bool bVertigoLeft = false;
-            bool bVertigoRight = false;
+            boolean bVertigoLeft = false;
+            boolean bVertigoRight = false;
             end.X += m_blupiVector.X;
             end.Y += m_blupiVector.Y;
             if (m_blupiFocus && (end.Y + 30) / 64 >= 99)
@@ -2403,19 +2479,19 @@ namespace WindowsPhoneSpeedyBlupi
                 PlaySound(8, m_blupiPos);
                 return;
             }
-            TinyRect rect = default(TinyRect);
+             TinyRect rect = default_(new TinyRect());
             if (m_blupiVector.X != 0 || m_blupiVector.Y != 0)
             {
                 rect = BlupiRect(m_blupiPos);
                 rect.Top = m_blupiPos.Y + 11;
                 rect.Bottom = m_blupiPos.Y + 60 - 2;
-                TestPath(rect, m_blupiPos, ref end);
+                TestPath(rect, m_blupiPos, end);
             }
             m_blupiVent = false;
             int icon;
             if (m_blupiTransport == -1 && !m_blupiJeep && !m_blupiTank && !m_blupiSkate && m_blupiFocus)
             {
-                icon = m_decor[(end.X + 30) / 64, (end.Y + 30) / 64].icon;
+                icon = m_decor[(end.X + 30) / 64][(end.Y + 30) / 64].icon;
                 if (icon == 110)
                 {
                     end.X -= 9;
@@ -2439,10 +2515,10 @@ namespace WindowsPhoneSpeedyBlupi
                     rect.Right = m_blupiPos.X + 60 - 12;
                     rect.Top = m_blupiPos.Y + 11;
                     rect.Bottom = m_blupiPos.Y + 60 - 2;
-                    TestPath(rect, m_blupiPos, ref end);
+                    TestPath(rect, m_blupiPos, end);
                 }
             }
-            bool flag2;
+            boolean flag2;
             if (m_blupiTransport == -1)
             {
                 rect = BlupiRect(end);
@@ -2457,7 +2533,7 @@ namespace WindowsPhoneSpeedyBlupi
             rect = BlupiRect(end);
             rect.Top = end.Y + 10;
             rect.Bottom = end.Y + 20;
-            bool flag3 = DecorDetect(rect);
+            boolean flag3 = DecorDetect(rect);
             int detectIcon = m_detectIcon;
             if (!m_blupiAir && !m_blupiHelico && !m_blupiOver && !m_blupiBalloon && !m_blupiEcrase && !m_blupiJeep && !m_blupiTank && !m_blupiNage && !m_blupiSurf && !m_blupiSuspend && flag2 && m_blupiFocus)
             {
@@ -2534,7 +2610,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_blupiAction = 5;
                     m_blupiPhase = 0;
                 }
-                if (((uint)m_keyPress & (true ? 1u : 0u)) != 0 && m_blupiFocus)
+                if ((m_keyPress & (true ? 1 : 0)) != 0 && m_blupiFocus)
                 {
                     m_blupiVitesseY = (m_blupiPower ? (-25) : (-19));
                 }
@@ -2546,7 +2622,7 @@ namespace WindowsPhoneSpeedyBlupi
                 flag = true;
                 PlaySound(41, end);
             }
-            if (((uint)m_keyPress & (true ? 1u : 0u)) != 0 && !m_blupiHelico && !m_blupiOver && !m_blupiBalloon && !m_blupiEcrase && !m_blupiJeep && !m_blupiTank && !m_blupiNage && !m_blupiSurf && !m_blupiSuspend && m_blupiFocus)
+            if (((m_keyPress & (true ? 1 : 0)) != 0) && !m_blupiHelico && !m_blupiOver && !m_blupiBalloon && !m_blupiEcrase && !m_blupiJeep && !m_blupiTank && !m_blupiNage && !m_blupiSurf && !m_blupiSuspend && m_blupiFocus)
             {
                 if (m_blupiAction != 4 && m_blupiAction != 3 && !m_blupiAir)
                 {
@@ -2719,20 +2795,26 @@ namespace WindowsPhoneSpeedyBlupi
                 m_blupiPhase = 0;
                 m_blupiFocus = true;
             }
-            bool bNear;
+            boolean bNear;
             if (m_blupiAction == 48 && m_blupiPhase == 40)
             {
                 m_blupiAction = 1;
                 m_blupiPhase = 0;
                 m_blupiFocus = true;
-                icon = MoveObjectDetect(end, out bNear);
+                Pair<Integer,Boolean> resultOfMoveObjectDetect = MoveObjectDetect(end);
+                icon = resultOfMoveObjectDetect.getValue1();
+                bNear = resultOfMoveObjectDetect.getValue2();
                 if (icon != -1 && !bNear && end.Y - BLUPIFLOOR == m_moveObject[icon].posCurrent.Y)
                 {
                     if (m_blupiDir == 2 && end.X < m_moveObject[icon].posCurrent.X)
                     {
                         celSwitch.X = end.X - 16;
                         celSwitch.Y = end.Y;
-                        int num = MoveObjectDetect(celSwitch, out bNear);
+                        
+                        Pair<Integer, Boolean> resultOfMoveObjectDetect_ = MoveObjectDetect(celSwitch);
+                        int num = resultOfMoveObjectDetect_.getValue1();
+                        bNear = resultOfMoveObjectDetect_.getValue2();
+                        
                         if (num == -1)
                         {
                             m_blupiAction = 9;
@@ -2743,7 +2825,11 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         celSwitch.X = end.X + 16;
                         celSwitch.Y = end.Y;
-                        int num = MoveObjectDetect(celSwitch, out bNear);
+                        
+                        Pair<Integer, Boolean> resultOfMoveObjectDetect_ = MoveObjectDetect(celSwitch);
+                        int num = resultOfMoveObjectDetect_.getValue1();
+                        bNear = resultOfMoveObjectDetect_.getValue2();
+                        
                         if (num == -1)
                         {
                             m_blupiAction = 9;
@@ -2954,7 +3040,7 @@ namespace WindowsPhoneSpeedyBlupi
             int num3;
             if (m_blupiSpeedX < 0.0 && m_blupiFocus)
             {
-                if (m_blupiDir == 2 && m_blupiAction != 3 && m_blupiAction != 59 && m_blupiAction != 7 && m_blupiAction != 6 && m_blupiAction != 29 && ((!m_blupiJeep && !m_blupiTank && !m_blupiSkate) || Math.Abs(m_blupiVitesseX) <= 8.0))
+                if (m_blupiDir == 2 && m_blupiAction != 3 && m_blupiAction != 59 && m_blupiAction != 7 && m_blupiAction != 6 && m_blupiAction != 29 && ((!m_blupiJeep && !m_blupiTank && !m_blupiSkate) || Math_.Abs(m_blupiVitesseX) <= 8.0))
                 {
                     if (m_blupiAir)
                     {
@@ -3004,7 +3090,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_blupiSpeedX > 0.0 && m_blupiFocus)
             {
-                if (m_blupiDir == 1 && m_blupiAction != 3 && m_blupiAction != 59 && m_blupiAction != 7 && m_blupiAction != 6 && m_blupiAction != 29 && ((!m_blupiJeep && !m_blupiTank && !m_blupiSkate) || Math.Abs(m_blupiVitesseX) <= 8.0))
+                if (m_blupiDir == 1 && m_blupiAction != 3 && m_blupiAction != 59 && m_blupiAction != 7 && m_blupiAction != 6 && m_blupiAction != 29 && ((!m_blupiJeep && !m_blupiTank && !m_blupiSkate) || Math_.Abs(m_blupiVitesseX) <= 8.0))
                 {
                     if (m_blupiAir)
                     {
@@ -3264,7 +3350,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_blupiHelico && (m_blupiFocus || m_blupiAction == 58))
             {
-                if (((uint)m_keyPress & 2u) != 0 && m_blupiTimeFire == 0 && m_blupiAction != 3 && m_blupiAction != 58 && flag2)
+                if ((m_keyPress & 2) != 0 && m_blupiTimeFire == 0 && m_blupiAction != 3 && m_blupiAction != 58 && flag2)
                 {
                     if (m_blupiBullet == 0)
                     {
@@ -3291,9 +3377,9 @@ namespace WindowsPhoneSpeedyBlupi
                         m_blupiVitesseY = 0.0;
                     }
                 }
-                if (Def.EasyMove)
+                if (Def.EasyMove())
                 {
-                    if (m_blupiSpeedY <= -1.0 || ((uint)m_keyPress & (true ? 1u : 0u)) != 0)
+                    if (m_blupiSpeedY <= -1.0 || (m_keyPress & (true ? 1 : 0)) != 0)
                     {
                         if (m_blupiVitesseY > -7.0)
                         {
@@ -3326,7 +3412,7 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 else
                 {
-                    if (m_blupiSpeedY <= -1.0 || ((uint)m_keyPress & (true ? 1u : 0u)) != 0)
+                    if (m_blupiSpeedY <= -1.0 || (m_keyPress & (true ? 1 : 0)) != 0)
                     {
                         if (m_blupiVitesseY > -10.0)
                         {
@@ -3353,7 +3439,7 @@ namespace WindowsPhoneSpeedyBlupi
                     }
                     end.Y += (int)m_blupiVitesseY;
                 }
-                if (Def.EasyMove)
+                if (Def.EasyMove())
                 {
                     if (m_blupiSpeedX <= -1.0)
                     {
@@ -3507,13 +3593,13 @@ namespace WindowsPhoneSpeedyBlupi
                 rect = BlupiRect(end);
                 rect.Top = end.Y + 60 - 2;
                 rect.Bottom = end.Y + 60 + OVERHEIGHT - 1;
-                bool flag4 = !DecorDetect(rect);
+                boolean flag4 = !DecorDetect(rect);
                 icon = MoveAscenseurDetect(m_blupiPos, OVERHEIGHT);
                 if (icon != -1)
                 {
                     flag4 = false;
                 }
-                if ((m_blupiSpeedY < 0.0 || ((uint)m_keyPress & (true ? 1u : 0u)) != 0) && !flag4)
+                if ((m_blupiSpeedY < 0.0 || (m_keyPress & (true ? 1 : 0)) != 0) && !flag4)
                 {
                     if (m_blupiVitesseY == 0.0 && icon != -1)
                     {
@@ -3608,7 +3694,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_blupiBalloon && m_blupiFocus)
             {
-                if (m_blupiSpeedY < 0.0 || ((uint)m_keyPress & (true ? 1u : 0u)) != 0)
+                if (m_blupiSpeedY < 0.0 || (m_keyPress & (true ? 1 : 0)) != 0)
                 {
                     if (m_blupiVitesseY > -5.0 && m_time % 6 == 0)
                     {
@@ -3756,10 +3842,10 @@ namespace WindowsPhoneSpeedyBlupi
                 rect.Right -= 40;
                 rect.Top = end.Y + 60 - 2;
                 rect.Bottom = end.Y + 60 - 1;
-                bool flag5 = !DecorDetect(rect);
+                boolean flag5 = !DecorDetect(rect);
                 rect.Left += 40;
                 rect.Right += 40;
-                bool flag6 = !DecorDetect(rect);
+                boolean flag6 = !DecorDetect(rect);
                 if (flag2)
                 {
                     if (m_blupiVitesseY < 50.0)
@@ -3859,7 +3945,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     m_blupiRealRotation = 0;
                 }
-                m_blupiOffsetY = Math.Abs(m_blupiRealRotation / 2);
+                m_blupiOffsetY = Math_.Abs(m_blupiRealRotation / 2);
                 MoveObjectPollution();
                 if (ButtonPressed == Def.ButtonGlygh.PlayAction && !flag2 && m_blupiTransport == -1)
                 {
@@ -3883,7 +3969,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_blupiAction = 1;
                     m_blupiPhase = 0;
                 }
-                if (((uint)m_keyPress & 2u) != 0 && m_blupiTimeFire == 0 && m_blupiAction != 3)
+                if ((m_keyPress & 2) != 0 && m_blupiTimeFire == 0 && m_blupiAction != 3)
                 {
                     if (m_blupiBullet == 0)
                     {
@@ -4069,7 +4155,11 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (m_blupiPhase == 8)
                 {
-                    icon = MoveObjectDetect(m_blupiPos, out bNear);
+
+                    Pair<Integer, Boolean> resultOfMoveObjectDetect = MoveObjectDetect(m_blupiPos);
+                    icon = resultOfMoveObjectDetect.getValue1();
+                    bNear = resultOfMoveObjectDetect.getValue2();
+
                     if (icon != -1)
                     {
                         ObjectDelete(m_moveObject[icon].posCurrent, m_moveObject[icon].type);
@@ -4101,7 +4191,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (m_blupiTransport == -1)
                 {
-                    if (m_blupiSpeedY < 0.0 || ((uint)m_keyPress & (true ? 1u : 0u)) != 0)
+                    if (m_blupiSpeedY < 0.0 || (m_keyPress & (true ? 1 : 0)) != 0)
                     {
                         if (m_blupiVitesseY > -5.0)
                         {
@@ -4215,7 +4305,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (m_blupiTransport == -1)
                 {
-                    if (m_blupiSpeedY < 0.0 || ((uint)m_keyPress & (true ? 1u : 0u)) != 0)
+                    if (m_blupiSpeedY < 0.0 || (m_keyPress & (true ? 1 : 0)) != 0)
                     {
                         if (m_blupiVitesseY > -5.0)
                         {
@@ -4286,7 +4376,7 @@ namespace WindowsPhoneSpeedyBlupi
                 icon = Tables.table_vitesse_surf[m_blupiPhase % 12 / 2];
                 end.X += (int)(m_blupiVitesseX * (double)icon / 10.0);
             }
-            TinyPoint tinyPoint = default(TinyPoint);
+             TinyPoint tinyPoint = default_(new TinyPoint());
             if (m_blupiSuspend && m_blupiFocus)
             {
                 if (m_blupiSpeedX < 0.0 && m_blupiAction == 2)
@@ -4324,7 +4414,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_blupiActionOuf = 65;
                     m_blupiTimeOuf = 0;
                 }
-                if ((((uint)m_keyPress & (true ? 1u : 0u)) != 0 || m_blupiSpeedY < 0.0) && m_blupiAction != 4 && m_blupiAction != 3)
+                if (((m_keyPress & (true ? 1 : 0)) != 0 || m_blupiSpeedY < 0.0) && m_blupiAction != 4 && m_blupiAction != 3)
                 {
                     m_blupiAction = 4;
                     m_blupiPhase = 0;
@@ -4373,7 +4463,11 @@ namespace WindowsPhoneSpeedyBlupi
                 else if (m_blupiPerso > 0)
                 {
                     ButtonPressed = Def.ButtonGlygh.None;
-                    icon = MoveObjectDetect(end, out bNear);
+                    
+                    Pair<Integer, Boolean> resultOfMoveObjectDetect = MoveObjectDetect(end);
+                    icon = resultOfMoveObjectDetect.getValue1();
+                    bNear = resultOfMoveObjectDetect.getValue2();                
+                
                     if (icon == -1 || m_moveObject[icon].type != 200)
                     {
                         rect.Left = end.X + 18;
@@ -4406,33 +4500,33 @@ namespace WindowsPhoneSpeedyBlupi
             }
             rect = BlupiRect(m_blupiPos);
             tinyPoint = end;
-            TestPath(rect, m_blupiPos, ref end);
+            TestPath(rect, m_blupiPos, end);
             if (flag && m_blupiPos.X == end.X && m_blupiPos.X != tinyPoint.X)
             {
                 end.Y = tinyPoint.Y;
-                TestPath(rect, m_blupiPos, ref end);
+                TestPath(rect, m_blupiPos, end);
             }
             if (m_blupiVent && m_blupiPos.Y == end.Y && m_blupiPos.Y != tinyPoint.Y)
             {
                 end.X = tinyPoint.X;
-                TestPath(rect, m_blupiPos, ref end);
+                TestPath(rect, m_blupiPos, end);
             }
             if (m_blupiTransport != -1 && m_blupiPos.X == end.X && m_blupiPos.X != tinyPoint.X)
             {
                 end.Y = tinyPoint.Y;
-                TestPath(rect, m_blupiPos, ref end);
+                TestPath(rect, m_blupiPos, end);
             }
             if (m_blupiHelico || m_blupiOver || m_blupiBalloon || m_blupiEcrase || m_blupiJeep || m_blupiTank || m_blupiSkate || m_blupiNage)
             {
                 if (m_blupiPos.X == end.X && m_blupiPos.X != tinyPoint.X)
                 {
                     end.Y = tinyPoint.Y;
-                    TestPath(rect, m_blupiPos, ref end);
+                    TestPath(rect, m_blupiPos, end);
                 }
                 else if (m_blupiPos.Y == end.Y && m_blupiPos.Y != tinyPoint.Y)
                 {
                     end.X = tinyPoint.X;
-                    TestPath(rect, m_blupiPos, ref end);
+                    TestPath(rect, m_blupiPos, end);
                 }
             }
             TinyPoint blupiPos = m_blupiPos;
@@ -4441,7 +4535,9 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (m_blupiTransport != -1)
                 {
-                    AscenseurVertigo(m_blupiTransport, out bVertigoLeft, out bVertigoRight);
+                    VertigoStatus status = AscenseurVertigo(m_blupiTransport);
+                    bVertigoLeft = status.vertigoLeft;
+                    bVertigoRight = status.vertigoRight;
                 }
                 else
                 {
@@ -4498,7 +4594,9 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (m_blupiTransport != -1)
                 {
-                    AscenseurVertigo(m_blupiTransport, out bVertigoLeft, out bVertigoRight);
+                    VertigoStatus status = AscenseurVertigo(m_blupiTransport);
+                    bVertigoLeft = status.vertigoLeft;
+                    bVertigoRight = status.vertigoRight;
                 }
                 else
                 {
@@ -4528,7 +4626,9 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (m_blupiTransport != -1)
                 {
-                    AscenseurVertigo(m_blupiTransport, out bVertigoLeft, out bVertigoRight);
+                    VertigoStatus status = AscenseurVertigo(m_blupiTransport);
+                    bVertigoLeft = status.vertigoLeft;
+                    bVertigoRight = status.vertigoRight;
                 }
                 else
                 {
@@ -4558,7 +4658,9 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 if (m_blupiTransport != -1)
                 {
-                    AscenseurVertigo(m_blupiTransport, out bVertigoLeft, out bVertigoRight);
+                    VertigoStatus status = AscenseurVertigo(m_blupiTransport);
+                    bVertigoLeft = status.vertigoLeft;
+                    bVertigoRight = status.vertigoRight;
                 }
                 else
                 {
@@ -4750,7 +4852,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_jauges[1].SetLevel(m_blupiTimeShield);
                 }
             }
-            if (m_blupiPower && Math.Abs(m_blupiPos.X - m_blupiPosMagic.X) + Math.Abs(m_blupiPos.Y - m_blupiPosMagic.Y) >= 40)
+            if (m_blupiPower && Math_.Abs(m_blupiPos.X - m_blupiPosMagic.X) + Math_.Abs(m_blupiPos.Y - m_blupiPosMagic.Y) >= 40)
             {
                 icon = MoveObjectFree();
                 if (icon != -1)
@@ -4766,7 +4868,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_blupiPosMagic = m_blupiPos;
                 }
             }
-            if (m_blupiShield && Math.Abs(m_blupiPos.X - m_blupiPosMagic.X) + Math.Abs(m_blupiPos.Y - m_blupiPosMagic.Y) >= 40)
+            if (m_blupiShield && Math_.Abs(m_blupiPos.X - m_blupiPosMagic.X) + Math_.Abs(m_blupiPos.Y - m_blupiPosMagic.Y) >= 40)
             {
                 icon = MoveObjectFree();
                 if (icon != -1)
@@ -4782,7 +4884,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_blupiPosMagic = m_blupiPos;
                 }
             }
-            if (m_blupiHide && Math.Abs(m_blupiPos.X - m_blupiPosMagic.X) + Math.Abs(m_blupiPos.Y - m_blupiPosMagic.Y) >= 10)
+            if (m_blupiHide && Math_.Abs(m_blupiPos.X - m_blupiPosMagic.X) + Math_.Abs(m_blupiPos.Y - m_blupiPosMagic.Y) >= 10)
             {
                 icon = MoveObjectFree();
                 if (icon != -1)
@@ -4880,7 +4982,7 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 tinyPoint.X = m_blupiPos.X;
                 tinyPoint.Y = m_blupiPos.Y - 60;
-                if ((m_blupiSurf || m_blupiNage) && (m_blupiPos.Y % 64 == 64 - BLUPISURF || m_blupiPos.Y % 64 == 32) && IsOutWater(tinyPoint) && ((uint)m_keyPress & (true ? 1u : 0u)) != 0)
+                if ((m_blupiSurf || m_blupiNage) && (m_blupiPos.Y % 64 == 64 - BLUPISURF || m_blupiPos.Y % 64 == 32) && IsOutWater(tinyPoint) && (m_keyPress & (true ? 1 : 0)) != 0)
                 {
                     m_blupiNage = false;
                     m_blupiSurf = false;
@@ -5030,8 +5132,12 @@ namespace WindowsPhoneSpeedyBlupi
                     m_blupiFront = true;
                 }
             }
-            int num26 = MoveObjectDetect(m_blupiPos, out bNear);
-            TinyPoint tinyPoint2 = default(TinyPoint);
+            Pair<Integer, Boolean> resultOfMoveObjectDetect = MoveObjectDetect(m_blupiPos);
+            int num26 = resultOfMoveObjectDetect.getValue1();
+            bNear = resultOfMoveObjectDetect.getValue2();
+                
+                
+             TinyPoint tinyPoint2 = default_(new TinyPoint());
             if (m_blupiAction != 11 && m_blupiAction != 75 && m_blupiAction != 76 && m_blupiAction != 77 && m_blupiAction != 78 && m_blupiAction != 79 && m_blupiAction != 80 && m_blupiAction != 81)
             {
                 if (IsLave(m_blupiPos) && !m_blupiShield && !m_blupiHide && !m_bSuperBlupi)
@@ -5063,10 +5169,10 @@ namespace WindowsPhoneSpeedyBlupi
                     m_blupiRestart = true;
                     m_blupiAir = true;
                 }
-                if (ButtonPressed == Def.ButtonGlygh.PlayAction && (num26 == -1 || !bNear) && IsSwitch(m_blupiPos, ref celSwitch) && !m_blupiOver && !m_blupiBalloon && !m_blupiJeep && !m_blupiTank && !m_blupiSkate && !m_blupiShield && !m_blupiHide && !m_bSuperBlupi && m_blupiFocus)
+                if (ButtonPressed == Def.ButtonGlygh.PlayAction && (num26 == -1 || !bNear) && IsSwitch(m_blupiPos, celSwitch) && !m_blupiOver && !m_blupiBalloon && !m_blupiJeep && !m_blupiTank && !m_blupiSkate && !m_blupiShield && !m_blupiHide && !m_bSuperBlupi && m_blupiFocus)
                 {
                     ButtonPressed = Def.ButtonGlygh.None;
-                    ActiveSwitch(m_decor[celSwitch.X, celSwitch.Y].icon == 385, celSwitch);
+                    ActiveSwitch(m_decor[celSwitch.X][celSwitch.Y].icon == 385, celSwitch);
                     m_blupiAction = 82;
                     m_blupiPhase = 0;
                     m_blupiFocus = false;
@@ -5137,13 +5243,13 @@ namespace WindowsPhoneSpeedyBlupi
                     celSwitch.Y = m_blupiPos.Y - 5;
                     ObjectStart(celSwitch, 92, 0);
                 }
-                if (IsBridge(m_blupiPos, ref celBridge) && m_blupiFocus)
+                if (IsBridge(m_blupiPos, celBridge) && m_blupiFocus)
                 {
                     celBridge.X *= 64;
                     celBridge.Y *= 64;
                     ObjectStart(celBridge, 52, 0);
                 }
-                int num = IsDoor(m_blupiPos, ref celBridge);
+                int num = IsDoor(m_blupiPos, celBridge);
                 if (num != -1 && (m_blupiCle & (1 << num - 334)) != 0)
                 {
                     OpenDoor(celBridge);
@@ -5449,7 +5555,7 @@ namespace WindowsPhoneSpeedyBlupi
                     ObjectDelete(m_moveObject[icon].posCurrent, m_moveObject[icon].type);
                     celSwitch.X = m_moveObject[icon].posCurrent.X - m_posDecor.X;
                     celSwitch.Y = m_moveObject[icon].posCurrent.Y - m_posDecor.Y;
-                    TinyPoint end2 = default(TinyPoint);
+                     TinyPoint end2 = default_(new TinyPoint());
                     end2.X = 430;
                     end2.Y = 430;
                     VoyageInit(m_pixmap.HotSpotToHud(celSwitch), end2, 6, 10);
@@ -5463,7 +5569,7 @@ namespace WindowsPhoneSpeedyBlupi
                     ObjectDelete(m_moveObject[icon].posCurrent, m_moveObject[icon].type);
                     celSwitch.X = m_moveObject[icon].posCurrent.X - m_posDecor.X;
                     celSwitch.Y = m_moveObject[icon].posCurrent.Y - m_posDecor.Y;
-                    TinyPoint end3 = default(TinyPoint);
+                     TinyPoint end3 = default_(new TinyPoint());
                     end3.X = 520;
                     end3.Y = 418;
                     VoyageInit(m_pixmap.HotSpotToHud(celSwitch), end3, 215, 10);
@@ -5477,7 +5583,7 @@ namespace WindowsPhoneSpeedyBlupi
                     ObjectDelete(m_moveObject[icon].posCurrent, m_moveObject[icon].type);
                     celSwitch.X = m_moveObject[icon].posCurrent.X - m_posDecor.X;
                     celSwitch.Y = m_moveObject[icon].posCurrent.Y - m_posDecor.Y;
-                    TinyPoint end4 = default(TinyPoint);
+                     TinyPoint end4 = default_(new TinyPoint());
                     end4.X = 530;
                     end4.Y = 418;
                     VoyageInit(m_pixmap.HotSpotToHud(celSwitch), end4, 222, 10);
@@ -5491,7 +5597,7 @@ namespace WindowsPhoneSpeedyBlupi
                     ObjectDelete(m_moveObject[icon].posCurrent, m_moveObject[icon].type);
                     celSwitch.X = m_moveObject[icon].posCurrent.X - m_posDecor.X;
                     celSwitch.Y = m_moveObject[icon].posCurrent.Y - m_posDecor.Y;
-                    TinyPoint end5 = default(TinyPoint);
+                     TinyPoint end5 = default_(new TinyPoint());
                     end5.X = 540;
                     end5.Y = 418;
                     VoyageInit(m_pixmap.HotSpotToHud(celSwitch), end5, 229, 10);
@@ -5833,8 +5939,8 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_blupiAction == 74 && m_blupiPhase == 128)
             {
-                TinyPoint newpos = default(TinyPoint);
-                if (SearchTeleporte(m_blupiPos, ref newpos))
+                 TinyPoint newpos = default_(new TinyPoint());
+                if (SearchTeleporte(m_blupiPos, newpos))
                 {
                     m_blupiPos = newpos;
                     ObjectStart(m_blupiPos, 27, 20);
@@ -5945,7 +6051,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 StopSound(47);
             }
-            if (m_blupiFocus && !m_blupiAir && (!m_blupiHelico || BlupiIsGround()) && (!m_blupiOver || BlupiIsGround()) && !m_blupiBalloon && !m_blupiEcrase && !m_blupiShield && !m_blupiHide && !bVertigoLeft && !bVertigoRight && m_blupiTransport == -1 && !IsLave(m_blupiPos) && !IsPiege(m_blupiPos) && !IsGoutte(m_blupiPos, true) && !IsScie(m_blupiPos) && !IsBridge(m_blupiPos, ref celSwitch) && IsTeleporte(m_blupiPos) == -1 && !IsBlitz(m_blupiPos, true) && !IsTemp(m_blupiPos) && !IsBalleTraj(m_blupiPos) && !IsMoveTraj(m_blupiPos))
+            if (m_blupiFocus && !m_blupiAir && (!m_blupiHelico || BlupiIsGround()) && (!m_blupiOver || BlupiIsGround()) && !m_blupiBalloon && !m_blupiEcrase && !m_blupiShield && !m_blupiHide && !bVertigoLeft && !bVertigoRight && m_blupiTransport == -1 && !IsLave(m_blupiPos) && !IsPiege(m_blupiPos) && !IsGoutte(m_blupiPos, true) && !IsScie(m_blupiPos) && !IsBridge(m_blupiPos, celSwitch) && IsTeleporte(m_blupiPos) == -1 && !IsBlitz(m_blupiPos, true) && !IsTemp(m_blupiPos) && !IsBalleTraj(m_blupiPos) && !IsMoveTraj(m_blupiPos))
             {
                 if (m_blupiFifoNb > 0)
                 {
@@ -5955,8 +6061,8 @@ namespace WindowsPhoneSpeedyBlupi
             }
             end.X = m_blupiPos.X + 30 + m_scrollAdd.X;
             end.Y = m_blupiPos.Y + 30 + m_scrollAdd.Y;
-            int num27 = Math.Abs(m_scrollPoint.X - end.X);
-            int num28 = Math.Abs(m_scrollPoint.Y - end.Y);
+            int num27 = Math_.Abs(m_scrollPoint.X - end.X);
+            int num28 = Math_.Abs(m_scrollPoint.Y - end.Y);
             num3 = SCROLL_SPEED;
             if (num27 > SCROLL_MARGX * 2)
             {
@@ -6049,8 +6155,8 @@ namespace WindowsPhoneSpeedyBlupi
             StopSound(18);
             StopSound(29);
             StopSound(31);
-            TinyPoint pos = default(TinyPoint);
-            TinyPoint pos2 = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
+             TinyPoint pos2 = default_(new TinyPoint());
             if (m_blupiAction == 75)
             {
                 pos.X = m_blupiPos.X - m_posDecor.X;
@@ -6080,16 +6186,16 @@ namespace WindowsPhoneSpeedyBlupi
 
         private TinyPoint GetPosDecor(TinyPoint pos)
         {
-            TinyPoint result = default(TinyPoint);
+             TinyPoint result = default_(new TinyPoint());
             if (m_dimDecor.X == 0)
             {
                 result.X = 0;
             }
             else
             {
-                result.X = pos.X - m_drawBounds.Width / 2;
-                result.X = Math.Max(result.X, 0);
-                result.X = Math.Min(result.X, 6400 - m_drawBounds.Width);
+                result.X = pos.X - m_drawBounds.Width() / 2;
+                result.X = Math_.Max(result.X, 0);
+                result.X = Math_.Min(result.X, 6400 - m_drawBounds.Width());
             }
             if (m_dimDecor.Y == 0)
             {
@@ -6097,9 +6203,9 @@ namespace WindowsPhoneSpeedyBlupi
             }
             else
             {
-                result.Y = pos.Y - m_drawBounds.Height / 2;
-                result.Y = Math.Max(result.Y, 0);
-                result.Y = Math.Min(result.Y, 6400 - m_drawBounds.Height);
+                result.Y = pos.Y - m_drawBounds.Height() / 2;
+                result.Y = Math_.Max(result.Y, 0);
+                result.Y = Math_.Min(result.Y, 6400 - m_drawBounds.Height());
             }
             return result;
         }
@@ -6124,12 +6230,12 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private bool DecorDetect(TinyRect rect)
+        private boolean DecorDetect(TinyRect rect)
         {
             return DecorDetect(rect, true);
         }
 
-        private bool DecorDetect(TinyRect rect, bool bCaisse)
+        private boolean DecorDetect(TinyRect rect, boolean bCaisse)
         {
             m_detectIcon = -1;
             if (rect.Left < 0 || rect.Top < 0)
@@ -6153,8 +6259,8 @@ namespace WindowsPhoneSpeedyBlupi
             int num3 = (rect.Right + 16 - 1) / 16;
             int num4 = rect.Top / 16;
             int num5 = (rect.Bottom + 16 - 1) / 16;
-            TinyRect src = default(TinyRect);
-            TinyRect dst;
+             TinyRect src = default_(new TinyRect());
+             TinyRect dst = default_(new TinyRect());
             for (int i = num4; i <= num5; i++)
             {
                 for (int j = num2; j <= num3; j++)
@@ -6165,7 +6271,7 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         continue;
                     }
-                    int icon = m_decor[num6, num7].icon;
+                    int icon = m_decor[num6][num7].icon;
                     if (icon < 0 || icon >= MAXQUART || (m_blupiHelico && icon == 214) || (m_blupiOver && icon == 214) || (icon == 324 && m_time / 4 % 20 >= 18))
                     {
                         continue;
@@ -6178,7 +6284,7 @@ namespace WindowsPhoneSpeedyBlupi
                         src.Right = src.Left + 16;
                         src.Top = i * 16;
                         src.Bottom = src.Top + 16;
-                        if (Misc.IntersectRect(out dst, src, rect))
+                        if (Misc.IntersectRect(dst, src, rect))
                         {
                             m_detectIcon = icon;
                             return true;
@@ -6197,7 +6303,7 @@ namespace WindowsPhoneSpeedyBlupi
                 src.Right = m_moveObject[num8].posCurrent.X + 64;
                 src.Top = m_moveObject[num8].posCurrent.Y;
                 src.Bottom = m_moveObject[num8].posCurrent.Y + 64;
-                if (Misc.IntersectRect(out dst, src, rect))
+                if (Misc.IntersectRect(dst, src, rect))
                 {
                     m_detectIcon = m_moveObject[num8].icon;
                     return true;
@@ -6206,12 +6312,12 @@ namespace WindowsPhoneSpeedyBlupi
             return false;
         }
 
-        private bool TestPath(TinyRect rect, TinyPoint start, ref TinyPoint end)
+        private boolean TestPath(TinyRect rect, TinyPoint start, TinyPoint end)
         {
-            int num = Math.Abs(end.X - start.X);
-            int num2 = Math.Abs(end.Y - start.Y);
+            int num = Math_.Abs(end.X - start.X);
+            int num2 = Math_.Abs(end.Y - start.Y);
             TinyPoint tinyPoint = start;
-            TinyRect rect2 = default(TinyRect);
+             TinyRect rect2 = default_(new TinyRect());
             if (num > num2)
             {
                 if (end.X > start.X)
@@ -6295,9 +6401,9 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void MoveObjectPollution()
         {
-            bool flag = false;
+            boolean flag = false;
             TinyPoint blupiPos = m_blupiPos;
-            TinyPoint tinyPoint = default(TinyPoint);
+             TinyPoint tinyPoint = default_(new TinyPoint());
             tinyPoint.X = 0;
             tinyPoint.Y = 0;
             int num = 20;
@@ -6330,7 +6436,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_blupiOver)
             {
-                if (m_blupiSpeedY < 0.0 || ((uint)m_keyPress & (true ? 1u : 0u)) != 0)
+                if (m_blupiSpeedY < 0.0 || (m_keyPress & (true ? 1 : 0)) != 0)
                 {
                     if (m_time % 20 != 0 && m_time % 20 != 2 && m_time % 20 != 5 && m_time % 20 != 8 && m_time % 20 != 11 && m_time % 20 != 13 && m_time % 20 != 14 && m_time % 20 != 18)
                     {
@@ -6447,7 +6553,7 @@ namespace WindowsPhoneSpeedyBlupi
             TinyPoint tinyPoint = pos;
             while (tinyPoint.Y > 0)
             {
-                int icon = m_decor[(tinyPoint.X + 16) / 64, tinyPoint.Y / 64].icon;
+                int icon = m_decor[(tinyPoint.X + 16) / 64][ tinyPoint.Y / 64].icon;
                 if (icon != 91 && icon != 92)
                 {
                     break;
@@ -6485,7 +6591,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return -1;
             }
-            int icon = m_decor[pos.X / 64, pos.Y / 64].icon;
+            int icon = m_decor[pos.X / 64][ pos.Y / 64].icon;
             if (icon >= 158 && icon <= 165)
             {
                 return icon - 158 + 1;
@@ -6522,9 +6628,9 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private void ActiveSwitch(bool bState, TinyPoint cel)
+        private void ActiveSwitch(boolean bState, TinyPoint cel)
         {
-            TinyPoint pos = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
             pos.X = cel.X * 64;
             pos.Y = cel.Y * 64;
             ModifDecor(pos, bState ? 384 : 385);
@@ -6532,7 +6638,7 @@ namespace WindowsPhoneSpeedyBlupi
             cel.X -= 20;
             for (int i = 0; i < 41; i++)
             {
-                if (cel.X >= 0 && cel.X < 100 && m_decor[cel.X, cel.Y].icon == (bState ? 379 : 378))
+                if (cel.X >= 0 && cel.X < 100 && m_decor[cel.X][ cel.Y].icon == (bState ? 379 : 378))
                 {
                     pos.X = cel.X * 64;
                     pos.Y = cel.Y * 64;
@@ -6555,7 +6661,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return 0;
             }
-            int icon = m_decor[pos.X / 64, pos.Y / 64].icon;
+            int icon = m_decor[pos.X / 64][ pos.Y / 64].icon;
             if (icon != 138 && icon != 202)
             {
                 return 0;
@@ -6564,7 +6670,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return 1;
             }
-            icon = m_decor[pos.X / 64, pos.Y / 64 + 1].icon;
+            icon = m_decor[pos.X / 64][ pos.Y / 64 + 1].icon;
             if (!IsPassIcon(icon))
             {
                 return 2;
@@ -6579,17 +6685,17 @@ namespace WindowsPhoneSpeedyBlupi
             return 1;
         }
 
-        private bool IsLave(TinyPoint pos)
+        private boolean IsLave(TinyPoint pos)
         {
             pos.X += 30;
             if (pos.X < 0 || pos.X >= 6400 || pos.Y < 0 || pos.Y >= 6400)
             {
                 return false;
             }
-            return m_decor[pos.X / 64, pos.Y / 64].icon == 68;
+            return m_decor[pos.X / 64][ pos.Y / 64].icon == 68;
         }
 
-        private bool IsPiege(TinyPoint pos)
+        private boolean IsPiege(TinyPoint pos)
         {
             pos.X += 30;
             pos.Y += 60;
@@ -6601,10 +6707,10 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return false;
             }
-            return m_decor[pos.X / 64, pos.Y / 64].icon == 373;
+            return m_decor[pos.X / 64][ pos.Y / 64].icon == 373;
         }
 
-        private bool IsGoutte(TinyPoint pos, bool bAlways)
+        private boolean IsGoutte(TinyPoint pos, boolean bAlways)
         {
             pos.X += 30;
             if (pos.X % 64 < 15 || pos.X % 64 > 49)
@@ -6615,7 +6721,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return false;
             }
-            int icon = m_decor[pos.X / 64, pos.Y / 64].icon;
+            int icon = m_decor[pos.X / 64][ pos.Y / 64].icon;
             if (bAlways)
             {
                 if (icon != 404)
@@ -6627,7 +6733,7 @@ namespace WindowsPhoneSpeedyBlupi
             return icon == 404;
         }
 
-        private bool IsScie(TinyPoint pos)
+        private boolean IsScie(TinyPoint pos)
         {
             pos.X += 30;
             if (pos.X % 64 < 4 || pos.X % 64 > 60)
@@ -6638,10 +6744,10 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return false;
             }
-            return m_decor[pos.X / 64, pos.Y / 64].icon == 378;
+            return m_decor[pos.X / 64][ pos.Y / 64].icon == 378;
         }
 
-        private bool IsSwitch(TinyPoint pos, ref TinyPoint celSwitch)
+        private boolean IsSwitch(TinyPoint pos, TinyPoint celSwitch)
         {
             pos.X += 30;
             if (pos.X % 64 < 4 || pos.X % 64 > 60)
@@ -6654,14 +6760,14 @@ namespace WindowsPhoneSpeedyBlupi
             }
             celSwitch.X = pos.X / 64;
             celSwitch.Y = pos.Y / 64;
-            if (m_decor[pos.X / 64, pos.Y / 64].icon != 384)
+            if (m_decor[pos.X / 64][ pos.Y / 64].icon != 384)
             {
-                return m_decor[pos.X / 64, pos.Y / 64].icon == 385;
+                return m_decor[pos.X / 64][ pos.Y / 64].icon == 385;
             }
             return true;
         }
 
-        private bool IsEcraseur(TinyPoint pos)
+        private boolean IsEcraseur(TinyPoint pos)
         {
             if (m_time / 3 % 10 > 2)
             {
@@ -6672,20 +6778,20 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return false;
             }
-            return m_decor[pos.X / 64, pos.Y / 64].icon == 317;
+            return m_decor[pos.X / 64][ pos.Y / 64].icon == 317;
         }
 
-        private bool IsBlitz(TinyPoint pos, bool bAlways)
+        private boolean IsBlitz(TinyPoint pos, boolean bAlways)
         {
             pos.X += 30;
             if (pos.X < 0 || pos.X >= 6400 || pos.Y < 0 || pos.Y >= 6400)
             {
                 return false;
             }
-            TinyPoint tinyPoint = default(TinyPoint);
+             TinyPoint tinyPoint = default_(new TinyPoint());
             tinyPoint.X = pos.X / 64;
             tinyPoint.Y = pos.Y / 64;
-            if (m_decor[tinyPoint.X, tinyPoint.Y].icon != 305)
+            if (m_decor[tinyPoint.X][ tinyPoint.Y].icon != 305)
             {
                 return false;
             }
@@ -6696,7 +6802,7 @@ namespace WindowsPhoneSpeedyBlupi
             return BlitzActif(tinyPoint.X, tinyPoint.Y);
         }
 
-        private bool IsRessort(TinyPoint pos)
+        private boolean IsRessort(TinyPoint pos)
         {
             pos.X += 30;
             pos.Y += 60;
@@ -6704,10 +6810,10 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return false;
             }
-            return m_decor[pos.X / 64, pos.Y / 64].icon == 211;
+            return m_decor[pos.X / 64][ pos.Y / 64].icon == 211;
         }
 
-        private bool IsTemp(TinyPoint pos)
+        private boolean IsTemp(TinyPoint pos)
         {
             pos.X += 30;
             pos.Y += 60;
@@ -6715,21 +6821,21 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return false;
             }
-            return m_decor[pos.X / 64, pos.Y / 64].icon == 324;
+            return m_decor[pos.X / 64][ pos.Y / 64].icon == 324;
         }
 
-        private bool IsBridge(TinyPoint pos, ref TinyPoint celBridge)
+        private boolean IsBridge(TinyPoint pos, TinyPoint celBridge)
         {
             pos.X += 30;
             pos.Y += 60;
-            if (pos.X >= 0 && pos.X < 6400 && pos.Y >= 0 && pos.Y < 6400 && m_decor[pos.X / 64, pos.Y / 64].icon == 364)
+            if (pos.X >= 0 && pos.X < 6400 && pos.Y >= 0 && pos.Y < 6400 && m_decor[pos.X / 64][ pos.Y / 64].icon == 364)
             {
                 celBridge.X = pos.X / 64;
                 celBridge.Y = pos.Y / 64;
                 return true;
             }
             pos.Y -= 60;
-            if (pos.X >= 0 && pos.X < 6400 && pos.Y >= 0 && pos.Y < 6400 && m_decor[pos.X / 64, pos.Y / 64].icon == 364)
+            if (pos.X >= 0 && pos.X < 6400 && pos.Y >= 0 && pos.Y < 6400 && m_decor[pos.X / 64][ pos.Y / 64].icon == 364)
             {
                 celBridge.X = pos.X / 64;
                 celBridge.Y = pos.Y / 64;
@@ -6738,17 +6844,17 @@ namespace WindowsPhoneSpeedyBlupi
             return false;
         }
 
-        private int IsDoor(TinyPoint pos, ref TinyPoint celPorte)
+        private int IsDoor(TinyPoint pos, TinyPoint celPorte)
         {
             int num = ((m_blupiDir != 1) ? 60 : (-60));
             pos.X += 30;
             for (int i = 0; i < 2; i++)
             {
-                if (pos.X >= 0 && pos.X < 6400 && pos.Y >= 0 && pos.Y < 6400 && m_decor[pos.X / 64, pos.Y / 64].icon >= 334 && m_decor[pos.X / 64, pos.Y / 64].icon <= 336)
+                if (pos.X >= 0 && pos.X < 6400 && pos.Y >= 0 && pos.Y < 6400 && m_decor[pos.X / 64][ pos.Y / 64].icon >= 334 && m_decor[pos.X / 64][ pos.Y / 64].icon <= 336)
                 {
                     celPorte.X = pos.X / 64;
                     celPorte.Y = pos.Y / 64;
-                    return m_decor[pos.X / 64, pos.Y / 64].icon;
+                    return m_decor[pos.X / 64][ pos.Y / 64].icon;
                 }
                 pos.X += num;
             }
@@ -6767,14 +6873,14 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return -1;
             }
-            if (m_decor[pos.X / 64, pos.Y / 64].icon >= 330 && m_decor[pos.X / 64, pos.Y / 64].icon <= 333)
+            if (m_decor[pos.X / 64][ pos.Y / 64].icon >= 330 && m_decor[pos.X / 64][ pos.Y / 64].icon <= 333)
             {
-                return m_decor[pos.X / 64, pos.Y / 64].icon;
+                return m_decor[pos.X / 64][ pos.Y / 64].icon;
             }
             return -1;
         }
 
-        private bool SearchTeleporte(TinyPoint pos, ref TinyPoint newpos)
+        private boolean SearchTeleporte(TinyPoint pos, TinyPoint newpos)
         {
             int num = IsTeleporte(pos);
             if (num == -1)
@@ -6785,7 +6891,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    if (num == m_decor[i, j].icon)
+                    if (num == m_decor[i][ j].icon)
                     {
                         newpos.X = i * 64;
                         newpos.Y = j * 64 + 60;
@@ -6799,7 +6905,7 @@ namespace WindowsPhoneSpeedyBlupi
             return false;
         }
 
-        private bool IsNormalJump(TinyPoint pos)
+        private boolean IsNormalJump(TinyPoint pos)
         {
             pos.X += 32;
             pos.Y -= 32;
@@ -6819,7 +6925,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     return false;
                 }
-                int icon = m_decor[num, num2].icon;
+                int icon = m_decor[num][ num2].icon;
                 if (!IsPassIcon(icon))
                 {
                     return false;
@@ -6829,14 +6935,14 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        private bool IsSurfWater(TinyPoint pos)
+        private boolean IsSurfWater(TinyPoint pos)
         {
             if (pos.Y % 64 < 64 - BLUPISURF)
             {
                 return false;
             }
-            int icon = m_decor[(pos.X + 30) / 64, pos.Y / 64].icon;
-            int icon2 = m_decor[(pos.X + 30) / 64, (pos.Y + BLUPISURF) / 64].icon;
+            int icon = m_decor[(pos.X + 30) / 64][ pos.Y / 64].icon;
+            int icon2 = m_decor[(pos.X + 30) / 64][ (pos.Y + BLUPISURF) / 64].icon;
             if (icon != 92 && icon2 == 92)
             {
                 return true;
@@ -6844,7 +6950,7 @@ namespace WindowsPhoneSpeedyBlupi
             return false;
         }
 
-        private bool IsDeepWater(TinyPoint pos)
+        private boolean IsDeepWater(TinyPoint pos)
         {
             int num = (pos.X + 30) / 64;
             int num2 = pos.Y / 64;
@@ -6852,7 +6958,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return false;
             }
-            int icon = m_decor[num, num2].icon;
+            int icon = m_decor[num][ num2].icon;
             if (icon != 91)
             {
                 return icon == 92;
@@ -6860,9 +6966,9 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        private bool IsOutWater(TinyPoint pos)
+        private boolean IsOutWater(TinyPoint pos)
         {
-            int icon = m_decor[(pos.X + 30) / 64, (pos.Y + 30) / 64].icon;
+            int icon = m_decor[(pos.X + 30) / 64][ (pos.Y + 30) / 64].icon;
             if (icon == 91 || icon == 92)
             {
                 return false;
@@ -6870,7 +6976,7 @@ namespace WindowsPhoneSpeedyBlupi
             return IsPassIcon(icon);
         }
 
-        private bool IsPassIcon(int icon)
+        private boolean IsPassIcon(int icon)
         {
             if (icon == 324 && m_time / 4 % 20 >= 18)
             {
@@ -6889,7 +6995,7 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        private bool IsBlocIcon(int icon)
+        private boolean IsBlocIcon(int icon)
         {
             if (icon < 0 || icon >= MAXQUART)
             {
@@ -6928,7 +7034,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private bool IsBalleTraj(TinyPoint pos)
+        private boolean IsBalleTraj(TinyPoint pos)
         {
             pos.X = (pos.X + 32) / 64;
             pos.Y = (pos.Y + 32) / 64;
@@ -6961,7 +7067,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private bool IsMoveTraj(TinyPoint pos)
+        private boolean IsMoveTraj(TinyPoint pos)
         {
             pos.X = (pos.X + 32) / 64;
             pos.Y = (pos.Y + 32) / 64;
@@ -6984,7 +7090,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             pos.X = (pos.X + 32) / 64;
             pos.Y = (pos.Y + 32) / 64;
-            while (pos.X >= 0 && pos.X < 100 && pos.Y >= 0 && pos.Y < 100 && !IsBlocIcon(m_decor[pos.X, pos.Y].icon))
+            while (pos.X >= 0 && pos.X < 100 && pos.Y >= 0 && pos.Y < 100 && !IsBlocIcon(m_decor[pos.X][ pos.Y].icon))
             {
                 if (type == 23)
                 {
@@ -7005,18 +7111,18 @@ namespace WindowsPhoneSpeedyBlupi
             return num;
         }
 
-        private bool IsVentillo(TinyPoint pos)
+        private boolean IsVentillo(TinyPoint pos)
         {
             int num = 0;
-            bool flag = false;
-            TinyPoint tinyPoint = default(TinyPoint);
+            boolean flag = false;
+             TinyPoint tinyPoint = default_(new TinyPoint());
             pos.X += 30;
             pos.Y += 30;
             if (pos.X < 0 || pos.X >= 6400 || pos.Y < 0 || pos.Y >= 6400)
             {
                 return false;
             }
-            int icon = m_decor[pos.X / 64, pos.Y / 64].icon;
+            int icon = m_decor[pos.X / 64][ pos.Y / 64].icon;
             switch (icon)
             {
                 default:
@@ -7082,7 +7188,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 pos.X += tinyPoint.X;
                 pos.Y += tinyPoint.Y;
-                if (num != m_decor[pos.X / 64, pos.Y / 64].icon)
+                if (num != m_decor[pos.X / 64][ pos.Y / 64].icon)
                 {
                     break;
                 }
@@ -7098,7 +7204,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void StartSploutchGlu(TinyPoint pos)
         {
-            TinyPoint pos2 = default(TinyPoint);
+             TinyPoint pos2 = default_(new TinyPoint());
             pos2.X = pos.X;
             pos2.Y = pos.Y;
             ObjectStart(pos2, 98, 0);
@@ -7145,7 +7251,7 @@ namespace WindowsPhoneSpeedyBlupi
                 TinyPoint tinyPoint = pos;
                 int num2 = speed;
                 int num3 = 0;
-                TinyPoint dir = default(TinyPoint);
+                 TinyPoint dir = default_(new TinyPoint());
                 if (num2 > 50)
                 {
                     num2 -= 50;
@@ -7188,7 +7294,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     m_moveObject[num].posEnd = tinyPoint;
                     m_moveObject[num].timeStopStart = 0;
-                    m_moveObject[num].stepAdvance = Math.Abs(num2 * num3 / 64);
+                    m_moveObject[num].stepAdvance = Math_.Abs(num2 * num3 / 64);
                     m_moveObject[num].step = 2;
                     m_moveObject[num].time = 0;
                 }
@@ -7197,7 +7303,7 @@ namespace WindowsPhoneSpeedyBlupi
             return num;
         }
 
-        private bool ObjectDelete(TinyPoint pos, int type)
+        private boolean ObjectDelete(TinyPoint pos, int type)
         {
             int num = MoveObjectSearch(pos, type);
             if (num == -1)
@@ -7228,12 +7334,12 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void ModifDecor(TinyPoint pos, int icon)
         {
-            int icon2 = m_decor[pos.X / 64, pos.Y / 64].icon;
+            int icon2 = m_decor[pos.X / 64][ pos.Y / 64].icon;
             if (icon == -1 && icon2 >= 126 && icon2 <= 137)
             {
                 ByeByeAdd(1, icon2, pos, 17.0, 1.0);
             }
-            m_decor[pos.X / 64, pos.Y / 64].icon = icon;
+            m_decor[pos.X / 64][ pos.Y / 64].icon = icon;
         }
 
         private void MoveObjectStep()
@@ -7283,12 +7389,12 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void MoveObjectStepLine(int i)
         {
-            TinyPoint tinyPoint = default(TinyPoint);
-            bool flag = false;
-            TinyRect tinyRect = default(TinyRect);
+            TinyPoint tinyPoint = default_(new TinyPoint());
+            boolean flag = false;
+            TinyRect tinyRect = default_(new TinyRect());
             if ((m_moveObject[i].type == 1 || m_moveObject[i].type == 47 || m_moveObject[i].type == 48) && !m_blupiSuspend)
             {
-                TinyRect src = default(TinyRect);
+                TinyRect src = default_(new TinyRect());
                 src.Left = m_blupiPos.X + 20;
                 src.Right = m_blupiPos.X + 60 - 20;
                 src.Top = m_blupiPos.Y + 60 - 2;
@@ -7297,11 +7403,11 @@ namespace WindowsPhoneSpeedyBlupi
                 tinyRect.Right = m_moveObject[i].posCurrent.X + 64;
                 tinyRect.Top = m_moveObject[i].posCurrent.Y;
                 tinyRect.Bottom = m_moveObject[i].posCurrent.Y + 16;
-                TinyRect dst;
-                flag = Misc.IntersectRect(out dst, tinyRect, src);
+                 TinyRect dst = default_(new TinyRect());
+                flag = Misc.IntersectRect(dst, tinyRect, src);
                 tinyPoint = m_moveObject[i].posCurrent;
             }
-            TinyPoint end;
+             TinyPoint end = default_(new TinyPoint());
             if (m_blupiFocus && !m_blupiHide && m_moveObject[i].type == 97)
             {
                 end = m_moveObject[i].posCurrent;
@@ -7325,7 +7431,7 @@ namespace WindowsPhoneSpeedyBlupi
                 tinyRect.Right = end.X + 60 - 10;
                 tinyRect.Top = end.Y + 10;
                 tinyRect.Bottom = end.Y + 60 - 10;
-                if (TestPath(tinyRect, m_moveObject[i].posCurrent, ref end))
+                if (TestPath(tinyRect, m_moveObject[i].posCurrent, end))
                 {
                     m_moveObject[i].posCurrent = end;
                     m_moveObject[i].posStart = end;
@@ -7650,7 +7756,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_moveObject[i].type == 8)
             {
-                if (m_moveObject[i].phase >= Tables.table_explo1.Length)
+                if (m_moveObject[i].phase >= Tables.table_explo1.length)
                 {
                     m_moveObject[i].type = 0;
                 }
@@ -7792,7 +7898,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_moveObject[i].channel = 9;
                 }
             }
-            TinyPoint pos = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
             if (m_moveObject[i].type == 52)
             {
                 if (m_moveObject[i].phase == 0)
@@ -7813,7 +7919,7 @@ namespace WindowsPhoneSpeedyBlupi
                     m_moveObject[i].channel = 1;
                     pos.X = m_moveObject[i].posStart.X / 64;
                     pos.Y = m_moveObject[i].posStart.Y / 64;
-                    m_decor[pos.X, pos.Y].icon = m_moveObject[i].icon;
+                    m_decor[pos.X][ pos.Y].icon = m_moveObject[i].icon;
                 }
             }
             if (m_moveObject[i].type == 36)
@@ -8314,14 +8420,14 @@ namespace WindowsPhoneSpeedyBlupi
                 m_decorAction = 1;
                 m_decorPhase = 0;
             }
-            TinyRect src = default(TinyRect);
+             TinyRect src = default_(new TinyRect());
             src.Left = posStart.X;
             src.Right = posStart.X + 128;
             src.Top = posStart.Y;
             src.Bottom = posStart.Y + 128;
-            TinyPoint tinyPoint = default(TinyPoint);
+             TinyPoint tinyPoint = default_(new TinyPoint());
             tinyPoint.Y = posStart.Y / 64;
-            TinyPoint pos = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
             for (int j = 0; j < 2; j++)
             {
                 tinyPoint.X = posStart.X / 64;
@@ -8329,7 +8435,7 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     if (tinyPoint.X >= 0 && tinyPoint.X < 100 && tinyPoint.Y >= 0 && tinyPoint.Y < 100)
                     {
-                        int icon = m_decor[tinyPoint.X, tinyPoint.Y].icon;
+                        int icon = m_decor[tinyPoint.X][ tinyPoint.Y].icon;
                         if (icon == 378 || icon == 379 || icon == 404 || icon == 410)
                         {
                             pos.X = tinyPoint.X * 64;
@@ -8341,7 +8447,7 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 tinyPoint.Y++;
             }
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             for (i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type == 2 || m_moveObject[i].type == 3 || m_moveObject[i].type == 96 || m_moveObject[i].type == 97 || m_moveObject[i].type == 4 || m_moveObject[i].type == 6 || m_moveObject[i].type == 12 || m_moveObject[i].type == 13 || m_moveObject[i].type == 16 || m_moveObject[i].type == 17 || m_moveObject[i].type == 18 || m_moveObject[i].type == 19 || m_moveObject[i].type == 20 || m_moveObject[i].type == 24 || m_moveObject[i].type == 25 || m_moveObject[i].type == 26 || m_moveObject[i].type == 28 || m_moveObject[i].type == 30 || m_moveObject[i].type == 32 || m_moveObject[i].type == 33 || m_moveObject[i].type == 34 || m_moveObject[i].type == 40 || m_moveObject[i].type == 44 || m_moveObject[i].type == 46 || m_moveObject[i].type == 52 || m_moveObject[i].type == 54 || m_moveObject[i].type == 200 || m_moveObject[i].type == 201 || m_moveObject[i].type == 202 || m_moveObject[i].type == 203)
@@ -8350,8 +8456,8 @@ namespace WindowsPhoneSpeedyBlupi
                     src2.Right = m_moveObject[i].posCurrent.X + 60;
                     src2.Top = m_moveObject[i].posCurrent.Y;
                     src2.Bottom = m_moveObject[i].posCurrent.Y + 60;
-                    TinyRect dst;
-                    if (Misc.IntersectRect(out dst, src2, src))
+                     TinyRect dst = default_(new TinyRect());
+                    if (Misc.IntersectRect(dst, src2, src))
                     {
                         if (m_moveObject[i].type == 12)
                         {
@@ -8394,8 +8500,8 @@ namespace WindowsPhoneSpeedyBlupi
             }
             int num = newpos.Y - oldpos.Y;
             int num2 = ((num >= 0) ? 30 : (-30));
-            num = Math.Abs(num);
-            TinyRect src = default(TinyRect);
+            num = Math_.Abs(num);
+             TinyRect src = default_(new TinyRect());
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type != 1 && m_moveObject[i].type != 47 && m_moveObject[i].type != 48)
@@ -8406,10 +8512,10 @@ namespace WindowsPhoneSpeedyBlupi
                 src.Right = m_moveObject[i].posCurrent.X + 64;
                 src.Top = m_moveObject[i].posCurrent.Y;
                 src.Bottom = m_moveObject[i].posCurrent.Y + 16;
-                TinyRect dst;
+                 TinyRect dst = default_(new TinyRect());
                 if (num < 30)
                 {
-                    if (Misc.IntersectRect(out dst, src, rect))
+                    if (Misc.IntersectRect(dst, src, rect))
                     {
                         return i;
                     }
@@ -8420,7 +8526,7 @@ namespace WindowsPhoneSpeedyBlupi
                 src2.Bottom -= num / 30 * num2;
                 for (int j = 0; j <= num / 30; j++)
                 {
-                    if (Misc.IntersectRect(out dst, src, src2))
+                    if (Misc.IntersectRect(dst, src, src2))
                     {
                         return i;
                     }
@@ -8431,36 +8537,42 @@ namespace WindowsPhoneSpeedyBlupi
             return -1;
         }
 
-        private void AscenseurVertigo(int i, out bool bVertigoLeft, out bool bVertigoRight)
-        {
-            bVertigoLeft = false;
-            bVertigoRight = false;
-            if (m_blupiPos.X + 20 + 4 < m_moveObject[i].posCurrent.X)
-            {
-                bVertigoLeft = true;
-            }
-            if (m_blupiPos.X + 60 - 20 - 4 > m_moveObject[i].posCurrent.X + 64)
-            {
-                bVertigoRight = true;
-            }
-            if (AscenseurShift(i))
-            {
-                if (bVertigoLeft)
-                {
-                    bVertigoLeft = false;
-                    bVertigoRight = true;
-                    m_blupiTimeNoAsc = 10;
-                }
-                else if (bVertigoRight)
-                {
-                    bVertigoRight = false;
-                    bVertigoLeft = true;
-                    m_blupiTimeNoAsc = 10;
-                }
-            }
+        class VertigoStatus {
+
+            public boolean vertigoLeft;
+            public boolean vertigoRight;
         }
 
-        private bool AscenseurShift(int i)
+        private VertigoStatus AscenseurVertigo(int i) {
+
+            VertigoStatus status = new VertigoStatus();
+            status.vertigoLeft = false;
+            status.vertigoRight = false;
+
+            if (m_blupiPos.X + 20 + 4 < m_moveObject[i].posCurrent.X) {
+                status.vertigoLeft = true;
+            }
+
+            if (m_blupiPos.X + 60 - 20 - 4 > m_moveObject[i].posCurrent.X + 64) {
+                status.vertigoRight = true;
+            }
+
+            if (AscenseurShift(i)) {
+                if (status.vertigoLeft) {
+                    status.vertigoLeft = false;
+                    status.vertigoRight = true;
+                    m_blupiTimeNoAsc = 10;
+                } else if (status.vertigoRight) {
+                    status.vertigoRight = false;
+                    status.vertigoLeft = true;
+                    m_blupiTimeNoAsc = 10;
+                }
+            }
+            return status;
+        }
+
+
+        private boolean AscenseurShift(int i)
         {
             if (i == -1)
             {
@@ -8496,9 +8608,9 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private bool TestPushCaisse(int i, TinyPoint pos, bool bPop)
+        private boolean TestPushCaisse(int i, TinyPoint pos, boolean bPop)
         {
-            TinyPoint move = default(TinyPoint);
+             TinyPoint move = default_(new TinyPoint());
             move.X = pos.X - m_moveObject[i].posCurrent.X;
             move.Y = 0;
             SearchLinkCaisse(i, bPop);
@@ -8521,9 +8633,9 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        private bool TestPushOneCaisse(int i, TinyPoint move, int b)
+        private boolean TestPushOneCaisse(int i, TinyPoint move, int b)
         {
-            TinyRect rect = default(TinyRect);
+             TinyRect rect = default_(new TinyRect());
             int num = (rect.Left = m_moveObject[i].posCurrent.X + move.X);
             rect.Right = num + 64;
             rect.Top = m_moveObject[i].posCurrent.Y;
@@ -8555,14 +8667,14 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        private void SearchLinkCaisse(int rank, bool bPop)
+        private void SearchLinkCaisse(int rank, boolean bPop)
         {
             m_nbLinkCaisse = 0;
             AddLinkCaisse(rank);
             TinyPoint posCurrent = m_moveObject[rank].posCurrent;
-            bool flag;
-            TinyRect src = default(TinyRect);
-            TinyRect src2 = default(TinyRect);
+            boolean flag;
+             TinyRect src = default_(new TinyRect());
+             TinyRect src2 = default_(new TinyRect());
             do
             {
                 flag = false;
@@ -8586,8 +8698,8 @@ namespace WindowsPhoneSpeedyBlupi
                             src2.Top = m_moveObject[num2].posCurrent.Y - 1;
                             src2.Right = src2.Left + 64 + 1;
                             src2.Bottom = src2.Top + 64 + 1;
-                            TinyRect dst;
-                            if (Misc.IntersectRect(out dst, src2, src) && AddLinkCaisse(num2))
+                             TinyRect dst = default_(new TinyRect());
+                            if (Misc.IntersectRect(dst, src2, src) && AddLinkCaisse(num2))
                             {
                                 flag = true;
                             }
@@ -8598,7 +8710,7 @@ namespace WindowsPhoneSpeedyBlupi
             while (flag);
         }
 
-        private bool AddLinkCaisse(int rank)
+        private boolean AddLinkCaisse(int rank)
         {
             for (int i = 0; i < m_nbLinkCaisse; i++)
             {
@@ -8614,7 +8726,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int CaisseInFront()
         {
-            TinyPoint tinyPoint = default(TinyPoint);
+             TinyPoint tinyPoint = default_(new TinyPoint());
             if (m_blupiDir == 1)
             {
                 tinyPoint.X = m_blupiPos.X + 16 - 32;
@@ -8666,12 +8778,12 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_blupiAir)
             {
-                TinyPoint tinyPoint = default(TinyPoint);
+                 TinyPoint tinyPoint = default_(new TinyPoint());
                 tinyPoint.X = pos.X + 30;
                 tinyPoint.Y = pos.Y + 30 + 64;
                 if (tinyPoint.X >= 0 && tinyPoint.X < 6400 && tinyPoint.Y >= 0 && tinyPoint.Y < 6400)
                 {
-                    int icon = m_decor[tinyPoint.X / 64, tinyPoint.Y / 64].icon;
+                    int icon = m_decor[tinyPoint.X / 64][ tinyPoint.Y / 64].icon;
                     if (icon == 68 || icon == 317)
                     {
                         return 64;
@@ -8680,14 +8792,14 @@ namespace WindowsPhoneSpeedyBlupi
                 tinyPoint.Y += 64;
                 if (tinyPoint.X >= 0 && tinyPoint.X < 6400 && tinyPoint.Y >= 0 && tinyPoint.Y < 6400)
                 {
-                    int icon = m_decor[tinyPoint.X / 64, tinyPoint.Y / 64].icon;
+                    int icon = m_decor[tinyPoint.X / 64][ tinyPoint.Y / 64].icon;
                     if (icon == 68 || icon == 317)
                     {
                         return 64;
                     }
                 }
             }
-            TinyRect src = default(TinyRect);
+             TinyRect src = default_(new TinyRect());
             src.Left = pos.X;
             src.Right = pos.X + 60;
             src.Top = pos.Y + 11;
@@ -8696,7 +8808,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 src.Bottom += 90;
             }
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type != 2 && m_moveObject[i].type != 16 && m_moveObject[i].type != 96 && m_moveObject[i].type != 97 && m_moveObject[i].type != 4 && m_moveObject[i].type != 20 && m_moveObject[i].type != 44 && m_moveObject[i].type != 54 && m_moveObject[i].type != 23 && m_moveObject[i].type != 32 && m_moveObject[i].type != 33)
@@ -8707,8 +8819,8 @@ namespace WindowsPhoneSpeedyBlupi
                 src2.Right = m_moveObject[i].posCurrent.X + 60;
                 src2.Top = m_moveObject[i].posCurrent.Y + 36;
                 src2.Bottom = m_moveObject[i].posCurrent.Y + 60;
-                TinyRect dst;
-                if (!Misc.IntersectRect(out dst, src2, src))
+                 TinyRect dst = default_(new TinyRect());
+                if (!Misc.IntersectRect(dst, src2, src))
                 {
                     continue;
                 }
@@ -8741,28 +8853,24 @@ namespace WindowsPhoneSpeedyBlupi
             return 0;
         }
 
-        private bool BlupiElectro(TinyPoint pos)
+        private boolean BlupiElectro(TinyPoint pos)
         {
             if (!m_blupiCloud)
             {
                 return false;
             }
-            TinyRect src = default(TinyRect);
+             TinyRect src = default_(new TinyRect());
             src.Left = pos.X + 16;
             src.Right = pos.X + 60 - 16;
             src.Top = pos.Y + 11;
             src.Bottom = pos.Y + 60 - 2;
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             src2.Left = m_blupiPos.X - 16 - 40;
             src2.Right = m_blupiPos.X + 60 + 16 + 40;
             src2.Top = m_blupiPos.Y + 11 - 40;
             src2.Bottom = m_blupiPos.Y + 60 - 2 + 40;
-            TinyRect dst;
-            if (Misc.IntersectRect(out dst, src, src2))
-            {
-                return true;
-            }
-            return false;
+             TinyRect dst = default_(new TinyRect());
+            return Misc.IntersectRect(dst, src, src2);
         }
 
         private void MoveObjectFollow(TinyPoint pos)
@@ -8774,7 +8882,7 @@ namespace WindowsPhoneSpeedyBlupi
             TinyRect src = BlupiRect(pos);
             src.Left = pos.X + 16;
             src.Right = pos.X + 60 - 16;
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type == 96)
@@ -8783,8 +8891,8 @@ namespace WindowsPhoneSpeedyBlupi
                     src2.Right = m_moveObject[i].posCurrent.X + 60 + 100;
                     src2.Top = m_moveObject[i].posCurrent.Y - 100;
                     src2.Bottom = m_moveObject[i].posCurrent.Y + 60 + 100;
-                    TinyRect dst;
-                    if (Misc.IntersectRect(out dst, src2, src))
+                     TinyRect dst = default_(new TinyRect());
+                    if (Misc.IntersectRect(dst, src2, src))
                     {
                         m_moveObject[i].type = 97;
                         PlaySound(92, m_moveObject[i].posCurrent);
@@ -8793,17 +8901,23 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private int MoveObjectDetect(TinyPoint pos, out bool bNear)
+        /**
+         * 
+         * @param pos
+         * @param bool
+         * @return Pair of icon Integer and bNear Boolean
+         */
+        private Pair<Integer, Boolean> MoveObjectDetect(TinyPoint pos)
         {
             TinyRect src = BlupiRect(pos);
             src.Left = pos.X + 16;
             src.Right = pos.X + 60 - 16;
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             src2.Left = src.Left - 20;
             src2.Right = src.Right + 20;
             src2.Top = src.Top - 40;
             src2.Bottom = src.Bottom + 30;
-            TinyRect src3 = default(TinyRect);
+             TinyRect src3 = default_(new TinyRect());
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type == 0 || m_moveObject[i].type == 27 || m_moveObject[i].type == 57 || m_moveObject[i].type == 39 || m_moveObject[i].type == 58 || m_moveObject[i].type == 34 || m_moveObject[i].type == 37 || m_moveObject[i].type == 38 || ((m_blupiAction == 14 || m_blupiAction == 29) && m_moveObject[i].type == 12))
@@ -8850,20 +8964,17 @@ namespace WindowsPhoneSpeedyBlupi
                     src3.Top = m_moveObject[i].posCurrent.Y + 10;
                     src3.Bottom = m_moveObject[i].posCurrent.Y + 60 - 32;
                 }
-                TinyRect dst;
-                if (Misc.IntersectRect(out dst, src3, src))
+                 TinyRect dst = default_(new TinyRect());
+                if (Misc.IntersectRect(dst, src3, src))
                 {
-                    bNear = true;
-                    return i;
+                    return new Pair<>(i, true);
                 }
-                if (m_moveObject[i].type == 2 && Misc.IntersectRect(out dst, src3, src2))
+                if (m_moveObject[i].type == 2 && Misc.IntersectRect(dst, src3, src2))
                 {
-                    bNear = false;
-                    return i;
+                    return new Pair<>(i, false);
                 }
             }
-            bNear = false;
-            return -1;
+            return new Pair<>(-1, false);
         }
 
         private int MoveAscenseurDetect(TinyPoint pos, int height)
@@ -8872,12 +8983,12 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return -1;
             }
-            TinyRect src = default(TinyRect);
+             TinyRect src = default_(new TinyRect());
             src.Left = pos.X + 12;
             src.Right = pos.X + 60 - 12;
             src.Top = pos.Y + 60 - 2;
             src.Bottom = pos.Y + 60 + height - 1;
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type == 1 || m_moveObject[i].type == 47 || m_moveObject[i].type == 48)
@@ -8886,8 +8997,8 @@ namespace WindowsPhoneSpeedyBlupi
                     src2.Right = m_moveObject[i].posCurrent.X + 64;
                     src2.Top = m_moveObject[i].posCurrent.Y;
                     src2.Bottom = m_moveObject[i].posCurrent.Y + 16;
-                    TinyRect dst;
-                    if (Misc.IntersectRect(out dst, src2, src))
+                     TinyRect dst = default_(new TinyRect());
+                    if (Misc.IntersectRect(dst, src2, src))
                     {
                         return i;
                     }
@@ -8898,12 +9009,12 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int MoveChargeDetect(TinyPoint pos)
         {
-            TinyRect src = default(TinyRect);
+             TinyRect src = default_(new TinyRect());
             src.Left = pos.X + 16;
             src.Right = pos.X + 60 - 16;
             src.Top = pos.Y + 11;
             src.Bottom = pos.Y + 60 - 2;
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type == 31)
@@ -8912,8 +9023,8 @@ namespace WindowsPhoneSpeedyBlupi
                     src2.Right = m_moveObject[i].posCurrent.X + 60 + 10;
                     src2.Top = m_moveObject[i].posCurrent.Y + 36;
                     src2.Bottom = m_moveObject[i].posCurrent.Y + 60;
-                    TinyRect dst;
-                    if (Misc.IntersectRect(out dst, src2, src))
+                     TinyRect dst = default_(new TinyRect());
+                    if (Misc.IntersectRect(dst, src2, src))
                     {
                         return i;
                     }
@@ -8924,12 +9035,12 @@ namespace WindowsPhoneSpeedyBlupi
 
         private int MovePersoDetect(TinyPoint pos)
         {
-            TinyRect src = default(TinyRect);
+             TinyRect src = default_(new TinyRect());
             src.Left = pos.X + 16;
             src.Right = pos.X + 60 - 16;
             src.Top = pos.Y + 11;
             src.Bottom = pos.Y + 60 - 2;
-            TinyRect src2 = default(TinyRect);
+             TinyRect src2 = default_(new TinyRect());
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type >= 200 && m_moveObject[i].type <= 203)
@@ -8938,8 +9049,8 @@ namespace WindowsPhoneSpeedyBlupi
                     src2.Right = m_moveObject[i].posCurrent.X + 60 - 16;
                     src2.Top = m_moveObject[i].posCurrent.Y + 36;
                     src2.Bottom = m_moveObject[i].posCurrent.Y + 60;
-                    TinyRect dst;
-                    if (Misc.IntersectRect(out dst, src2, src))
+                     TinyRect dst = default_(new TinyRect());
+                    if (Misc.IntersectRect(dst, src2, src))
                     {
                         return i;
                     }
@@ -9001,13 +9112,13 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void MoveObjectSort()
         {
-            MoveObject dst = default(MoveObject);
+             MoveObject dst = default_(new MoveObject());
             int num = 0;
             for (int i = 0; i < MAXMOVEOBJECT; i++)
             {
                 if (m_moveObject[i].type != 0)
                 {
-                    MoveObjectCopy(ref m_moveObject[num++], m_moveObject[i]);
+                    MoveObjectCopy(m_moveObject[num++], m_moveObject[i]);
                 }
             }
             for (int i = num; i < MAXMOVEOBJECT; i++)
@@ -9018,7 +9129,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return;
             }
-            bool flag;
+            boolean flag;
             do
             {
                 flag = false;
@@ -9026,9 +9137,9 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     if (SortGetType(m_moveObject[i].type) > SortGetType(m_moveObject[i + 1].type))
                     {
-                        MoveObjectCopy(ref dst, m_moveObject[i]);
-                        MoveObjectCopy(ref m_moveObject[i], m_moveObject[i + 1]);
-                        MoveObjectCopy(ref m_moveObject[i + 1], dst);
+                        MoveObjectCopy(dst, m_moveObject[i]);
+                        MoveObjectCopy(m_moveObject[i], m_moveObject[i + 1]);
+                        MoveObjectCopy(m_moveObject[i + 1], dst);
                         flag = true;
                     }
                 }
@@ -9040,7 +9151,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void MoveObjectPriority(int i)
         {
-            MoveObject dst = default(MoveObject);
+             MoveObject dst = default_(new MoveObject());
             if (i == 0 || m_moveObject[i].type != 23)
             {
                 return;
@@ -9053,9 +9164,9 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 if (j <= i)
                 {
-                    MoveObjectCopy(ref dst, m_moveObject[i]);
-                    MoveObjectCopy(ref m_moveObject[i], m_moveObject[j]);
-                    MoveObjectCopy(ref m_moveObject[j], dst);
+                    MoveObjectCopy(dst, m_moveObject[i]);
+                    MoveObjectCopy(m_moveObject[i], m_moveObject[j]);
+                    MoveObjectCopy(m_moveObject[j], dst);
                     if (m_moveObject[i].type == 12 || m_moveObject[j].type == 12)
                     {
                         UpdateCaisse();
@@ -9129,23 +9240,23 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 byeByeObject2.speedX = -(num + 10);
             }
-            byeByeObjects.Add(byeByeObject2);
+            byeByeObjects.add(byeByeObject2);
         }
 
         private void ByeByeStep()
         {
             int num = 0;
-            while (num < byeByeObjects.Count)
+            while (num < byeByeObjects.size())
             {
-                ByeByeObject byeByeObject = byeByeObjects[num];
+                ByeByeObject byeByeObject = byeByeObjects.get(num);
                 double num2 = 10.0 - byeByeObject.phase;
                 if (num2 > 0.0)
                 {
-                    byeByeObject.posY -= Math.Pow(num2, 1.5) * byeByeObject.animationSpeed;
+                    byeByeObject.posY -= Math_.Pow(num2, 1.5) * byeByeObject.animationSpeed;
                 }
                 if (num2 < 0.0)
                 {
-                    byeByeObject.posY += Math.Pow(0.0 - num2, 1.5) * byeByeObject.animationSpeed;
+                    byeByeObject.posY += Math_.Pow(0.0 - num2, 1.5) * byeByeObject.animationSpeed;
                 }
                 byeByeObject.posX += byeByeObject.speedX * byeByeObject.animationSpeed;
                 if (byeByeObject.speedX > 0.0)
@@ -9164,7 +9275,7 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 if (byeByeObject.phase > 30.0)
                 {
-                    byeByeObjects.RemoveAt(num);
+                    byeByeObjects.remove(num);
                 }
                 else
                 {
@@ -9175,9 +9286,9 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void ByeByeDraw(TinyPoint posDecor)
         {
-            foreach (ByeByeObject byeByeObject in byeByeObjects)
+            for (ByeByeObject byeByeObject : byeByeObjects)
             {
-                TinyPoint tinyPoint = default(TinyPoint);
+                TinyPoint tinyPoint = default_(new TinyPoint());
                 tinyPoint.X = m_drawBounds.Left + (int)byeByeObject.posX - posDecor.X;
                 tinyPoint.Y = m_drawBounds.Top + (int)byeByeObject.posY - posDecor.Y;
                 TinyPoint pos = tinyPoint;
@@ -9187,7 +9298,7 @@ namespace WindowsPhoneSpeedyBlupi
 
         private TinyPoint VoyageGetPosVie(int nbVies)
         {
-            TinyPoint result = default(TinyPoint);
+             TinyPoint result = default_(new TinyPoint());
             result.X = 210 + 16 * nbVies;
             result.Y = 417;
             return result;
@@ -9204,8 +9315,8 @@ namespace WindowsPhoneSpeedyBlupi
             m_voyageEnd = end;
             m_voyageIcon = icon;
             m_voyageChannel = channel;
-            int num = Math.Abs(end.X - start.X);
-            int num2 = Math.Abs(end.Y - start.Y);
+            int num = Math_.Abs(end.X - start.X);
+            int num2 = Math_.Abs(end.Y - start.Y);
             m_voyagePhase = 0;
             m_voyageTotal = (num + num2) / 10;
             if (m_voyageIcon == 48 && m_voyageChannel == 2)
@@ -9351,7 +9462,7 @@ namespace WindowsPhoneSpeedyBlupi
                     num = 0;
                 }
             }
-            TinyPoint pos = default(TinyPoint);
+             TinyPoint pos = default_(new TinyPoint());
             pos.X = m_voyageStart.X + (m_voyageEnd.X - m_voyageStart.X) * num / m_voyageTotal;
             pos.Y = m_voyageStart.Y + (m_voyageEnd.Y - m_voyageStart.Y) * num / m_voyageTotal;
             if (m_voyageIcon != 40 || m_voyageChannel != 10 || num != 0)
@@ -9360,7 +9471,7 @@ namespace WindowsPhoneSpeedyBlupi
             }
             if (m_voyageIcon == 40 && m_voyageChannel == 10)
             {
-                int[] array = new int[7] { -8, -6, -4, 0, 4, 6, 8 };
+                int[] array = new int[] { -8, -6, -4, 0, 4, 6, 8 };
                 pos.X -= 34;
                 pos.X += m_posDecor.X;
                 pos.Y += m_posDecor.Y;
@@ -9376,16 +9487,16 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        private bool IsFloatingObject(int i)
+        private boolean IsFloatingObject(int i)
         {
             TinyPoint posCurrent = m_moveObject[i].posCurrent;
             int num = (posCurrent.X + 32) / 64;
             int num2 = posCurrent.Y / 64 + 1;
-            int icon = m_decor[num, num2].icon;
+            int icon = m_decor[num][ num2].icon;
             return IsPassIcon(icon);
         }
 
-        private bool IsRightBorder(int x, int y, int dx, int dy)
+        private boolean IsRightBorder(int x, int y, int dx, int dy)
         {
             int num = ((m_dimDecor.X != 0) ? 100 : 10);
             int num2 = ((m_dimDecor.Y != 0) ? 100 : 8);
@@ -9393,7 +9504,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 return true;
             }
-            int icon = m_decor[x + dx, y + dy].icon;
+            int icon = m_decor[x + dx][ y + dy].icon;
             if (icon < 386 || icon > 397)
             {
                 switch (icon)
@@ -9412,14 +9523,14 @@ namespace WindowsPhoneSpeedyBlupi
                     case 258:
                     case 259:
                     case 260:
-                        icon = m_decor[x, y].icon;
+                        icon = m_decor[x][ y].icon;
                         if (icon >= 250)
                         {
                             return icon <= 260;
                         }
                         return false;
                     default:
-                        icon = m_decor[x, y].icon;
+                        icon = m_decor[x][ y].icon;
                         switch (icon)
                         {
                             case -1:
@@ -9687,7 +9798,7 @@ namespace WindowsPhoneSpeedyBlupi
                         }
                 }
             }
-            icon = m_decor[x, y].icon;
+            icon = m_decor[x][ y].icon;
             if ((icon < 386 || icon > 397) && icon != 400)
             {
                 return icon == 245;
@@ -9695,13 +9806,13 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        private bool IsFromage(int x, int y)
+        private boolean IsFromage(int x, int y)
         {
             if (x < 0 || x >= 100 || y < 0 || y >= 100)
             {
                 return false;
             }
-            int icon = m_decor[x, y].icon;
+            int icon = m_decor[x][ y].icon;
             if (icon >= 246 && icon <= 249)
             {
                 return true;
@@ -9713,13 +9824,13 @@ namespace WindowsPhoneSpeedyBlupi
             return false;
         }
 
-        private bool IsGrotte(int x, int y)
+        private boolean IsGrotte(int x, int y)
         {
             if (x < 0 || x >= 100 || y < 0 || y >= 100)
             {
                 return false;
             }
-            switch (m_decor[x, y].icon)
+            switch (m_decor[x][ y].icon)
             {
                 case 284:
                 case 301:
@@ -9754,7 +9865,7 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 num &= -9;
             }
-            int num2 = m_decor[x, y].icon;
+            int num2 = m_decor[x][ y].icon;
             if (num2 == 156)
             {
                 num2 = 35;
@@ -9808,11 +9919,11 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         num2 = m_random.Next(341, 346);
                     }
-                    m_decor[x, y].icon = num2;
+                    m_decor[x][ y].icon = num2;
                     return;
                 }
             }
-            switch (m_decor[x, y].icon)
+            switch (m_decor[x][ y].icon)
             {
                 case -1:
                 case 264:
@@ -9868,10 +9979,10 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         num2 = 282;
                     }
-                    m_decor[x, y].icon = num2;
+                    m_decor[x][ y].icon = num2;
                     break;
             }
-            switch (m_decor[x, y].icon)
+            switch (m_decor[x][ y].icon)
             {
                 case -1:
                 case 285:
@@ -9922,7 +10033,7 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         num2 = 303;
                     }
-                    m_decor[x, y].icon = num2;
+                    m_decor[x][ y].icon = num2;
                     break;
             }
         }
@@ -9934,12 +10045,12 @@ namespace WindowsPhoneSpeedyBlupi
             AdaptMidBorder(cel.X - 1, cel.Y);
             AdaptMidBorder(cel.X, cel.Y + 1);
             AdaptMidBorder(cel.X, cel.Y - 1);
-            int icon = m_decor[cel.X, cel.Y].icon;
+            int icon = m_decor[cel.X][ cel.Y].icon;
             if (icon != -1 && !IsPassIcon(icon))
             {
                 MoveObjectDelete(cel);
             }
-            icon = m_decor[cel.X, cel.Y].icon;
+            icon = m_decor[cel.X][ cel.Y].icon;
             if (icon == 304)
             {
                 for (int i = 0; i < 4; i++)
@@ -9949,12 +10060,12 @@ namespace WindowsPhoneSpeedyBlupi
                     {
                         break;
                     }
-                    icon = m_decor[cel.X, cel.Y].icon;
+                    icon = m_decor[cel.X][ cel.Y].icon;
                     if (icon != -1)
                     {
                         break;
                     }
-                    m_decor[cel.X, cel.Y].icon = 305;
+                    m_decor[cel.X][ cel.Y].icon = 305;
                 }
             }
             if (icon != -1)
@@ -9968,12 +10079,12 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     break;
                 }
-                icon = m_decor[cel.X, cel.Y].icon;
+                icon = m_decor[cel.X][ cel.Y].icon;
                 if (icon != 305)
                 {
                     break;
                 }
-                m_decor[cel.X, cel.Y].icon = -1;
+                m_decor[cel.X][ cel.Y].icon = -1;
             }
         }
 
@@ -9982,7 +10093,7 @@ namespace WindowsPhoneSpeedyBlupi
             Worlds.DeleteCurrentGame();
         }
 
-        public bool CurrentWrite()
+        public boolean CurrentWrite()
         {
             Worlds.WriteClear();
             Worlds.WriteSection("DescFile");
@@ -10080,7 +10191,7 @@ namespace WindowsPhoneSpeedyBlupi
                 int[] array = new int[100];
                 for (int j = 0; j < 100; j++)
                 {
-                    array[j] = m_decor[i, j].icon;
+                    array[j] = m_decor[i][ j].icon;
                 }
                 Worlds.WriteDecorField(array);
             }
@@ -10091,7 +10202,7 @@ namespace WindowsPhoneSpeedyBlupi
                 int[] array2 = new int[100];
                 for (int l = 0; l < 100; l++)
                 {
-                    array2[l] = m_bigDecor[k, l].icon;
+                    array2[l] = m_bigDecor[k][ l].icon;
                 }
                 Worlds.WriteDecorField(array2);
             }
@@ -10129,15 +10240,15 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        public bool CurrentRead()
+        public boolean CurrentRead()
         {
-            string text = Worlds.ReadCurrentGame();
+            String text = Worlds.ReadCurrentGame();
             if (string.IsNullOrEmpty(text))
             {
                 return false;
             }
             InitDecor();
-            string[] lines = text.Split('\n');
+            String[] lines = text.split("\n");
             Worlds.GetIntField(lines, "DescFile", 0, "_version_");
             m_posDecor = Worlds.GetPointField(lines, "DescFile", 0, "_posDecor_");
             m_dimDecor = Worlds.GetPointField(lines, "DescFile", 0, "_dimDecor_");
@@ -10228,14 +10339,16 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    m_decor[j, i].icon = Worlds.GetDecorField(lines, "Decor", j, i) ?? (-1);
+                    Integer field = Worlds.GetDecorField(lines, "Decor", j, i);
+                    m_decor[j][ i].icon = field != null ? field : -1;
                 }
             }
             for (int k = 0; k < 100; k++)
             {
                 for (int l = 0; l < 100; l++)
                 {
-                    m_bigDecor[l, k].icon = Worlds.GetDecorField(lines, "BigDecor", l, k) ?? (-1);
+                    Integer field = Worlds.GetDecorField(lines, "BigDecorDecor", l, k);
+                    m_bigDecor[l][ k].icon = field != null ? field : -1;
                 }
             }
             for (int m = 0; m < MAXMOVEOBJECT; m++)
@@ -10273,10 +10386,10 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        public bool Read(int gamer, int rank, bool bUser)
+        public boolean Read(int gamer, int rank, boolean bUser)
         {
             InitDecor();
-            string[] array = Worlds.ReadWorld(gamer, rank);
+            String[] array = Worlds.ReadWorld(gamer, rank);
             if (array == null)
             {
                 return false;
@@ -10291,14 +10404,16 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    m_decor[j, i].icon = Worlds.GetDecorField(array, "Decor", j, i) ?? (-1);
+                    Integer field = Worlds.GetDecorField(array, "Decor", j, i);
+                    m_decor[j][ i].icon = field != null ? field : -1;
                 }
             }
             for (int k = 0; k < 100; k++)
             {
                 for (int l = 0; l < 100; l++)
                 {
-                    m_bigDecor[l, k].icon = Worlds.GetDecorField(array, "BigDecor", l, k) ?? (-1);
+                    Integer field = Worlds.GetDecorField(array, "BigDecor", l, k);
+                    m_bigDecor[l][ k].icon = field != null ? field : -1;
                 }
             }
             for (int m = 0; m < MAXMOVEOBJECT; m++)
@@ -10334,17 +10449,17 @@ namespace WindowsPhoneSpeedyBlupi
             return true;
         }
 
-        private bool Delete(int gamer, int rank, bool bUser)
+        private boolean Delete(int gamer, int rank, boolean bUser)
         {
             return true;
         }
 
-        private bool FileExist(int gamer, int rank, bool bUser)
+        private boolean FileExist(int gamer, int rank, boolean bUser)
         {
             return false;
         }
 
-        private bool SearchWorld(int world, ref TinyPoint blupi, ref int dir)
+        private boolean SearchWorld(int world, TinyPoint blupi, Integer dir)
         {
             if (world < 0 || world > 12)
             {
@@ -10356,17 +10471,17 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    int icon = m_decor[i, j].icon;
+                    int icon = m_decor[i][ j].icon;
                     if (icon == num || icon == num2)
                     {
-                        if (IsPassIcon(m_decor[i - 1, j].icon))
+                        if (IsPassIcon(m_decor[i - 1][ j].icon))
                         {
                             blupi.X = (i - 1) * 64 + 2;
                             blupi.Y = j * 64 + BLUPIOFFY;
                             dir = 2;
                             return true;
                         }
-                        if (IsPassIcon(m_decor[i + 1, j].icon))
+                        if (IsPassIcon(m_decor[i + 1][ j].icon))
                         {
                             blupi.X = (i + 1) * 64 + 2;
                             blupi.Y = j * 64 + BLUPIOFFY;
@@ -10379,16 +10494,16 @@ namespace WindowsPhoneSpeedyBlupi
             return false;
         }
 
-        private bool SearchDoor(int n, ref TinyPoint cel, ref TinyPoint blupi)
+        private boolean SearchDoor(int n, TinyPoint cel, TinyPoint blupi)
         {
             for (int i = 0; i < 100; i++)
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    int icon = m_decor[i, j].icon;
+                    int icon = m_decor[i][ j].icon;
                     if (icon >= 174 && icon <= 181 && icon - 174 + 1 == n)
                     {
-                        if (i > 0 && m_decor[i - 1, j].icon == 182)
+                        if (i > 0 && m_decor[i - 1][ j].icon == 182)
                         {
                             cel.X = i - 1;
                             cel.Y = j;
@@ -10396,7 +10511,7 @@ namespace WindowsPhoneSpeedyBlupi
                             blupi.Y = j * 64 + BLUPIOFFY;
                             return true;
                         }
-                        if (i > 1 && m_decor[i - 2, j].icon == 182)
+                        if (i > 1 && m_decor[i - 2][ j].icon == 182)
                         {
                             cel.X = i - 2;
                             cel.Y = j;
@@ -10404,7 +10519,7 @@ namespace WindowsPhoneSpeedyBlupi
                             blupi.Y = j * 64 + BLUPIOFFY;
                             return true;
                         }
-                        if (i < 99 && m_decor[i + 1, j].icon == 182)
+                        if (i < 99 && m_decor[i + 1][ j].icon == 182)
                         {
                             cel.X = i + 1;
                             cel.Y = j;
@@ -10412,7 +10527,7 @@ namespace WindowsPhoneSpeedyBlupi
                             blupi.Y = j * 64 + BLUPIOFFY;
                             return true;
                         }
-                        if (i < 98 && m_decor[i + 2, j].icon == 182)
+                        if (i < 98 && m_decor[i + 2][ j].icon == 182)
                         {
                             cel.X = i + 2;
                             cel.Y = j;
@@ -10426,13 +10541,13 @@ namespace WindowsPhoneSpeedyBlupi
             return false;
         }
 
-        private bool SearchGold(int n, ref TinyPoint cel)
+        private boolean SearchGold(int n, TinyPoint cel)
         {
             for (int num = 99; num >= 0; num--)
             {
                 for (int num2 = 99; num2 >= 0; num2--)
                 {
-                    if (m_decor[num2, num].icon == 183)
+                    if (m_decor[num2][ num].icon == 183)
                     {
                         cel.X = num2;
                         cel.Y = num;
@@ -10447,9 +10562,9 @@ namespace WindowsPhoneSpeedyBlupi
         {
             if (m_mission == 1)
             {
-                TinyPoint blupi = default(TinyPoint);
-                int dir = 0;
-                if (SearchWorld(lastWorld, ref blupi, ref dir))
+                TinyPoint blupi = default_(new TinyPoint());
+                Integer dir = 0;
+                if (SearchWorld(lastWorld, blupi, dir))
                 {
                     m_blupiStartPos = blupi;
                     m_blupiStartDir = dir;
@@ -10457,10 +10572,10 @@ namespace WindowsPhoneSpeedyBlupi
             }
         }
 
-        public void AdaptDoors(bool bPrivate)
+        public void AdaptDoors(boolean bPrivate)
         {
-            TinyPoint cel = default(TinyPoint);
-            TinyPoint blupi = default(TinyPoint);
+            TinyPoint cel = default_(new TinyPoint());
+            TinyPoint blupi = default_(new TinyPoint());
             m_bPrivate = bPrivate;
             if (m_bPrivate)
             {
@@ -10470,9 +10585,9 @@ namespace WindowsPhoneSpeedyBlupi
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    if (SearchGold(i, ref cel) && (m_doors[180 + i] == 1 || m_bCheatDoors))
+                    if (SearchGold(i, cel) && (m_doors[180 + i] == 1 || m_bCheatDoors))
                     {
-                        m_decor[cel.X, cel.Y].icon = -1;
+                        m_decor[cel.X][ cel.Y].icon = -1;
                         int num = MoveObjectFree();
                         m_moveObject[num].type = 22;
                         m_moveObject[num].stepAdvance = 50;
@@ -10496,18 +10611,18 @@ namespace WindowsPhoneSpeedyBlupi
                 {
                     for (int k = 0; k < 100; k++)
                     {
-                        int icon = m_decor[j, k].icon;
+                        int icon = m_decor[j][ k].icon;
                         if (icon >= 158 && icon <= 165 && (m_doors[180 + icon - 158 + 1] == 1 || m_bCheatDoors))
                         {
-                            m_decor[j, k].icon += 8;
+                            m_decor[j][ k].icon += 8;
                         }
                         if (icon == 309 && (m_doors[189] == 1 || m_bCheatDoors))
                         {
-                            m_decor[j, k].icon = 310;
+                            m_decor[j][ k].icon = 310;
                         }
                         if (icon >= 410 && icon <= 415 && (m_doors[180 + icon - 410 + 9] == 1 || m_bCheatDoors))
                         {
-                            m_decor[j, k].icon += 5;
+                            m_decor[j][ k].icon += 5;
                         }
                     }
                 }
@@ -10520,7 +10635,7 @@ namespace WindowsPhoneSpeedyBlupi
                 }
                 for (int i = 0; i < 10; i++)
                 {
-                    if (SearchDoor(i, ref cel, ref blupi) && (m_doors[m_mission + i] == 1 || m_bCheatDoors))
+                    if (SearchDoor(i, cel, blupi) && (m_doors[m_mission + i] == 1 || m_bCheatDoors))
                     {
                         OpenDoor(cel);
                         m_blupiStartPos = blupi;
@@ -10539,12 +10654,12 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void OpenDoorsTresor()
         {
-            TinyPoint cel = default(TinyPoint);
+            TinyPoint cel = default_(new TinyPoint());
             for (int i = 0; i < 100; i++)
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    int icon = m_decor[i, j].icon;
+                    int icon = m_decor[i][ j].icon;
                     if (icon >= 421 && icon <= 421 + m_nbTresor - 1)
                     {
                         cel.X = i;
@@ -10557,8 +10672,8 @@ namespace WindowsPhoneSpeedyBlupi
 
         private void OpenDoor(TinyPoint cel)
         {
-            int icon = m_decor[cel.X, cel.Y].icon;
-            m_decor[cel.X, cel.Y].icon = -1;
+            int icon = m_decor[cel.X][ cel.Y].icon;
+            m_decor[cel.X][ cel.Y].icon = -1;
             int num = MoveObjectFree();
             m_moveObject[num].type = 22;
             m_moveObject[num].stepAdvance = 50;
@@ -10594,4 +10709,3 @@ namespace WindowsPhoneSpeedyBlupi
         }
     }
 
-}
