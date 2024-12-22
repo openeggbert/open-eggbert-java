@@ -19,9 +19,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 package com.openeggbert.core.configuration;
 
-import com.pixelgamelibrary.api.Pixel;
+import com.openeggbert.pixel.framework.Pixel;
 import com.openeggbert.core.main.OpenEggbertException;
-import com.pixelgamelibrary.api.ViewMode;
+import com.openeggbert.pixel.framework.ViewMode;
 
 /**
  *

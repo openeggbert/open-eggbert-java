@@ -25,11 +25,11 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.openeggbert.core.configuration.VirtualScreenResolution;
 import com.openeggbert.core.main.OpenEggbertApplication;
 import com.openeggbert.core.gamespace.GameSpace;
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.backend.libgdx.interfaces.PixelBackendLibGDX;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.backend.libgdx.interfaces.PixelBackendLibGDX;
 import java.util.Optional;
-import com.pixelgamelibrary.api.game.Game;
-import com.pixelgamelibrary.backend.libgdx.game.LibGdxGame;
+import com.openeggbert.pixel.framework.game.Game;
+import com.openeggbert.pixel.backend.libgdx.game.LibGdxGame;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {

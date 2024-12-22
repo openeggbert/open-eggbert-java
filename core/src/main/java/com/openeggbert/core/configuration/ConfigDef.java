@@ -20,7 +20,7 @@
 package com.openeggbert.core.configuration;
 
 import com.openeggbert.core.main.OpenEggbertException;
-import com.pixelgamelibrary.api.Pixel;
+import com.openeggbert.pixel.framework.Pixel;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.ToString;

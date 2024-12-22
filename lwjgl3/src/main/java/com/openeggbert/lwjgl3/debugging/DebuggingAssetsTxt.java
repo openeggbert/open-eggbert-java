@@ -19,9 +19,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 package com.openeggbert.lwjgl3.debugging;
 
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.backend.libgdx.interfaces.PixelBackendLibGDX;
-import com.pixelgamelibrary.api.utils.AssetsTxt;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.backend.libgdx.interfaces.PixelBackendLibGDX;
+import com.openeggbert.pixel.framework.utils.AssetsTxt;
 import java.util.List;
 import java.util.Scanner;
 

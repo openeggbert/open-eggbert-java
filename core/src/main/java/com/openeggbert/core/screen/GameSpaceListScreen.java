@@ -24,23 +24,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Preferences;
-import com.pixelgamelibrary.api.graphics.Color;
+import com.openeggbert.pixel.framework.graphics.Color;
 
-import com.pixelgamelibrary.api.graphics.ShapeRenderer;
+import com.openeggbert.pixel.framework.graphics.ShapeRenderer;
 import com.openeggbert.core.gamespace.GameSpace;
 import com.openeggbert.core.main.OpenEggbertGame;
 import com.openeggbert.core.mod.Mod;
 import com.openeggbert.core.mod.ModType;
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.api.graphics.BitmapFont;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.framework.graphics.BitmapFont;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import com.pixelgamelibrary.api.files.FileSystem;
-import com.pixelgamelibrary.api.graphics.Texture;
+import com.openeggbert.pixel.framework.files.FileSystem;
+import com.openeggbert.pixel.framework.graphics.Texture;
 
 /**
  *

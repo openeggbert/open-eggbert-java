@@ -8,17 +8,17 @@ import com.openeggbert.core.mod.ModIdentification;
 import com.openeggbert.core.screen.GameSpaceListScreen;
 import com.openeggbert.core.screen.InitScreen;
 import com.openeggbert.core.utils.OpenEggbertUtils;
-import com.pixelgamelibrary.api.game.GameAdapter;
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.api.graphics.BitmapFont;
-import com.pixelgamelibrary.api.graphics.SpriteBatch;
-import com.pixelgamelibrary.api.graphics.Texture;
+import com.openeggbert.pixel.framework.game.GameAdapter;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.framework.graphics.BitmapFont;
+import com.openeggbert.pixel.framework.graphics.SpriteBatch;
+import com.openeggbert.pixel.framework.graphics.Texture;
 import java.util.List;
 import java.util.Optional;
 import lombok.Data;
-import com.pixelgamelibrary.api.files.File;
-import com.pixelgamelibrary.api.graphics.ShapeRenderer;
-import com.pixelgamelibrary.api.utils.collections.Map;
+import com.openeggbert.pixel.framework.files.File;
+import com.openeggbert.pixel.framework.graphics.ShapeRenderer;
+import com.openeggbert.pixel.framework.utils.collections.Map;
 import lombok.Getter;
 
 /**
@@ -66,7 +66,7 @@ public class OpenEggbertGame extends GameAdapter {
 //        for(FileHandle f:Gdx.files.internal(".").list()) {
 //            System.out.println("assets contains also: " + f.name());
 //        }
-        com.pixelgamelibrary.api.files.File embeddedModsDirectory = Pixel.files().assets("/embedded_mods");
+        com.openeggbert.pixel.framework.files.File embeddedModsDirectory = Pixel.files().assets("/embedded_mods");
         System.out.println("embeddedModsDirectory.exists=" + embeddedModsDirectory.exists());
         System.out.println("embeddedModsDirectory.list().size()=" + embeddedModsDirectory.list().size());
         embeddedModsDirectory.list().forEach(e -> System.out.println(e.path()));

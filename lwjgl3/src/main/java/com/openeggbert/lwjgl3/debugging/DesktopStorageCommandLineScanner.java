@@ -19,9 +19,9 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 package com.openeggbert.lwjgl3.debugging;
 
-import com.pixelgamelibrary.api.files.shell.ShellCommandLine;
-import com.pixelgamelibrary.api.files.shell.ShellCommandLineScanner;
-import com.pixelgamelibrary.api.files.map.MemoryFileSystem;
+import com.openeggbert.pixel.framework.files.shell.ShellCommandLine;
+import com.openeggbert.pixel.framework.files.shell.ShellCommandLineScanner;
+import com.openeggbert.pixel.framework.files.map.MemoryFileSystem;
 
 /**
  *

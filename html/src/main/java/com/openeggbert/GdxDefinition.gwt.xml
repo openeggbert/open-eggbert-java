@@ -23,8 +23,8 @@
   <inherits name="com.github.czyzby.websocket.GdxWebSocketGwt" />
   <inherits name="com.github.czyzby.websocket.GdxWebSocketSerialization" />
   <inherits name="com.openeggbert.core.main.OpenEggbertApplication" />
-  <inherits name="com.pixelgamelibrary.pixelapi" />
-  <inherits name="com.pixelgamelibrary.backend.pixelbackendlibgdx" />
+  <inherits name="com.openeggbert.pixel.pixelframework" />
+  <inherits name="com.openeggbert.pixel.backend.pixelbackendlibgdx" />
   <inherits name="com.openeggbert.jdotnet" />
   <inherits name="com.openeggbert.jxna" />
   <inherits name="formic" />

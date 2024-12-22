@@ -3,9 +3,9 @@ package com.openeggbert.teavm;
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.TeaApplication;
 import com.openeggbert.core.main.OpenEggbertApplication;
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.backend.libgdx.interfaces.PixelBackendLibGDX;
-import com.pixelgamelibrary.backend.libgdx.game.LibGdxGame;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.backend.libgdx.interfaces.PixelBackendLibGDX;
+import com.openeggbert.pixel.backend.libgdx.game.LibGdxGame;
 
 /**
  * Launches the TeaVM/HTML application.

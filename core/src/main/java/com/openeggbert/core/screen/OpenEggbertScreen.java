@@ -22,15 +22,15 @@ package com.openeggbert.core.screen;
 import com.openeggbert.core.gamespace.GameFileType;
 import com.openeggbert.core.main.OpenEggbertGame;
 import com.openeggbert.core.utils.OpenEggbertUtils;
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.api.Platform;
-import com.pixelgamelibrary.api.app.LogLevel;
-import com.pixelgamelibrary.api.graphics.SpriteBatch;
-import com.pixelgamelibrary.api.graphics.Texture;
-import com.pixelgamelibrary.api.screen.ScreenAdapter;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.framework.Platform;
+import com.openeggbert.pixel.framework.app.LogLevel;
+import com.openeggbert.pixel.framework.graphics.SpriteBatch;
+import com.openeggbert.pixel.framework.graphics.Texture;
+import com.openeggbert.pixel.framework.screen.ScreenAdapter;
 import java.util.List;
 import java.util.Optional;
-import com.pixelgamelibrary.api.files.File;
+import com.openeggbert.pixel.framework.files.File;
 
 /**
  *

@@ -20,12 +20,12 @@
 package com.openeggbert.core.main;
 
 import com.openeggbert.core.gamespace.GameSpace;
-import com.pixelgamelibrary.api.PixelApplication;
+import com.openeggbert.pixel.framework.PixelApplication;
 import java.util.Map;
-import com.pixelgamelibrary.api.game.Game;
+import com.openeggbert.pixel.framework.game.Game;
 
 /**
- * {@link com.pixelgamelibrary.api.PixelApplication} implementation shared by all
+ * {@link com.openeggbert.pixel.framework.PixelApplication} implementation shared by all
  * platforms.
  */
 public class OpenEggbertApplication extends PixelApplication {

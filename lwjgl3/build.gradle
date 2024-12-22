@@ -37,8 +37,8 @@ dependencies {
   implementation "games.rednblack.miniaudio:miniaudio:$miniaudioVersion:natives-desktop"
   
   implementation project(':core')
-  implementation "com.pixelgamelibrary:pixel:$pixelVersion"
-  implementation "com.pixelgamelibrary:pixel-backend-libgdx:$pixelVersion"
+  implementation "com.openeggbert.pixel:pixel-framework:$pixelVersion"
+  implementation "com.openeggbert.pixel:pixel-backend-libgdx:$pixelVersion"
   
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"

@@ -25,8 +25,8 @@ import com.badlogic.gdx.InputAdapter;
 
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.openeggbert.core.main.OpenEggbertGame;
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.api.graphics.BitmapFont;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.framework.graphics.BitmapFont;
 import java.util.function.Function;
 
 /**

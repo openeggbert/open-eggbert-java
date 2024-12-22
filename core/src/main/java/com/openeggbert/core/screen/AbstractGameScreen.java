@@ -21,11 +21,11 @@ package com.openeggbert.core.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import com.pixelgamelibrary.api.graphics.Color;
+import com.openeggbert.pixel.framework.graphics.Color;
 
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.openeggbert.core.main.OpenEggbertGame;
-import com.pixelgamelibrary.api.graphics.BitmapFont;
+import com.openeggbert.pixel.framework.graphics.BitmapFont;
 
 /**
  *

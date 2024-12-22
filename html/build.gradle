@@ -49,9 +49,9 @@ dependencies {
   implementation "de.golfgl.gdxcontrollerutils:gdx-controllerutils-mapping:$controllerMappingVersion:sources"
   
   implementation project(':core')
-  implementation "com.pixelgamelibrary:pixel:$pixelVersion:sources"
-  api "com.pixelgamelibrary:pixel-backend-libgdx:$pixelVersion"
-  implementation "com.pixelgamelibrary:pixel-backend-libgdx:$pixelVersion:sources"
+  implementation "com.openeggbert.pixel:pixel-framework:$pixelVersion:sources"
+  api "com.openeggbert.pixel:pixel-backend-libgdx:$pixelVersion"
+  implementation "com.openeggbert.pixel:pixel-backend-libgdx:$pixelVersion:sources"
 
   implementation "com.openeggbert.jdotnet:jdotnet:$jdotnetVersion:sources"
   api "com.openeggbert.jdotnet:jdotnet:$jdotnetVersion"

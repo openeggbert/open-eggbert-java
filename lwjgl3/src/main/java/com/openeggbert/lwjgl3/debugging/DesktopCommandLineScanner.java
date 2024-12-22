@@ -19,7 +19,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 package com.openeggbert.lwjgl3.debugging;
 
-import com.pixelgamelibrary.api.files.shell.ShellScanner;
+import com.openeggbert.pixel.framework.files.shell.ShellScanner;
 import java.util.Scanner;
 
 /**

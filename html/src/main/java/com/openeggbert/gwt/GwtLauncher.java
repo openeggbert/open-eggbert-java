@@ -5,9 +5,9 @@ import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.openeggbert.core.configuration.VirtualScreenResolution;
 import com.openeggbert.core.main.OpenEggbertApplication;
-import com.pixelgamelibrary.api.Pixel;
-import com.pixelgamelibrary.backend.libgdx.interfaces.PixelBackendLibGDX;
-import com.pixelgamelibrary.backend.libgdx.game.LibGdxGame;
+import com.openeggbert.pixel.framework.Pixel;
+import com.openeggbert.pixel.backend.libgdx.interfaces.PixelBackendLibGDX;
+import com.openeggbert.pixel.backend.libgdx.game.LibGdxGame;
 
 /** Launches the GWT application. */
 public class GwtLauncher extends GwtApplication {

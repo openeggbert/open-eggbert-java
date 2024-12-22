@@ -27,9 +27,9 @@ dependencies {
   implementation "org.teavm:teavm-jso:$teaVMVersion"
   implementation "org.teavm:teavm-tooling:$teaVMVersion"
   implementation project(':core')
-  implementation "com.pixelgamelibrary:pixel:$pixelVersion:sources"
-  api "com.pixelgamelibrary:pixel-backend-libgdx:$pixelVersion"
-  implementation "com.pixelgamelibrary:pixel-backend-libgdx:$pixelVersion:sources"
+  implementation "com.openeggbert.pixel:pixel-framework:$pixelVersion:sources"
+  api "com.openeggbert.pixel:pixel-backend-libgdx:$pixelVersion"
+  implementation "com.openeggbert.pixel:pixel-backend-libgdx:$pixelVersion:sources"
 
 }
 
